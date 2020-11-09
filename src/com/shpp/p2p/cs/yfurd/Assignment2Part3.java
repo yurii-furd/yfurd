@@ -1,7 +1,6 @@
 package com.shpp.p2p.cs.yfurd;
 
-/* TODO: Replace these file comments with a description of what your program
- * does.
+/* TODO: Replace these file comments with a description of what your program does.
  */
 
 import acm.graphics.GOval;
@@ -9,7 +8,7 @@ import com.shpp.cs.a.graphics.WindowProgram;
 
 import java.awt.*;
 
-public class Assignment3Part3 extends WindowProgram {
+public class Assignment2Part3 extends WindowProgram {
 
     /* Constants controlling the relative positions of the
      * three toes to the upper-left corner of the pawprint.
@@ -80,6 +79,5 @@ public class Assignment3Part3 extends WindowProgram {
         gOval4.setFilled(true);
         gOval4.setFillColor(Color.BLACK);
         add(gOval4);
-
     }
 }
