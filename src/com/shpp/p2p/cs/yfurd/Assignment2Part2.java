@@ -8,9 +8,9 @@ import java.awt.*;
 
 public class Assignment2Part2 extends WindowProgram {
 
-    public static final int APPLICATION_WIDTH = 300;
-    public static final int APPLICATION_HEIGHT = 300;
-    private static final int DIAMETER = 200;
+    public static final int APPLICATION_WIDTH = 500;
+    public static final int APPLICATION_HEIGHT = 500;
+    private static final int DIAMETER = 300;
 
     public void run() {
         GOval gOval = new GOval(APPLICATION_WIDTH, APPLICATION_HEIGHT, DIAMETER, DIAMETER);
