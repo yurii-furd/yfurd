@@ -39,10 +39,11 @@ public class Assignment2Part3 extends WindowProgram {
      * not directly use these constants in your program; instead, use getWidth() and
      * getHeight(), which return the *exact* width and height of the window.
      */
-    public static final int APPLICATION_WIDTH = 270;
-    public static final int APPLICATION_HEIGHT = 220;
+    public static final int APPLICATION_WIDTH = 370;
+    public static final int APPLICATION_HEIGHT = 320;
 
     public void run() {
+
         drawPawprint(30, 20);
         drawPawprint(180, 70);
     }
