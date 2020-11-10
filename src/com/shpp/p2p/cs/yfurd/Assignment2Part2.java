@@ -6,6 +6,8 @@ import com.shpp.cs.a.graphics.WindowProgram;
 
 import java.awt.*;
 
+import static java.lang.Thread.sleep;
+
 public class Assignment2Part2 extends WindowProgram {
 
     public static final int APPLICATION_WIDTH = 500;
@@ -13,6 +15,11 @@ public class Assignment2Part2 extends WindowProgram {
     private static final int DIAMETER = 100;
 
     public void run() {
+        try {
+            sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         GOval gOval = new GOval(getWidth() - DIAMETER, getHeight() - DIAMETER, DIAMETER, DIAMETER);
         gOval.setColor(Color.BLACK);
@@ -45,7 +52,6 @@ public class Assignment2Part2 extends WindowProgram {
         gRect.setFillColor(Color.WHITE);
         add(gRect);
     }
-
 }
 
 
