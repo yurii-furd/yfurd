@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd;
+package com.shpp.p2p.cs.yfurd.assignment2;
 
 import acm.graphics.GRect;
 import com.shpp.cs.a.graphics.WindowProgram;
@@ -65,9 +65,3 @@ public class Assignment2Part5 extends WindowProgram {
         }
     }
 }
-
-/*Ну і ось чергова ілюзія.
-
-Необхідно намалювати матрицю із чорних боксів, розділених “вулицями”.
-
-Вам може здатись, що на перехрестях є крапочки, але їх там немає. Не забудьте відцентрувати малюнок!*/
