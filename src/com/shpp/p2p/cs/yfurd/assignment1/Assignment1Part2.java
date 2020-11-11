@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd;
+package com.shpp.p2p.cs.yfurd.assignment1;
 
 import com.shpp.karel.KarelTheRobot;
 
@@ -6,7 +6,7 @@ public class Assignment1Part2 extends KarelTheRobot {
 
     public void run() throws Exception {
 
-        while (!frontIsBlocked()) {
+        while (frontIsClear()) {
             buildColumn();
             goToNextColumn();
         }
@@ -20,15 +20,11 @@ public class Assignment1Part2 extends KarelTheRobot {
      */
     private void buildColumn() throws Exception {
         turnLeft();
-        while (!frontIsBlocked()) {
-            if (!beepersPresent()) {
-                putBeeper();
-            }
+        while (frontIsClear()) {
+            ifNoBeepersPresentPutBeeper();
             move();
         }
-        if (!beepersPresent()) {
-            putBeeper();
-        }
+        ifNoBeepersPresentPutBeeper();
         turnAround();
         moveToStartColumn();
     }
@@ -37,7 +33,7 @@ public class Assignment1Part2 extends KarelTheRobot {
      * This method goes to another column.
      */
     private void goToNextColumn() throws Exception {
-        if (!frontIsBlocked()) {
+        if (frontIsClear()) {
             for (int i = 1; i < 5; i++) {
                 move();
             }
@@ -49,7 +45,7 @@ public class Assignment1Part2 extends KarelTheRobot {
      * Result: Karel came to the start of the column.
      */
     private void moveToStartColumn() throws Exception {
-        while (!frontIsBlocked()) {
+        while (frontIsClear()) {
             move();
         }
         turnLeft();
@@ -61,5 +57,14 @@ public class Assignment1Part2 extends KarelTheRobot {
     public void turnAround() throws Exception {
         turnLeft();
         turnLeft();
+    }
+
+    /**
+     * If there is no beeper then put.
+     */
+    private void ifNoBeepersPresentPutBeeper() throws Exception {
+        if (noBeepersPresent()) {
+            putBeeper();
+        }
     }
 }
