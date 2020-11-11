@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd;
+package com.shpp.p2p.cs.yfurd.assignment2;
 
 /* TODO: Replace these file comments with a description of what your program does.
  */
@@ -7,6 +7,8 @@ import acm.graphics.GOval;
 import com.shpp.cs.a.graphics.WindowProgram;
 
 import java.awt.*;
+
+import static java.lang.Thread.sleep;
 
 public class Assignment2Part3 extends WindowProgram {
 
@@ -46,6 +48,8 @@ public class Assignment2Part3 extends WindowProgram {
 
         drawPawprint(30, 20);
         drawPawprint(180, 70);
+        System.out.println(getWidth());
+        System.out.println(getHeight());
     }
 
     /**
@@ -56,6 +60,15 @@ public class Assignment2Part3 extends WindowProgram {
      * @param y The y coordinate of the upper-left corner of the bounding box for the pawprint.
      */
     private void drawPawprint(double x, double y) {
+        //This command to display the program window correctly.
+        try {
+            sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+//        x = getWidth() / 12.3;
+
 
         GOval gOval1 = new GOval(x + FIRST_TOE_OFFSET_X, y + FIRST_TOE_OFFSET_Y, TOE_WIDTH, TOE_HEIGHT);
         gOval1.setColor(Color.BLACK);
