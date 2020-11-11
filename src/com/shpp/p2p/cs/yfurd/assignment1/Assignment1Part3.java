@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd;
+package com.shpp.p2p.cs.yfurd.assignment1;
 
 import com.shpp.karel.KarelTheRobot;
 
@@ -10,11 +10,9 @@ public class Assignment1Part3 extends KarelTheRobot {
         // Check if the world is a single cell.
         if (frontIsBlocked()) {
             putBeeper();
-        } else {
-            oneStepWithLeftToRightOnDiagonal();
         }
-
-        if (!frontIsBlocked()) {
+        // Check if front is clear, then the program is executed.
+        if (frontIsClear()) {
             moveToNorthEast();
             moveDownToEastSouth();
             moveToWestNorthThenSouth();
@@ -29,7 +27,7 @@ public class Assignment1Part3 extends KarelTheRobot {
      * Result: Karl is at the end of the diagonally in the corner.He is facing south after this operation.
      */
     private void moveToNorthEast() throws Exception {
-        while (!frontIsBlocked()) {
+        while (frontIsClear()) {
             oneStepWithLeftToRightOnDiagonal();
         }
         putBeeper();
@@ -41,7 +39,7 @@ public class Assignment1Part3 extends KarelTheRobot {
      * Result: Karel runs down to the south east. He is facing west after this operation.
      */
     private void moveDownToEastSouth() throws Exception {
-        while (!frontIsBlocked()) {
+        while (frontIsClear()) {
             move();
         }
         turnRight();
@@ -53,7 +51,7 @@ public class Assignment1Part3 extends KarelTheRobot {
      * He is facing west after this operation.
      */
     private void moveToWestNorthThenSouth() throws Exception {
-        while (!beepersPresent()) {
+        while (noBeepersPresent()) {
             oneStepWithRightToLeftOnDiagonal();
         }
         if (beepersPresent()) {
@@ -67,7 +65,7 @@ public class Assignment1Part3 extends KarelTheRobot {
      * Result: Karel went to the start, pick beeper. He is facing north after this operation.
      */
     private void moveToStart() throws Exception {
-        while (!frontIsBlocked()) {
+        while (frontIsClear()) {
             move();
         }
         pickBeeper();
@@ -79,15 +77,11 @@ public class Assignment1Part3 extends KarelTheRobot {
      * Result: Karel picked all the beepers on the diagonally.
      */
     private void pickBeeperOnDiagonal() throws Exception {
-        move();
-        turnRight();
-        move();
-        while (!frontIsBlocked()) {
+        oneStepTurnRightAndOneStep();
+        while (frontIsClear()) {
             pickBeeper();
             turnLeft();
-            move();
-            turnRight();
-            move();
+            oneStepTurnRightAndOneStep();
         }
         if (beepersPresent()) {
             pickBeeper();
@@ -100,10 +94,8 @@ public class Assignment1Part3 extends KarelTheRobot {
      */
     private void oneStepWithLeftToRightOnDiagonal() throws Exception {
         putBeeper();
-        move();
-        turnLeft();
-        move();
-        turnRight();
+        oneStepAndTurnLeft();
+        oneStepAndTurnRight();
     }
 
     /**
@@ -116,8 +108,7 @@ public class Assignment1Part3 extends KarelTheRobot {
             facingEast();
         } else {
             turnRight();
-            move();
-            turnLeft();
+            oneStepAndTurnLeft();
         }
     }
 
@@ -126,7 +117,7 @@ public class Assignment1Part3 extends KarelTheRobot {
      * Result: Karel runs down and puts the beeper in the end. He is facing west after this operation.
      */
     private void moveToMiddleSouth() throws Exception {
-        while (!frontIsBlocked()) {
+        while (frontIsClear()) {
             move();
         }
         putBeeper();
@@ -141,4 +132,29 @@ public class Assignment1Part3 extends KarelTheRobot {
         turnLeft();
         turnLeft();
     }
+
+    /**
+     * This method takes a step back to the right and takes a step.
+     */
+    private void oneStepTurnRightAndOneStep() throws Exception {
+        oneStepAndTurnRight();
+        move();
+    }
+
+    /**
+     * This method takes a step and turn to the right.
+     */
+    private void oneStepAndTurnRight() throws Exception {
+        move();
+        turnRight();
+    }
+
+    /**
+     * This method takes a step and turn to the left.
+     */
+    private void oneStepAndTurnLeft() throws Exception {
+        move();
+        turnLeft();
+    }
+
 }
