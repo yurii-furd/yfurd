@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd;
+package com.shpp.p2p.cs.yfurd.assignment2;
 
 import acm.graphics.GOval;
 import acm.graphics.GRect;
