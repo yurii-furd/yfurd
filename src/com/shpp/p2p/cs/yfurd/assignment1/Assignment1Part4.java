@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd;
+package com.shpp.p2p.cs.yfurd.assignment1;
 
 import com.shpp.karel.KarelTheRobot;
 
@@ -7,11 +7,12 @@ public class Assignment1Part4 extends KarelTheRobot {
     public void run() throws Exception {
 
         moveToLineSouthAndWest();
-        while (!frontIsBlocked()) {
+        while (frontIsClear()) {
+            //If a beeper is present, the method for the even line is executed.
             if (beepersPresent()) {
-                move();
-                turnRight();
+                oneStepAndTurnRight();
                 moveToEvenLines();
+                //If a beeper is not present, the method for the odd line is executed.
             } else {
                 moveToOddLines();
             }
@@ -35,9 +36,9 @@ public class Assignment1Part4 extends KarelTheRobot {
      */
     private void moveToLineSouthOrWestThenReturnBack() throws Exception {
 
-        while (!frontIsBlocked()) {
+        while (frontIsClear()) {
             move();
-            if (!frontIsBlocked()) {
+            if (frontIsClear()) {
                 move();
                 putBeeper();
             }
@@ -49,8 +50,7 @@ public class Assignment1Part4 extends KarelTheRobot {
      * Karel runs all the odd lines, after 1.
      */
     private void moveToOddLines() throws Exception {
-        move();
-        turnRight();
+        oneStepAndTurnRight();
         moveToLineSouthOrWestThenReturnBack();
     }
 
@@ -58,7 +58,7 @@ public class Assignment1Part4 extends KarelTheRobot {
      * Karel runs all the even lines, after 1.
      */
     private void moveToEvenLines() throws Exception {
-        if (!frontIsBlocked()) {
+        if (frontIsClear()) {
             move();
             putBeeper();
             moveToLineSouthOrWestThenReturnBack();
@@ -84,5 +84,13 @@ public class Assignment1Part4 extends KarelTheRobot {
         turnLeft();
         turnLeft();
         turnLeft();
+    }
+
+    /**
+     * This method takes a step and turn to the right.
+     */
+    private void oneStepAndTurnRight() throws Exception {
+        move();
+        turnRight();
     }
 }
