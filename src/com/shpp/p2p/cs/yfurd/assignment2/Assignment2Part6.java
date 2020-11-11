@@ -14,7 +14,7 @@ public class Assignment2Part6 extends WindowProgram {
     private static final double X_ONE = 0;
     private static final double Y_ONE = 60;
 
-    //Constants that control the location of the second segment of the caterpillar in the lower position.
+    //Constants that control the location of the second segment of the caterpillar in the upper position.
     private static final double X_TWO = 110;
     private static final double Y_TWO = 0;
 
