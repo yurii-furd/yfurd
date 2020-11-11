@@ -15,10 +15,11 @@ public class Assignment1Part1 extends KarelTheRobot {
      * Result: Karel came to the beeper.
      */
     public void comeToTheBeeper() throws Exception {
-        goTwoSteps();
         turnRightAndOneStep();
         turnLeft();
-        goTwoSteps();
+        while (noBeepersPresent()){
+            move();
+        }
     }
 
     /**
@@ -28,10 +29,10 @@ public class Assignment1Part1 extends KarelTheRobot {
     private void comeBack() throws Exception {
         turnLeft();
         turnLeft();
-        goTwoSteps();
+        while (frontIsClear()){
+            move();
+        }
         turnRightAndOneStep();
-        turnLeft();
-        goTwoSteps();
     }
 
     /**
@@ -41,14 +42,6 @@ public class Assignment1Part1 extends KarelTheRobot {
         turnLeft();
         turnLeft();
         turnLeft();
-    }
-
-    /**
-     * This method moves Karel two steps.
-     */
-    private void goTwoSteps() throws Exception {
-        move();
-        move();
     }
 
     /**
