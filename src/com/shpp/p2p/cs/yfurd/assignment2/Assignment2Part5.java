@@ -20,27 +20,40 @@ public class Assignment2Part5 extends WindowProgram {
     private static final double BOX_SPACING = 10;
 
     public void run() {
+        //This command to display the program window correctly.
         try {
             sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        //Calculation of the sum of boxes and streets on X.
         double sumBoxAndStreetX = (NUM_COLS * BOX_SIZE) + (NUM_COLS * BOX_SPACING) - BOX_SPACING;
+
+        //Found the X coordinate of the first box.
         double firstElementX = (getWidth() - sumBoxAndStreetX) / 2;
 
+        //Calculation of the sum of boxes and streets on Y.
         double sumBoxAndStreetY = (NUM_ROWS * BOX_SIZE + NUM_ROWS * BOX_SPACING) - BOX_SPACING;
-        double firstElementY = (getHeight()- sumBoxAndStreetY) / 2;
 
-        System.out.println(getHeight());
+        //Found the Y coordinate of the first box.
+        double firstElementY = (getHeight() - sumBoxAndStreetY) / 2;
 
         createRow(NUM_COLS, firstElementX, firstElementY);
     }
 
+    //This method creates a single row with boxes.
     private void createRow(int cols, double firstElementX, double firstElementY) {
         for (int i = 0; i < NUM_COLS; i++) {
             createColm(NUM_ROWS, i, firstElementX, firstElementY);
 
-            GRect gRect = new GRect(firstElementX + i * (BOX_SIZE + BOX_SPACING),  firstElementY, BOX_SIZE, BOX_SIZE);
+            // Create a rectangle
+            GRect gRect = new GRect(
+                    firstElementX + i * (BOX_SIZE + BOX_SPACING),
+                    firstElementY,
+                    BOX_SIZE,
+                    BOX_SIZE
+            );
             gRect.setColor(Color.BLACK);
             gRect.setFilled(true);
             gRect.setFillColor(Color.BLACK);
@@ -48,11 +61,13 @@ public class Assignment2Part5 extends WindowProgram {
         }
     }
 
-    private void createColm(int ows, int colm, double firstElementX, double firstElementY) {
+    //This method creates a single colm with boxes.
+    private void createColm(int rows, int colm, double firstElementX, double firstElementY) {
         for (int i = 0; i < NUM_ROWS; i++) {
 
+            // Create a rectangle
             GRect gRect = new GRect(
-                     firstElementX+ colm * (BOX_SIZE + BOX_SPACING),
+                    firstElementX + colm * (BOX_SIZE + BOX_SPACING),
                     firstElementY + i * (BOX_SIZE + BOX_SPACING),
                     BOX_SIZE,
                     BOX_SIZE
