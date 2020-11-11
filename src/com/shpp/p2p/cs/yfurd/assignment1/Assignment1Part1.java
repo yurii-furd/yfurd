@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd;
+package com.shpp.p2p.cs.yfurd.assignment1;
 
 import com.shpp.karel.KarelTheRobot;
 
@@ -16,8 +16,7 @@ public class Assignment1Part1 extends KarelTheRobot {
      */
     public void comeToTheBeeper() throws Exception {
         goTwoSteps();
-        turnRight();
-        move();
+        turnRightAndOneStep();
         turnLeft();
         goTwoSteps();
     }
@@ -30,8 +29,7 @@ public class Assignment1Part1 extends KarelTheRobot {
         turnLeft();
         turnLeft();
         goTwoSteps();
-        turnRight();
-        move();
+        turnRightAndOneStep();
         turnLeft();
         goTwoSteps();
     }
@@ -50,6 +48,14 @@ public class Assignment1Part1 extends KarelTheRobot {
      */
     private void goTwoSteps() throws Exception {
         move();
+        move();
+    }
+
+    /**
+     * This method turn right and move one step.
+     */
+    private void turnRightAndOneStep() throws Exception {
+        turnRight();
         move();
     }
 }
