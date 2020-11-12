@@ -39,11 +39,11 @@ public class Assignment2Part5 extends WindowProgram {
         //Found the Y coordinate of the first box.
         double firstElementY = (getHeight() - sumBoxAndStreetY) / 2;
 
-        createRow(firstElementX, firstElementY);
+        createMatrix(firstElementX, firstElementY);
     }
 
     //This method creates a single row with boxes.
-    private void createRow(double firstElementX, double firstElementY) {
+    private void createMatrix(double firstElementX, double firstElementY) {
 
         for (int i = 0; i < NUM_COLS; i++) {
 
@@ -73,7 +73,6 @@ public class Assignment2Part5 extends WindowProgram {
         gRect.setFilled(true);
         gRect.setFillColor(Color.BLACK);
         add(gRect);
-
     }
 }
 
