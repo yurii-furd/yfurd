@@ -39,44 +39,41 @@ public class Assignment2Part5 extends WindowProgram {
         //Found the Y coordinate of the first box.
         double firstElementY = (getHeight() - sumBoxAndStreetY) / 2;
 
-        createRow(NUM_COLS, firstElementX, firstElementY);
+        createRow(firstElementX, firstElementY);
     }
 
     //This method creates a single row with boxes.
-    private void createRow(int cols, double firstElementX, double firstElementY) {
-        for (int i = 0; i < NUM_COLS; i++) {
-            createColm(NUM_ROWS, i, firstElementX, firstElementY);
+    private void createRow(double firstElementX, double firstElementY) {
 
-            // Create a rectangle
-            GRect gRect = new GRect(
-                    firstElementX + i * (BOX_SIZE + BOX_SPACING),
-                    firstElementY,
-                    BOX_SIZE,
-                    BOX_SIZE
-            );
-            gRect.setColor(Color.BLACK);
-            gRect.setFilled(true);
-            gRect.setFillColor(Color.BLACK);
-            add(gRect);
+        for (int i = 0; i < NUM_COLS; i++) {
+
+            //Initial value coordinateXElementN = firstElementX.
+            //At each iteration of the cycle the coordinate X is dropped to the right
+            // by the distance of one box + spacing by boxes.
+            double coordinateXElementN = firstElementX + i * (BOX_SIZE + BOX_SPACING);
+
+            createBox(coordinateXElementN, firstElementY);
+
+            for (int j = 0; j < NUM_ROWS; j++) {
+
+                //Initial value coordinateYElementN = firstElementY.
+                //On each iteration of the cycle the coordinate Y falls down
+                // by a distance of one field + spacing by boxes.
+                double coordinateYElementN = firstElementY + j * (BOX_SIZE + BOX_SPACING);
+
+                createBox(coordinateXElementN, coordinateYElementN);
+            }
         }
     }
 
-    //This method creates a single colm with boxes.
-    private void createColm(int rows, int colm, double firstElementX, double firstElementY) {
-        for (int i = 0; i < NUM_ROWS; i++) {
+    // Create a rectangle
+    private void createBox(double x, double y) {
+        GRect gRect = new GRect(x, y, BOX_SIZE, BOX_SIZE);
+        gRect.setColor(Color.BLACK);
+        gRect.setFilled(true);
+        gRect.setFillColor(Color.BLACK);
+        add(gRect);
 
-            // Create a rectangle
-            GRect gRect = new GRect(
-                    firstElementX + colm * (BOX_SIZE + BOX_SPACING),
-                    firstElementY + i * (BOX_SIZE + BOX_SPACING),
-                    BOX_SIZE,
-                    BOX_SIZE
-            );
-            gRect.setColor(Color.BLACK);
-            gRect.setFilled(true);
-            gRect.setFillColor(Color.BLACK);
-            add(gRect);
-
-        }
     }
 }
+

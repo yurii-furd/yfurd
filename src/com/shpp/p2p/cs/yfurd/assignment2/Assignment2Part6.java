@@ -42,7 +42,7 @@ public class Assignment2Part6 extends WindowProgram {
         }
     }
 
-    // Create an oval.
+    // Create oval.
     private void createOval(double x, double y) {
         GOval gOval = new GOval(x, y, CATERPILLAR_SEGMENTS, CATERPILLAR_SEGMENTS);
         gOval.setColor(Color.RED);
