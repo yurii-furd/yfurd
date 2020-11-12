@@ -58,7 +58,7 @@ public class Assignment2Part5 extends WindowProgram {
 
                 //Initial value coordinateYElementN = firstElementY.
                 //On each iteration of the cycle the coordinate Y falls down
-                // by a distance of one field + spacing by boxes.
+                // by a distance of one box + spacing by boxes.
                 double coordinateYElementN = firstElementY + j * (BOX_SIZE + BOX_SPACING);
 
                 createBox(coordinateXElementN, coordinateYElementN);
