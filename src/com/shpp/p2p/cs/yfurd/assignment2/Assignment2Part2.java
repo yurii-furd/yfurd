@@ -10,9 +10,9 @@ import static java.lang.Thread.sleep;
 
 public class Assignment2Part2 extends WindowProgram {
 
-    public static final int APPLICATION_WIDTH = 500;
-    public static final int APPLICATION_HEIGHT = 500;
-    private static final int DIAMETER = 150;
+    public static final int APPLICATION_WIDTH = 600;
+    public static final int APPLICATION_HEIGHT = 600;
+    private static final int DIAMETER = 200;
 
     public void run() {
         //This command to display the program window correctly.
@@ -22,33 +22,11 @@ public class Assignment2Part2 extends WindowProgram {
             e.printStackTrace();
         }
 
-        // Create the first oval
-        GOval gOval = new GOval(getWidth() - DIAMETER, getHeight() - DIAMETER, DIAMETER, DIAMETER);
-        gOval.setColor(Color.BLACK);
-        gOval.setFilled(true);
-        gOval.setFillColor(Color.BLACK);
-        add(gOval);
+        createOval(getWidth() - DIAMETER, getHeight() - DIAMETER);
+        createOval(getWidth() - DIAMETER, 0);
+        createOval(0, getHeight() - DIAMETER);
+        createOval(0, 0);
 
-        //Create a second oval
-        GOval gOval2 = new GOval(0, getHeight() - DIAMETER, DIAMETER, DIAMETER);
-        gOval2.setColor(Color.BLACK);
-        gOval2.setFilled(true);
-        gOval2.setFillColor(Color.BLACK);
-        add(gOval2);
-
-        // Create a third oval
-        GOval gOval3 = new GOval(getWidth() - DIAMETER, 0, DIAMETER, DIAMETER);
-        gOval3.setColor(Color.BLACK);
-        gOval3.setFilled(true);
-        gOval3.setFillColor(Color.BLACK);
-        add(gOval3);
-
-        // Create a fourth oval
-        GOval gOval4 = new GOval(0, 0, DIAMETER, DIAMETER);
-        gOval4.setColor(Color.BLACK);
-        gOval4.setFilled(true);
-        gOval4.setFillColor(Color.BLACK);
-        add(gOval4);
 
         // Create a rectangle
         GRect gRect = new GRect(DIAMETER / 2, DIAMETER / 2, getWidth() - DIAMETER, getHeight() - DIAMETER);
@@ -56,6 +34,15 @@ public class Assignment2Part2 extends WindowProgram {
         gRect.setFilled(true);
         gRect.setFillColor(Color.WHITE);
         add(gRect);
+    }
+
+    // This method create oval.
+    private void createOval(int x, int y) {
+        GOval gOval = new GOval(x, y, DIAMETER, DIAMETER);
+        gOval.setColor(Color.BLACK);
+        gOval.setFilled(true);
+        gOval.setFillColor(Color.BLACK);
+        add(gOval);
     }
 }
 
