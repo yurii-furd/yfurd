@@ -7,78 +7,36 @@ public class Assignment1Part4 extends KarelTheRobot {
     public void run() throws Exception {
 
         putBeeper();
-        //If front is blocked, means the world is one cell wide.
-        if (frontIsBlocked()) {
-            turnLeft();
-            //Karel goes from one end to the other and puts beavers.
-            goToWallAndPutBeepers();
-        }
-        //If front is Clear, Karel goes from one end to the other and puts beavers.
-        if (frontIsClear()) {
-            goToWallAndPutBeepers();
-            turnLeft();
-        }
-
-        if (frontIsClear()) {
-            while (frontIsClear()) {
-                if (frontIsClear()) {
-                    //Karl goes in even rows and puts beavers.
-                    goInPairsAndPutBeepers();
-                }
-                if (frontIsClear()) {
-                    turnRight();
-                    //Karel goes from one end to the other and puts beavers.
-                    goToWallAndPutBeepers();
-                    turnLeft();
-                } else {
-                    turnRight();
-                    move();
-
-                    if (beepersPresent()) {
-                        turnLeft();
-                    } else {
-                        goToWallAndPutBeepers();
-                    }
-                }
+        //if the front is clean Karel goes south puts the beeper and come back.
+        if(frontIsClear()){
+            moveToLineSouthReturnBack();
+        } else {
+            //if the front is blocked (the world is one cell wide) the Karel turns to the left,
+            // passes to the end, and come back
+            if (frontIsBlocked()){
+                turnLeft();
+                moveToLineSouthReturnBack();
+                turnRight();
             }
         }
-    }
 
-    /**
-     * Karl goes in even rows and puts beavers.
-     */
-    private void goInPairsAndPutBeepers() throws Exception {
-
-        if (frontIsClear()) {
-            if (noBeepersPresent()) {
-                moveAndTurnLeft();
-                putBeeper();
-                goToWallTurnRightAndTakeAStep();
-
+        while (frontIsClear()) {
+            //If a beeper is present, the method for the even line is executed.
+            if (beepersPresent()) {
+                oneStepAndTurnRight();
+                moveToEvenLines();
+                //If a beeper is not present, the method for the odd line is executed.
             } else {
-                moveAndTurnLeft();
-                move();
-                putBeeper();
-                goToWallTurnRightAndTakeAStep();
+                moveToOddLines();
             }
         }
     }
 
-    private void goToWallTurnRightAndTakeAStep() throws Exception {
-        //Karel goes from one end to the other and puts beavers.
-        goToWallAndPutBeepers();
-        turnRight();
-        /*
-        This method checks:
-        If front is clear and no beeper present, Karel takes one step and put beeper
-        If front is not clear? Karel takes one step  */
-        goStepAndPutBeeper();
-    }
-
     /**
-     * Karel goes from one end to the other and puts beavers.
+     * Karel runs to the corner, and puts beepers. He comes back to the start
      */
-    private void goToWallAndPutBeepers() throws Exception {
+    private void moveToLineSouthReturnBack() throws Exception {
+
         while (frontIsClear()) {
             move();
             if (frontIsClear()) {
@@ -86,31 +44,39 @@ public class Assignment1Part4 extends KarelTheRobot {
                 putBeeper();
             }
         }
+        moveToBack();
     }
 
     /**
-     * This method checks:
-     * If front is clear and no beeper present, Karel takes one step and put beeper
-     * If front is not clear? Karel takes one step
+     * Karel runs all the odd lines, after 1.
      */
-    private void goStepAndPutBeeper() throws Exception {
-        if (frontIsClear()) {
-            if (noBeepersPresent()) {
-                move();
-                putBeeper();
+    private void moveToOddLines() throws Exception {
+        oneStepAndTurnRight();
+        putBeeper();
+        moveToLineSouthReturnBack();
+    }
 
-            } else {
-                move();
-            }
+    /**
+     * Karel runs all the even lines, after 1.
+     */
+    private void moveToEvenLines() throws Exception {
+        if (frontIsClear()) {
+            move();
+            putBeeper();
+            moveToLineSouthReturnBack();
         }
     }
 
     /**
-     * Karel move and turn left.
+     * This method returns Karl from one end to the other without putting beepers.
      */
-    private void moveAndTurnLeft() throws Exception {
-        move();
+    private void moveToBack() throws Exception {
         turnLeft();
+        turnLeft();
+        while (!frontIsBlocked()) {
+            move();
+        }
+        turnRight();
     }
 
     /**
@@ -120,5 +86,13 @@ public class Assignment1Part4 extends KarelTheRobot {
         turnLeft();
         turnLeft();
         turnLeft();
+    }
+
+    /**
+     * This method takes a step and turn to the right.
+     */
+    private void oneStepAndTurnRight() throws Exception {
+        move();
+        turnRight();
     }
 }
