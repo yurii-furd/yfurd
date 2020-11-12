@@ -16,31 +16,27 @@ public class Assignment2Part4 extends WindowProgram {
 
 
     public void run() {
+        //This command to display the program window correctly.
         try {
             sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        //Calculating the coordinates X and Y of the middle strip
+        int middleX = getWidth() / 2 - STRIP_WIDTH / 2;
+        int middleY = getHeight() / 2 - STRIP_HEIGHT / 2;
 
-        int middleX = getWidth()/2 - STRIP_WIDTH/2;
-        int middleY = getHeight()/2 - STRIP_HEIGHT/2;
+        createRect(middleX, middleY, Color.YELLOW);
+        createRect(middleX - STRIP_WIDTH, middleY, Color.BLACK);
+        createRect(middleX + STRIP_WIDTH, middleY, Color.RED);
 
-        GRect gRect = new GRect(middleX, middleY, STRIP_WIDTH, STRIP_HEIGHT);
+    }
+    //Create rect.
+    private void createRect(int x, int y, Color color) {
+        GRect gRect = new GRect(x, y, STRIP_WIDTH, STRIP_HEIGHT);
         gRect.setFilled(true);
-        gRect.setFillColor(Color.YELLOW);
-        gRect.setColor(Color.YELLOW);
+        gRect.setFillColor(color);
+        gRect.setColor(color);
         add(gRect);
-
-        GRect gRect2 = new GRect(middleX - STRIP_WIDTH, middleY, STRIP_WIDTH, STRIP_HEIGHT);
-        gRect2.setFilled(true);
-        gRect2.setFillColor(Color.BLACK);
-        gRect2.setColor(Color.BLACK);
-        add(gRect2);
-
-        GRect gRect3 = new GRect(middleX + STRIP_WIDTH, middleY, STRIP_WIDTH, STRIP_HEIGHT);
-        gRect3.setFilled(true);
-        gRect3.setFillColor(Color.RED);
-        gRect3.setColor(Color.RED);
-        add(gRect3);
     }
 }
