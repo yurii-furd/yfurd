@@ -1,8 +1,5 @@
 package com.shpp.p2p.cs.yfurd.assignment2;
 
-/* TODO: Replace these file comments with a description of what your program does.
- */
-
 import acm.graphics.GOval;
 import com.shpp.cs.a.graphics.WindowProgram;
 
@@ -13,7 +10,7 @@ import static java.lang.Thread.sleep;
 public class Assignment2Part3 extends WindowProgram {
 
     /* Constants controlling the relative positions of the
-     * three toes to the upper-left corner of the pawprint.
+     * three toes to the upper-left corner of the paw print.
      */
     private static final double FIRST_TOE_OFFSET_X = 0;
     private static final double FIRST_TOE_OFFSET_Y = 20;
@@ -23,7 +20,7 @@ public class Assignment2Part3 extends WindowProgram {
     private static final double THIRD_TOE_OFFSET_Y = 20;
 
     /* The position of the heel relative to the upper-left
-     * corner of the pawprint.
+     * corner of the paw print.
      */
     private static final double HEEL_OFFSET_X = 20;
     private static final double HEEL_OFFSET_Y = 40;
@@ -37,29 +34,25 @@ public class Assignment2Part3 extends WindowProgram {
     private static final double HEEL_HEIGHT = 60;
 
     /* The default width and height of the window. These constants will tell Java to
-     * create a window whose size is *approximately* given by these dimensions. You should
-     * not directly use these constants in your program; instead, use getWidth() and
-     * getHeight(), which return the *exact* width and height of the window.
+     * create a window whose size is *approximately* given by these dimensions.
      */
-    public static final int APPLICATION_WIDTH = 370;
-    public static final int APPLICATION_HEIGHT = 320;
+    public static final int APPLICATION_WIDTH = 270;
+    public static final int APPLICATION_HEIGHT = 220;
 
     public void run() {
 
-        drawPawprint(30, 20);
-        drawPawprint(180, 70);
-        System.out.println(getWidth());
-        System.out.println(getHeight());
+        drawPawPrint(30, 20);
+        drawPawPrint(180, 70);
     }
 
     /**
-     * Draws a pawprint. The parameters should specify the upper-left corner of the
-     * bounding box containing that pawprint.
+     * Draws a pawp rint. The parameters should specify the upper-left corner of the
+     * bounding box containing that paw print.
      *
      * @param x The x coordinate of the upper-left corner of the bounding box for the pawprint.
      * @param y The y coordinate of the upper-left corner of the bounding box for the pawprint.
      */
-    private void drawPawprint(double x, double y) {
+    private void drawPawPrint(double x, double y) {
         //This command to display the program window correctly.
         try {
             sleep(500);
@@ -67,31 +60,23 @@ public class Assignment2Part3 extends WindowProgram {
             e.printStackTrace();
         }
 
-//        x = getWidth() / 12.3;
+        createToes(x + FIRST_TOE_OFFSET_X, y + FIRST_TOE_OFFSET_Y);
+        createToes(x + SECOND_TOE_OFFSET_X, y + SECOND_TOE_OFFSET_Y);
+        createToes(x + THIRD_TOE_OFFSET_Y, y + THIRD_TOE_OFFSET_X);
 
-
-        GOval gOval1 = new GOval(x + FIRST_TOE_OFFSET_X, y + FIRST_TOE_OFFSET_Y, TOE_WIDTH, TOE_HEIGHT);
-        gOval1.setColor(Color.BLACK);
-        gOval1.setFilled(true);
-        gOval1.setFillColor(Color.BLACK);
-        add(gOval1);
-
-        GOval gOval2 = new GOval(x + SECOND_TOE_OFFSET_X, y + SECOND_TOE_OFFSET_Y, TOE_WIDTH, TOE_HEIGHT);
-        gOval2.setColor(Color.BLACK);
-        gOval2.setFilled(true);
-        gOval2.setFillColor(Color.BLACK);
-        add(gOval2);
-
-        GOval gOval3 = new GOval(x + THIRD_TOE_OFFSET_X, y + THIRD_TOE_OFFSET_Y, TOE_WIDTH, TOE_HEIGHT);
-        gOval3.setColor(Color.BLACK);
-        gOval3.setFilled(true);
-        gOval3.setFillColor(Color.BLACK);
-        add(gOval3);
-
+        //This method creates the hell
         GOval gOval4 = new GOval(x + HEEL_OFFSET_X, y + HEEL_OFFSET_Y, HEEL_WIDTH, HEEL_HEIGHT);
         gOval4.setColor(Color.BLACK);
         gOval4.setFilled(true);
         gOval4.setFillColor(Color.BLACK);
         add(gOval4);
+    }
+    //This method creates the toes
+    private void createToes(double x, double y) {
+        GOval gOval1 = new GOval(x, y, TOE_WIDTH, TOE_HEIGHT);
+        gOval1.setColor(Color.BLACK);
+        gOval1.setFilled(true);
+        gOval1.setFillColor(Color.BLACK);
+        add(gOval1);
     }
 }

@@ -1,5 +1,6 @@
 package com.shpp.p2p.cs.yfurd.assignment2;
 
+import acm.graphics.GLabel;
 import acm.graphics.GRect;
 import com.shpp.cs.a.graphics.WindowProgram;
 
@@ -9,8 +10,8 @@ import static java.lang.Thread.sleep;
 
 public class Assignment2Part4 extends WindowProgram {
 
-    public static final int APPLICATION_WIDTH = 1000;
-    public static final int APPLICATION_HEIGHT = 1000;
+    public static final int APPLICATION_WIDTH = 400;
+    public static final int APPLICATION_HEIGHT = 400;
     public static final int STRIP_WIDTH = 100;
     public static final int STRIP_HEIGHT = 300;
 
@@ -30,7 +31,13 @@ public class Assignment2Part4 extends WindowProgram {
         createRect(middleX - STRIP_WIDTH, middleY, Color.BLACK);
         createRect(middleX + STRIP_WIDTH, middleY, Color.RED);
 
+        //Create a caption.
+        GLabel gLabel = new GLabel("Flag of Belgium");
+        gLabel.setColor(Color.BLACK);
+        gLabel.setLocation(getWidth() - gLabel.getWidth(), getHeight() - gLabel.getHeight()/2);
+        add(gLabel);
     }
+
     //Create rect.
     private void createRect(int x, int y, Color color) {
         GRect gRect = new GRect(x, y, STRIP_WIDTH, STRIP_HEIGHT);

@@ -26,23 +26,23 @@ public class Assignment2Part6 extends WindowProgram {
 
         for (int i = 0; i < SEGMENTS; i++) {
 
-            double x = i * X_TWO;
-            double y = selectY(i);
+            double coordinateX = i * X_TWO;
+            double coordinateY = selectY(i);
 
-            createOval(x, y);
+            createOval(coordinateX, coordinateY);
         }
-
     }
+
     //depending on the value of "i" in the cycle, this method returns the value of the first or second line.
     private double selectY(int i) {
-        if(i%2 == 0){
+        if (i % 2 == 0) {
             return Y_ONE;
         } else {
             return Y_TWO;
         }
     }
 
-    // Create oval.
+    // Create an oval.
     private void createOval(double x, double y) {
         GOval gOval = new GOval(x, y, CATERPILLAR_SEGMENTS, CATERPILLAR_SEGMENTS);
         gOval.setColor(Color.RED);
