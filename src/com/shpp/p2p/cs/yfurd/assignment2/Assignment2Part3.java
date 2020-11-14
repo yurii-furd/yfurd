@@ -62,7 +62,7 @@ public class Assignment2Part3 extends WindowProgram {
 
         createToes(x + FIRST_TOE_OFFSET_X, y + FIRST_TOE_OFFSET_Y);
         createToes(x + SECOND_TOE_OFFSET_X, y + SECOND_TOE_OFFSET_Y);
-        createToes(x + THIRD_TOE_OFFSET_Y, y + THIRD_TOE_OFFSET_X);
+        createToes(x + THIRD_TOE_OFFSET_X, y + THIRD_TOE_OFFSET_Y);
 
         //This method creates the hell
         GOval gOval4 = new GOval(x + HEEL_OFFSET_X, y + HEEL_OFFSET_Y, HEEL_WIDTH, HEEL_HEIGHT);
