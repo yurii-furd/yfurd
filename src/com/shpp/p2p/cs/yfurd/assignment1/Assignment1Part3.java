@@ -6,7 +6,6 @@ public class Assignment1Part3 extends KarelTheRobot {
 
     public void run() throws Exception {
 
-
         // Check if the world is a single cell.
         if (frontIsBlocked()) {
             putBeeper();

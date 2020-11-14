@@ -8,12 +8,12 @@ public class Assignment1Part4 extends KarelTheRobot {
 
         putBeeper();
         //if the front is clean Karel goes south puts the beeper and come back.
-        if(frontIsClear()){
+        if (frontIsClear()) {
             moveToLineSouthReturnBack();
         } else {
             //if the front is blocked (the world is one cell wide) the Karel turns to the left,
             // passes to the end, and come back
-            if (frontIsBlocked()){
+            if (frontIsBlocked()) {
                 turnLeft();
                 moveToLineSouthReturnBack();
                 turnRight();
