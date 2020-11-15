@@ -70,6 +70,7 @@ public class Assignment2Part3 extends WindowProgram {
         gOval4.setFillColor(Color.BLACK);
         add(gOval4);
     }
+
     //This method creates the toes
     private void createAndAddToes(double x, double y) {
         GOval gOval1 = new GOval(x, y, TOE_WIDTH, TOE_HEIGHT);

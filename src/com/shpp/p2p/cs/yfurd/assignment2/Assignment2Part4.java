@@ -38,7 +38,7 @@ public class Assignment2Part4 extends WindowProgram {
         //Create a caption.
         GLabel gLabel = new GLabel("Flag of Belgium");
         gLabel.setColor(Color.BLACK);
-        gLabel.setLocation(getWidth() - gLabel.getWidth(), getHeight() - gLabel.getHeight()/2);
+        gLabel.setLocation(getWidth() - gLabel.getWidth(), getHeight() - gLabel.getHeight() / 2);
         add(gLabel);
     }
 
