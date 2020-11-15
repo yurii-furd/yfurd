@@ -8,6 +8,8 @@ public class Assignment3Part1 extends TextProgram {
     private static final int AEROBIC_DAYS_REQUIRED = 5;
     //The amount of days that doctors recommend at least 40 minutes to maintain low blood pressure.
     private static final int LOW_BLOOD_PRESSURE_DAYS_REQUIRED = 3;
+    // How many days a week.
+    private static final  int DAYS_OF_THE_WEEK = 7;
 
     public void run() {
 
@@ -42,7 +44,7 @@ public class Assignment3Part1 extends TextProgram {
 
     //This method reads the input date.
     private int[] readInputData() {
-        int[] array = new int[7];
+        int[] array = new int[DAYS_OF_THE_WEEK];
         for (int i = 0; i < array.length; i++) {
             print("How many minutes did you do on day" + (i + 1) + "?");
             array[i] = readInt();
