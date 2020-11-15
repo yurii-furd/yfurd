@@ -5,48 +5,49 @@ import com.shpp.cs.a.console.TextProgram;
 public class Assignment3Part1 extends TextProgram {
 
     //The amount of days on which doctors recommend 30 minutes of aerobics.
-    private final static int daysInWhichMoreThan30Minutes = 5;
+    private final static int AEROBIC_DAYS_REQUIRED = 5;
     //The amount of days that doctors recommend at least 40 minutes to maintain low blood pressure.
-    private final static int daysInWhichMoreThan40Minutes = 3;
+    private final static int LOW_BLOOD_PRESSURE_DAYS_REQUIRED = 3;
 
     public void run() {
 
-        int[] array = new int[7];
+        int[] minutesPerDay = readInputData();
 
-        readInputData(array);
+        int CALC_AEROBIC_DAYS = 0;
+        int CALC_LOW_BLOOD_PRESSURE_DAYS = 0;
 
-        int countDaysInWhichMoreThan30Minutes = 0;
-        int countDaysInWhichMoreThan40Minutes = 0;
-
-        for (int i: array) {
-            if (i >= 30){
-                countDaysInWhichMoreThan30Minutes++;
+        for (int i : minutesPerDay) {
+            if (i >= 30) {
+                CALC_AEROBIC_DAYS++;
             }
-            if (i >= 40){
-                countDaysInWhichMoreThan40Minutes++;
+            if (i >= 40) {
+                CALC_LOW_BLOOD_PRESSURE_DAYS++;
             }
         }
 
         System.out.println("Cardio vascular health:");
-        if (countDaysInWhichMoreThan30Minutes <= 5) {
-            System.out.println("You needed to train hard for at least " + (daysInWhichMoreThan30Minutes - countDaysInWhichMoreThan30Minutes) + " more day(s) a week!");
+        if (CALC_AEROBIC_DAYS < AEROBIC_DAYS_REQUIRED) {
+            System.out.println("You needed to train hard for at least " + (AEROBIC_DAYS_REQUIRED - CALC_AEROBIC_DAYS) + " more day(s) a week!");
         } else {
-            System.out.println("Great job! You've done enough exercise for cardiovacular health.");
+            System.out.println("Great job! You've done enough exercise for cardio vascular health.");
         }
 
         System.out.println("Blood pressure:");
-        if (countDaysInWhichMoreThan40Minutes <= 3) {
-            System.out.println("You needed to train hard for at least " + (daysInWhichMoreThan40Minutes - countDaysInWhichMoreThan40Minutes) + " more day(s) a week!");
+        if (CALC_LOW_BLOOD_PRESSURE_DAYS < LOW_BLOOD_PRESSURE_DAYS_REQUIRED) {
+            System.out.println("You needed to train hard for at least " + (LOW_BLOOD_PRESSURE_DAYS_REQUIRED - CALC_LOW_BLOOD_PRESSURE_DAYS) + " more day(s) a week!");
         } else {
             System.out.println("Great job! You've done enough exercise for cardio vascular health.");
         }
     }
 
     //This method reads the input date.
-    private void readInputData(int[] array) {
+    private int[] readInputData() {
+        int[] array = new int[7];
         for (int i = 0; i < array.length; i++) {
             print("How many minutes did you do on day" + (i + 1) + "?");
             array[i] = readInt();
         }
+        return array;
     }
+
 }
