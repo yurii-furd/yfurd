@@ -5,9 +5,9 @@ import com.shpp.cs.a.console.TextProgram;
 public class Assignment3Part1 extends TextProgram {
 
     //The amount of days on which doctors recommend 30 minutes of aerobics.
-    private final static int AEROBIC_DAYS_REQUIRED = 5;
+    private static final int AEROBIC_DAYS_REQUIRED = 5;
     //The amount of days that doctors recommend at least 40 minutes to maintain low blood pressure.
-    private final static int LOW_BLOOD_PRESSURE_DAYS_REQUIRED = 3;
+    private static final int LOW_BLOOD_PRESSURE_DAYS_REQUIRED = 3;
 
     public void run() {
 
