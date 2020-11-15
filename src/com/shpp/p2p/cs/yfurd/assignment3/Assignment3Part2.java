@@ -9,11 +9,19 @@ public class Assignment3Part2 extends TextProgram {
         println("Enter a number:");
         int inputNumber = readInt();
 
-            findOutAnEvenOrOddNumber(inputNumber);
+        if (inputNumber < 1) {
+            System.out.println("Incorrect input");
+        } else {
+            calculation(inputNumber);
+        }
     }
 
-    //This method solves the problem.
-    private void findOutAnEvenOrOddNumber(int inputNumber) {
+    /**
+     * This method calculates the input number until it becomes less than one.
+     * if the number is even then divide it by 2
+     * if the number is odd then multiply it by 3 and add 1
+     */
+    private void calculation(int inputNumber) {
         while (inputNumber > 1) {
             if (inputNumber % 2 == 0) {
                 System.out.println(inputNumber + " - is even so I take half: " + (inputNumber / 2));
