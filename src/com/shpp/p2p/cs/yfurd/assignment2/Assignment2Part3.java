@@ -40,6 +40,12 @@ public class Assignment2Part3 extends WindowProgram {
     public static final int APPLICATION_HEIGHT = 220;
 
     public void run() {
+        //This command to display the program window correctly.
+        try {
+            sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         drawPawPrint(30, 20);
         drawPawPrint(180, 70);
@@ -53,18 +59,11 @@ public class Assignment2Part3 extends WindowProgram {
      * @param y The y coordinate of the upper-left corner of the bounding box for the pawprint.
      */
     private void drawPawPrint(double x, double y) {
-        //This command to display the program window correctly.
-        try {
-            sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        createAndAddToes(x + FIRST_TOE_OFFSET_X, y + FIRST_TOE_OFFSET_Y);
+        createAndAddToes(x + SECOND_TOE_OFFSET_X, y + SECOND_TOE_OFFSET_Y);
+        createAndAddToes(x + THIRD_TOE_OFFSET_X, y + THIRD_TOE_OFFSET_Y);
 
-        createToes(x + FIRST_TOE_OFFSET_X, y + FIRST_TOE_OFFSET_Y);
-        createToes(x + SECOND_TOE_OFFSET_X, y + SECOND_TOE_OFFSET_Y);
-        createToes(x + THIRD_TOE_OFFSET_X, y + THIRD_TOE_OFFSET_Y);
-
-        //This method creates the hell
+        //This creates the hell
         GOval gOval4 = new GOval(x + HEEL_OFFSET_X, y + HEEL_OFFSET_Y, HEEL_WIDTH, HEEL_HEIGHT);
         gOval4.setColor(Color.BLACK);
         gOval4.setFilled(true);
@@ -72,7 +71,7 @@ public class Assignment2Part3 extends WindowProgram {
         add(gOval4);
     }
     //This method creates the toes
-    private void createToes(double x, double y) {
+    private void createAndAddToes(double x, double y) {
         GOval gOval1 = new GOval(x, y, TOE_WIDTH, TOE_HEIGHT);
         gOval1.setColor(Color.BLACK);
         gOval1.setFilled(true);

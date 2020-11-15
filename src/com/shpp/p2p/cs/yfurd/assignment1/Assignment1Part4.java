@@ -73,7 +73,7 @@ public class Assignment1Part4 extends KarelTheRobot {
     private void moveToBack() throws Exception {
         turnLeft();
         turnLeft();
-        while (!frontIsBlocked()) {
+        while (frontIsClear()) {
             move();
         }
         turnRight();

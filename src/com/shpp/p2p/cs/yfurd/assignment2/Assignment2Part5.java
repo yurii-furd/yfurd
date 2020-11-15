@@ -42,7 +42,7 @@ public class Assignment2Part5 extends WindowProgram {
         createMatrix(firstElementX, firstElementY);
     }
 
-    //This method creates a single row with boxes.
+    //This method creates matrix.
     private void createMatrix(double firstElementX, double firstElementY) {
 
         for (int i = 0; i < NUM_COLS; i++) {
@@ -52,8 +52,6 @@ public class Assignment2Part5 extends WindowProgram {
             // by the distance of one box + spacing by boxes.
             double coordinateXElementN = firstElementX + i * (BOX_SIZE + BOX_SPACING);
 
-            createBox(coordinateXElementN, firstElementY);
-
             for (int j = 0; j < NUM_ROWS; j++) {
 
                 //Initial value coordinateYElementN = firstElementY.
@@ -61,13 +59,13 @@ public class Assignment2Part5 extends WindowProgram {
                 // by a distance of one box + spacing by boxes.
                 double coordinateYElementN = firstElementY + j * (BOX_SIZE + BOX_SPACING);
 
-                createBox(coordinateXElementN, coordinateYElementN);
+                createAndAddBox(coordinateXElementN, coordinateYElementN);
             }
         }
     }
 
     // Create a rectangle
-    private void createBox(double x, double y) {
+    private void createAndAddBox(double x, double y) {
         GRect gRect = new GRect(x, y, BOX_SIZE, BOX_SIZE);
         gRect.setColor(Color.BLACK);
         gRect.setFilled(true);

@@ -12,7 +12,7 @@ public class Assignment2Part2 extends WindowProgram {
 
     public static final int APPLICATION_WIDTH = 600;
     public static final int APPLICATION_HEIGHT = 600;
-    private static final int DIAMETER = 200;
+    private static final double DIAMETER = 200;
 
     public void run() {
         //This command to display the program window correctly.
@@ -37,7 +37,7 @@ public class Assignment2Part2 extends WindowProgram {
     }
 
     // This method create oval.
-    private void createOval(int x, int y) {
+    private void createOval(double x, double y) {
         GOval gOval = new GOval(x, y, DIAMETER, DIAMETER);
         gOval.setColor(Color.BLACK);
         gOval.setFilled(true);

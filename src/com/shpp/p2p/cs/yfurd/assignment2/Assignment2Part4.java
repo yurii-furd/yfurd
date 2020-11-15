@@ -10,10 +10,14 @@ import static java.lang.Thread.sleep;
 
 public class Assignment2Part4 extends WindowProgram {
 
+    /*These directives allow you to configure the initial approximate size of programs,
+    which does not change with getWidth () and getHeight () during its operation.*/
     public static final int APPLICATION_WIDTH = 400;
     public static final int APPLICATION_HEIGHT = 400;
-    public static final int STRIP_WIDTH = 100;
-    public static final int STRIP_HEIGHT = 300;
+
+    //Width and height of the flag strip.
+    public static final double STRIP_WIDTH = 100;
+    public static final double STRIP_HEIGHT = 300;
 
 
     public void run() {
@@ -24,12 +28,12 @@ public class Assignment2Part4 extends WindowProgram {
             e.printStackTrace();
         }
         //Calculating the coordinates X and Y of the middle strip
-        int middleX = getWidth() / 2 - STRIP_WIDTH / 2;
-        int middleY = getHeight() / 2 - STRIP_HEIGHT / 2;
+        double middleX = getWidth() / 2.0 - STRIP_WIDTH / 2;
+        double middleY = getHeight() / 2.0 - STRIP_HEIGHT / 2;
 
-        createRect(middleX, middleY, Color.YELLOW);
-        createRect(middleX - STRIP_WIDTH, middleY, Color.BLACK);
-        createRect(middleX + STRIP_WIDTH, middleY, Color.RED);
+        createAndAddRect(middleX, middleY, Color.YELLOW);
+        createAndAddRect(middleX - STRIP_WIDTH, middleY, Color.BLACK);
+        createAndAddRect(middleX + STRIP_WIDTH, middleY, Color.RED);
 
         //Create a caption.
         GLabel gLabel = new GLabel("Flag of Belgium");
@@ -39,7 +43,7 @@ public class Assignment2Part4 extends WindowProgram {
     }
 
     //Create rect.
-    private void createRect(int x, int y, Color color) {
+    private void createAndAddRect(double x, double y, Color color) {
         GRect gRect = new GRect(x, y, STRIP_WIDTH, STRIP_HEIGHT);
         gRect.setFilled(true);
         gRect.setFillColor(color);
