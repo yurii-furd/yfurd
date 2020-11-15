@@ -36,7 +36,7 @@ public class Assignment3Part1 extends TextProgram {
 
         System.out.println("Blood pressure:");
         if (countDaysInWhichMoreThan40Minutes <= 3) {
-            System.out.println("You needed to train hard for at least " + (daysInWhichMoreThan40Minutes - countDaysInWhichMoreThan30Minutes) + " more day(s) a week!");
+            System.out.println("You needed to train hard for at least " + (daysInWhichMoreThan40Minutes - countDaysInWhichMoreThan40Minutes) + " more day(s) a week!");
         } else {
             System.out.println("Great job! You've done enough exercise for cardio vascular health.");
         }
