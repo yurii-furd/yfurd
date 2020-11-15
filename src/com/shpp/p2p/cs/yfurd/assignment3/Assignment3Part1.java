@@ -10,12 +10,12 @@ public class Assignment3Part1 extends TextProgram {
     private static final int LOW_BLOOD_PRESSURE_DAYS_REQUIRED = 3;
 
     //The minimum number of minutes recommended by a doctor to do aerobics.
-    private static final  int MIN_MINUTES_FOR_AEROBIC_DAYS_REQUIRED = 30;
+    private static final int MIN_MINUTES_FOR_AEROBIC_DAYS_REQUIRED = 30;
     //The minimum number of minutes recommended by a doctor, to maintain low blood pressure
-    private static final  int MIN_MINUTES_FOR_LOW_BLOOD_PRESSURE_DAYS_REQUIRED = 40;
+    private static final int MIN_MINUTES_FOR_LOW_BLOOD_PRESSURE_DAYS_REQUIRED = 40;
 
     //How many days a week.
-    private static final  int DAYS_OF_THE_WEEK = 7;
+    private static final int DAYS_OF_THE_WEEK = 7;
 
     public void run() {
 
@@ -25,7 +25,7 @@ public class Assignment3Part1 extends TextProgram {
         int calcLowBloodPressureDays = 0;
 
         for (int minutes : minutesPerDay) {
-            if (minutes >= MIN_MINUTES_FOR_AEROBIC_DAYS_REQUIRED ) {
+            if (minutes >= MIN_MINUTES_FOR_AEROBIC_DAYS_REQUIRED) {
                 calcAerobicDays++;
             }
             if (minutes >= MIN_MINUTES_FOR_LOW_BLOOD_PRESSURE_DAYS_REQUIRED) {
