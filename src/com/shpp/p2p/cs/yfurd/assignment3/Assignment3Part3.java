@@ -5,23 +5,27 @@ import com.shpp.cs.a.console.TextProgram;
 public class Assignment3Part3 extends TextProgram {
 
     public void run() {
-        raiseToPower(-5.5, -2);
+        double res = raiseToPower(-5.5, 0);
+
     }
 
     //This method raises any number to any power.
     private double raiseToPower(double base, int exponent) {
         if (exponent == 0) {
             System.out.println("Any number in 0 power is equal to 1");
+            return 1;
         }
         if (exponent < 0) {
             int conversion = conversionFromNegativeToPositive(exponent);
-            double count = elevatedToTheDegree(base, conversion);
-            System.out.println("Number " + base + " elevated to the degree " + exponent + " = " + (1 / count));
+            double findTheDegree = elevatedToTheDegree(base, conversion);
+            double count = (1 / findTheDegree);
+            System.out.println("Number " + base + " elevated to the degree " + exponent + " = " + count);
+            return count;
         } else {
             double count = elevatedToTheDegree(base, exponent);
             System.out.println("Number " + base + " elevated to the degree " + exponent + " = " + count);
+            return count;
         }
-        return 0;
     }
 
     //This method converts a number from negative to positive.
