@@ -16,6 +16,8 @@ public class Assignment3Part1 extends TextProgram {
 
     //How many days a week.
     private static final int DAYS_OF_THE_WEEK = 7;
+    //How mani minutes a day.
+    private static final int DAY_HAS_MINUTES = 1440;
 
     public void run() {
 
@@ -51,9 +53,15 @@ public class Assignment3Part1 extends TextProgram {
     //This method reads the input date.
     private int[] readInputData() {
         int[] array = new int[DAYS_OF_THE_WEEK];
+
         for (int i = 0; i < array.length; i++) {
             print("How many minutes did you do on day" + (i + 1) + "?");
             array[i] = readInt();
+
+            while (array[i] < 0 || array[i] > DAY_HAS_MINUTES) {
+                print("Wrong answer. How many minutes did you do on day" + (i + 1) + "?");
+                array[i] = readInt();
+            }
         }
         return array;
     }
