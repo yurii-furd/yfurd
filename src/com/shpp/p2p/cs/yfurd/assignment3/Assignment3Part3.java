@@ -5,40 +5,40 @@ import com.shpp.cs.a.console.TextProgram;
 public class Assignment3Part3 extends TextProgram {
 
     public void run() {
-        double res = raiseToPower(-5.5, 0);
+
+        System.out.print("Base = ");
+        double number = readDouble();
+        System.out.print("Exponent = ");
+        int exponent = readInt();
+
+        double res = raiseToPower(number, exponent);
+        System.out.println("Number " + number + " elevated to the degree " + exponent + " = " + res);
 
     }
 
     //This method raises any number to any power.
     private double raiseToPower(double base, int exponent) {
         if (exponent == 0) {
-            System.out.println("Any number in 0 power is equal to 1");
             return 1;
-        }
-        if (exponent < 0) {
-            int conversion = conversionFromNegativeToPositive(exponent);
-            double findTheDegree = elevatedToTheDegree(base, conversion);
-            double count = (1 / findTheDegree);
-            System.out.println("Number " + base + " elevated to the degree " + exponent + " = " + count);
-            return count;
+        } else if (exponent < 0) {
+            int positiveExponent = toPositive(exponent);
+            return 1 / toPowerOf(base, positiveExponent);
         } else {
-            double count = elevatedToTheDegree(base, exponent);
-            System.out.println("Number " + base + " elevated to the degree " + exponent + " = " + count);
-            return count;
+            return toPowerOf(base, exponent);
         }
     }
 
     //This method converts a number from negative to positive.
-    private int conversionFromNegativeToPositive(int exponent) {
-        return exponent < 0 ? exponent * (-1) : exponent;
+    private int toPositive(int exponent) {
+        return exponent < 0 ? -exponent : exponent;
     }
 
     //This method raises any number to a positive power.
-    private double elevatedToTheDegree(double base, int exponent) {
-        double count = base;
+    private double toPowerOf(double base, int exponent) {
+        double value = base;
         for (int i = 1; i < exponent; i++) {
-            count = count * base;
+            value = value * base;
         }
-        return count;
+        return value;
     }
 }

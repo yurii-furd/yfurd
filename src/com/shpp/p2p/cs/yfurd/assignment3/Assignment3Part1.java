@@ -14,10 +14,10 @@ public class Assignment3Part1 extends TextProgram {
     //The minimum number of minutes recommended by a doctor, to maintain low blood pressure
     private static final int MIN_MINUTES_FOR_LOW_BLOOD_PRESSURE_DAYS_REQUIRED = 40;
 
-    //How many days a week.
-    private static final int DAYS_OF_THE_WEEK = 7;
-    //How mani minutes a day.
-    private static final int DAY_HAS_MINUTES = 1440;
+    //How many days in a week.
+    private static final int DAYS_IN_THE_WEEK = 7;
+    //How many minutes in a day.
+    private static final int DAY_HAS_MINUTES = 24 * 60;
 
     public void run() {
 
@@ -52,7 +52,7 @@ public class Assignment3Part1 extends TextProgram {
 
     //This method reads the input date.
     private int[] readInputData() {
-        int[] array = new int[DAYS_OF_THE_WEEK];
+        int[] array = new int[DAYS_IN_THE_WEEK];
 
         for (int i = 0; i < array.length; i++) {
             print("How many minutes did you do on day" + (i + 1) + "?");
