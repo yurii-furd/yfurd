@@ -6,6 +6,7 @@ public class Assignment3Part5 extends TextProgram {
 
     public void run() {
 
+        //the amount of $ that the lucky person has
         int happyMan = 0;
         //counts the number of games before the lucky winner receives $ 20
         int count = 0;
