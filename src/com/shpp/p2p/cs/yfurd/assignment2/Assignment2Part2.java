@@ -16,8 +16,7 @@ public class Assignment2Part2 extends WindowProgram {
 
     public void run() {
         //This command to display the program window correctly.
-        try {
-            sleep(500);
+        try {sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

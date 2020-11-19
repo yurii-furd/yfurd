@@ -12,8 +12,8 @@ public class Assignment2Part4 extends WindowProgram {
 
     /*These directives allow you to configure the initial approximate size of programs,
     which does not change with getWidth () and getHeight () during its operation.*/
-    public static final int APPLICATION_WIDTH = 400;
-    public static final int APPLICATION_HEIGHT = 400;
+    public static final int APPLICATION_WIDTH = 800;
+    public static final int APPLICATION_HEIGHT = 800;
 
     //Width and height of the flag strip.
     public static final double STRIP_WIDTH = 100;

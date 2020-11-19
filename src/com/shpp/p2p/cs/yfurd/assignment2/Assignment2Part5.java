@@ -10,8 +10,8 @@ import static java.lang.Thread.sleep;
 public class Assignment2Part5 extends WindowProgram {
 
     /* The number of rows and columns in the grid, respectively. */
-    private static final int NUM_ROWS = 7;
-    private static final int NUM_COLS = 10;
+    private static final int NUM_ROWS = 1;
+    private static final int NUM_COLS = 1;
 
     /* The width and height of each box. */
     private static final double BOX_SIZE = 40;
