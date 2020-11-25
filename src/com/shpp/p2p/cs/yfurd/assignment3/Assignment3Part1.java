@@ -19,34 +19,50 @@ public class Assignment3Part1 extends TextProgram {
     //How many minutes in a day.
     private static final int DAY_HAS_MINUTES = 24 * 60;
 
+    int calcAerobicDays;
+    int calcLowBloodPressureDays;
+
     public void run() {
 
         int[] minutesPerDay = readInputData();
+        calculateInputData(minutesPerDay);
+        outputInformation();
 
-        int calcAerobicDays = 0;
-        int calcLowBloodPressureDays = 0;
+    }
 
-        for (int minutes : minutesPerDay) {
-            if (minutes >= MIN_MINUTES_FOR_AEROBIC_DAYS_REQUIRED) {
-                calcAerobicDays++;
-            }
-            if (minutes >= MIN_MINUTES_FOR_LOW_BLOOD_PRESSURE_DAYS_REQUIRED) {
-                calcLowBloodPressureDays++;
-            }
-        }
-
+    //This method displays the result of the program in the console.
+    private void outputInformation() {
         System.out.println("Cardio vascular health:");
         if (calcAerobicDays < AEROBIC_DAYS_REQUIRED) {
-            System.out.println("You needed to train hard for at least " + (AEROBIC_DAYS_REQUIRED - calcAerobicDays) + " more day(s) a week!");
+            System.out.println("You needed to train hard for at least " +
+                                (AEROBIC_DAYS_REQUIRED - calcAerobicDays) + " more day(s) a week!");
         } else {
             System.out.println("Great job! You've done enough exercise for cardio vascular health.");
         }
 
         System.out.println("Blood pressure:");
         if (calcLowBloodPressureDays < LOW_BLOOD_PRESSURE_DAYS_REQUIRED) {
-            System.out.println("You needed to train hard for at least " + (LOW_BLOOD_PRESSURE_DAYS_REQUIRED - calcLowBloodPressureDays) + " more day(s) a week!");
+            System.out.println("You needed to train hard for at least " +
+                    (LOW_BLOOD_PRESSURE_DAYS_REQUIRED - calcLowBloodPressureDays) + " more day(s) a week!");
         } else {
             System.out.println("Great job! You've done enough exercise for cardio vascular health.");
+        }
+    }
+
+    /** This method takes the input data and compares it to a constant time,
+      *  writing anything more than that time in two variables (calcAerobicDays, calcLowBloodPressureDays)
+      */
+    private void calculateInputData(int[] array) {
+        calcAerobicDays = 0;
+        calcLowBloodPressureDays = 0;
+
+        for (int minutes : array) {
+            if (minutes >= MIN_MINUTES_FOR_AEROBIC_DAYS_REQUIRED) {
+                calcAerobicDays++;
+            }
+            if (minutes >= MIN_MINUTES_FOR_LOW_BLOOD_PRESSURE_DAYS_REQUIRED) {
+                calcLowBloodPressureDays++;
+            }
         }
     }
 
@@ -65,5 +81,4 @@ public class Assignment3Part1 extends TextProgram {
         }
         return array;
     }
-
 }
