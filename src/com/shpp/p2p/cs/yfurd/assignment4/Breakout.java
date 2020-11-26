@@ -46,7 +46,7 @@ public class Breakout extends WindowProgram {
     /**
      * Number of bricks per row
      */
-    private static final int NBRICKS_PER_ROW = 10;
+    private static final int NBRICKS_PER_ROW = 1;
 
     /**
      * Number of rows of bricks
@@ -73,6 +73,7 @@ public class Breakout extends WindowProgram {
      * Radius of the ball in pixels
      */
     private static final int BALL_RADIUS = 10;
+    private static final int BALL_DIAMETER = BALL_RADIUS * 2;
 
     /**
      * Offset of the top brick row from the top
@@ -86,26 +87,24 @@ public class Breakout extends WindowProgram {
 
 
     //The amount of time to pause between frames (50fps)
-    public double PAUSE_TIME = 1000 / 50;
+    public double PAUSE_TIME = 20;
 
     public static final Color ORANGE = new Color(255, 165, 0);
 
     private double vx = 0;
     private double vy = 3.0;
 
-    GRect rect = null;
-    GOval boll = null;
-
-    double count = 0;
-    int count1 = 3;
-    int count2 = 0;
-    int count3 = 0;
     GRect paddle = null;
+    GOval boll = null;
     ArrayList<GRect> bricks = new ArrayList<>();
 
+    //this variable counts the bricks that knocked down...
+    int calcDeleteBricks = 0;
+    //this variable decrements after the cell has fallen outside the window
+    int calcNTurnsLabelDecrement = 3;
 
     public void run() {
-        //This command to display the program window correctly.
+        //This command to display the program window correctly(Linux).
         try {
             sleep(500);
         } catch (InterruptedException e) {
@@ -114,63 +113,65 @@ public class Breakout extends WindowProgram {
 
         addMouseListeners();
         // create paddle
-        paddle = createRectangle(
-                getWidth() / 2 - MIDDLE_PADDLE_WIDTH,
-                getHeight() - PADDLE_HEIGHT - PADDLE_Y_OFFSET);
+        paddle = createRectangle();
         // create boll
         boll = createBoll();
         // create bricks
         createGridOfBricks();
+
+        startGames();
+    }
+
+    private void startGames() {
+
+        GLabel label1 = createLabel("Tap to start. You have " + calcNTurnsLabelDecrement + " attempts");
+        waitForClick();
+        remove(label1);
+
+        randomGenerator();
+
         createAnimation();
     }
 
     private void createAnimation() {
-        GLabel label1 = createLabel("Tap to start. You have " + count1 + " attempts");
-        waitForClick();
-        remove(label1);
-        RandomGenerator rgen = RandomGenerator.getInstance();
-        vx = rgen.nextDouble(1.0, 3.0);
-        if (rgen.nextBoolean(0.5))
-            vx = -vx;
 
         while (true) {
+
             boll.move(vx, vy);
+
             if (boll.getX() < 0) {
                 vx *= -1;
             }
+
             if (boll.getX() + BALL_RADIUS * 2 > getWidth()) {
                 vx *= -1;
             }
+
             if (boll.getY() < 0) {
                 vy *= -1;
             }
 
-
             GObject collider;
-            final int COORDINATE_PADDLE_Y = getHeight() - PADDLE_HEIGHT - PADDLE_Y_OFFSET;
-
-            if (boll.getY() < COORDINATE_PADDLE_Y) {
-
+            if (boll.getY() <= paddle.getY() - BALL_DIAMETER + 1) {
                 collider = getCollidingObject(boll);
+
                 if (collider == paddle) {
                     vy *= -1;
                 }
+
             } else {
                 collider = null;
             }
 
-
-            if (count < NBRICKS_PER_ROW * NBRICK_ROWS) {
-
-                if (boll.getY() > COORDINATE_PADDLE_Y) {
-                    count1--;
-                    count2++;
-
-                    if (NTURNS > count2) {
-                        collider = null;
+            int calcNTurns = 0;
+            if (calcDeleteBricks < NBRICKS_PER_ROW * NBRICK_ROWS) {
+                if (boll.getY() > getHeight()) {
+                    calcNTurnsLabelDecrement--;
+                    calcNTurns++;
+                    if (NTURNS > calcNTurns) {
                         remove(boll);
                         boll = createBoll();
-                        createAnimation();
+                        startGames();
                     } else {
                         remove(boll);
                         GLabel label2 = createLabel("Game over, unfortunately you lost, try again");
@@ -189,73 +190,31 @@ public class Breakout extends WindowProgram {
                 if (collider == brick) {
                     iterator.remove();
                     remove(brick);
-                    count++;
+                    calcDeleteBricks++;
                     vy *= -1;
                 }
             }
-            pause(PAUSE_TIME - count / 6);
+
+            pause(PAUSE_TIME);
         }
-    }
 
-    private GLabel createLabel2(String text) {
-        GLabel label = new GLabel(text, 0, 0);
-        label.setColor(Color.BLACK);
-        label.setLocation(0, getHeight() - label.getHeight());
-        add(label);
-        return label;
     }
-
-    private GLabel createLabel(String text) {
-        GLabel label = new GLabel(text, 0, 0);
-        label.setColor(Color.BLACK);
-        label.setLocation((getWidth() - label.getWidth()) / 2, (getHeight() - label.getHeight()) / 2.5);
-        add(label);
-        return label;
-    }
-
 
     private GObject getCollidingObject(GOval boll) {
+        ArrayList<GObject> gObjects = new ArrayList<>();
 
-        GObject gObject1 = getElementAt(boll.getX(), boll.getY());
-        if (gObject1 != null) {
-            return gObject1;
-        }
-        GObject gObject2 = getElementAt(boll.getX() + 2 * BALL_RADIUS, boll.getY());
-        if (gObject2 != null) {
-            return gObject2;
-        }
-        GObject gObject3 = getElementAt(boll.getX(), boll.getY() + 2 * BALL_RADIUS);
-        if (gObject3 != null) {
-            return gObject3;
-        }
-        GObject gObject4 = getElementAt(boll.getX() + 2 * BALL_RADIUS, boll.getY() + 2 * BALL_RADIUS);
-        if (gObject4 != null) {
-            return gObject4;
+        gObjects.add(getElementAt(boll.getX(), boll.getY()));
+        gObjects.add(getElementAt(boll.getX() + BALL_DIAMETER, boll.getY()));
+        gObjects.add(getElementAt(boll.getX(), boll.getY() + BALL_DIAMETER));
+        gObjects.add(getElementAt(boll.getX() + BALL_DIAMETER, boll.getY() + BALL_DIAMETER));
+
+        for (GObject o : gObjects) {
+            if (o != null) {
+                return o;
+            }
         }
         return null;
     }
-
-//    private GObject getCollidingObject(GOval boll) {
-//        gObjects.add(createObject(boll.getX(), boll.getY()));
-//        gObjects.add(createObject(boll.getX() + 2 * BALL_RADIUS, boll.getY()));
-//        gObjects.add(createObject(boll.getX(), boll.getY() + 2 * BALL_RADIUS));
-//        gObjects.add(createObject(boll.getX() + 2 * BALL_RADIUS, boll.getY() + 2 * BALL_RADIUS));
-//
-//        for (GObject o : gObjects) {
-//            if (o != null){
-//                return o;
-//            }
-//        }
-//        return null;
-//    }
-//
-//    private GObject createObject(double x, double y) {
-//        GObject gObject = getElementAt(x, y);
-//        if (gObject != null){
-//            return gObject;
-//        }
-//        return null;
-//    }
 
     //This method creates a matrix.
     private void createGridOfBricks() {
@@ -284,6 +243,42 @@ public class Breakout extends WindowProgram {
         return coordinateY + BRICK_HEIGHT + BRICK_SEP;
     }
 
+    //This method binds the mouse to the paddle, and does not allow the paddle to go outside the window
+    public void mouseMoved(MouseEvent mouseEvent) {
+        if (mouseEvent.getX() <= MIDDLE_PADDLE_WIDTH || mouseEvent.getX() >= getWidth() - MIDDLE_PADDLE_WIDTH) {
+
+            if (mouseEvent.getX() <= MIDDLE_PADDLE_WIDTH) {
+                paddle.setLocation(0, paddle.getY());
+            } else {
+                paddle.setLocation(getWidth() - PADDLE_WIDTH, paddle.getY());
+            }
+
+        } else {
+            paddle.setLocation(mouseEvent.getX() - MIDDLE_PADDLE_WIDTH, paddle.getY());
+        }
+    }
+
+    private GLabel createLabel(String text) {
+        GLabel label = new GLabel(text, 0, 0);
+        label.setColor(Color.BLACK);
+        label.setLocation((getWidth() - label.getWidth()) / 2, (getHeight() - label.getHeight()) / 2.5);
+        add(label);
+        return label;
+    }
+
+    // create boll and add boll
+    private GOval createBoll() {
+        GOval boll = new GOval(
+                getWidth() / 2 - BALL_RADIUS,
+                getHeight() / 2 - BALL_RADIUS,
+                BALL_DIAMETER,
+                BALL_DIAMETER);
+        boll.setFilled(true);
+        boll.setColor(Color.BLACK);
+        add(boll);
+        return boll;
+    }
+
     //create a brick and add.
     private GRect createBrick(int x, int y, Color color) {
         GRect brick = new GRect(x, y, BRICK_WIDTH, BRICK_HEIGHT);
@@ -293,40 +288,24 @@ public class Breakout extends WindowProgram {
         return brick;
     }
 
-    // create boll and add boll
-    private GOval createBoll() {
-        GOval boll = new GOval(
-                getWidth() / 2 - BALL_RADIUS,
-                getHeight() / 2 - BALL_RADIUS,
-                BALL_RADIUS * 2,
-                BALL_RADIUS * 2);
-        boll.setFilled(true);
-        boll.setColor(Color.BLACK);
-        add(boll);
-        return boll;
-    }
-
-    //This method binds the mouse to the paddle, and does not allow the paddle to go outside the window
-    public void mouseMoved(MouseEvent mouseEvent) {
-        //The coordinate of Y paddle
-        final int COORDINATE_PADDLE_Y = getHeight() - PADDLE_HEIGHT - PADDLE_Y_OFFSET;
-        if (mouseEvent.getX() <= MIDDLE_PADDLE_WIDTH || mouseEvent.getX() >= getWidth() - MIDDLE_PADDLE_WIDTH) {
-            if (mouseEvent.getX() <= MIDDLE_PADDLE_WIDTH) {
-                rect.setLocation(0, COORDINATE_PADDLE_Y);
-            } else {
-                rect.setLocation(getWidth() - PADDLE_WIDTH, COORDINATE_PADDLE_Y);
-            }
-        } else {
-            rect.setLocation(mouseEvent.getX() - MIDDLE_PADDLE_WIDTH, COORDINATE_PADDLE_Y);
-        }
-    }
-
     //Create and add paddle
-    private GRect createRectangle(int x, int y) {
-        rect = new GRect(x, y, PADDLE_WIDTH, PADDLE_HEIGHT);
-        rect.setFilled(true);
-        rect.setFillColor(Color.BLACK);
-        add(rect);
-        return rect;
+    private GRect createRectangle() {
+        paddle = new GRect(
+                getWidth() / 2 - MIDDLE_PADDLE_WIDTH,
+                getHeight() - PADDLE_HEIGHT - PADDLE_Y_OFFSET,
+                PADDLE_WIDTH,
+                PADDLE_HEIGHT
+        );
+        paddle.setFilled(true);
+        paddle.setFillColor(Color.BLACK);
+        add(paddle);
+        return paddle;
+    }
+
+    private void randomGenerator() {
+        RandomGenerator randomGenerator = RandomGenerator.getInstance();
+        vx = randomGenerator.nextDouble(1.0, 3.0);
+        if (randomGenerator.nextBoolean(0.5))
+            vx = -vx;
     }
 }
