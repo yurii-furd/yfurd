@@ -46,7 +46,7 @@ public class Breakout extends WindowProgram {
     /**
      * Number of bricks per row
      */
-    private static final int NBRICKS_PER_ROW = 1;
+    private static final int NBRICKS_PER_ROW = 10;
 
     /**
      * Number of rows of bricks
@@ -87,14 +87,14 @@ public class Breakout extends WindowProgram {
 
 
     //The amount of time to pause between frames (50fps)
-    public double PAUSE_TIME = 20;
+    public double PAUSE_TIME = 1000 / 150;
 
     public static final Color ORANGE = new Color(255, 165, 0);
 
     private double vx = 0;
     private double vy = 3.0;
 
-    GRect paddle = null;
+    GRect rackets = null;
     GOval boll = null;
     ArrayList<GRect> bricks = new ArrayList<>();
 
@@ -102,6 +102,8 @@ public class Breakout extends WindowProgram {
     int calcDeleteBricks = 0;
     //this variable decrements after the cell has fallen outside the window
     int calcNTurnsLabelDecrement = 3;
+    //this variable counts the number of attempts by the player
+    int calcNTurns = 0;
 
     public void run() {
         //This command to display the program window correctly(Linux).
@@ -113,7 +115,7 @@ public class Breakout extends WindowProgram {
 
         addMouseListeners();
         // create paddle
-        paddle = createRectangle();
+        rackets = createRectangle();
         // create boll
         boll = createBoll();
         // create bricks
@@ -135,58 +137,50 @@ public class Breakout extends WindowProgram {
 
     private void createAnimation() {
 
+        GObject collider;
+
         while (true) {
 
             boll.move(vx, vy);
 
+            //If the ball reaches the left wall, then we direct it to another
             if (boll.getX() < 0) {
                 vx *= -1;
             }
 
+            //If the ball reaches the right wall, then we direct it to another
             if (boll.getX() + BALL_RADIUS * 2 > getWidth()) {
                 vx *= -1;
             }
 
+            //If the ball hits the top of the window, direct it down
             if (boll.getY() < 0) {
                 vy *= -1;
             }
 
-            GObject collider;
-            if (boll.getY() <= paddle.getY() - BALL_DIAMETER + 1) {
+            /*if the coordinate of the ball Y + 2R -1 is greater than the coordinate of the racket,
+            then read through the "getElementAt ()" coordinates*/
+            if (boll.getY() + BALL_DIAMETER - 1 <= rackets.getY()) {
                 collider = getCollidingObject(boll);
 
-                if (collider == paddle) {
+                /*if the function returned the graphic object that the bullet collided with,
+                and it is equal to the racket, then bounce off it in the other direction*/
+                if (collider == rackets) {
                     vy *= -1;
                 }
-
+            /*if the coordinate of the ball Y + 2R -1 is less than the coordinate of the racket,
+            then read through "getElementAt ()" is not required*/
             } else {
                 collider = null;
             }
 
-            int calcNTurns = 0;
-            if (calcDeleteBricks < NBRICKS_PER_ROW * NBRICK_ROWS) {
-                if (boll.getY() > getHeight()) {
-                    calcNTurnsLabelDecrement--;
-                    calcNTurns++;
-                    if (NTURNS > calcNTurns) {
-                        remove(boll);
-                        boll = createBoll();
-                        startGames();
-                    } else {
-                        remove(boll);
-                        GLabel label2 = createLabel("Game over, unfortunately you lost, try again");
-                        break;
-                    }
-                }
-            } else {
-                GLabel label3 = createLabel("Game over, congratulations you won the game");
-                remove(boll);
-                break;
-            }
-
+            //here we run through a list of bricks.
             Iterator<GRect> iterator = bricks.iterator();
             while (iterator.hasNext()) {
                 GRect brick = iterator.next();
+
+                /*if the function returned the graphic object that the bullet collided with,
+                and it is equal to the brick, then bounce off it in the other direction and delete it*/
                 if (collider == brick) {
                     iterator.remove();
                     remove(brick);
@@ -195,11 +189,45 @@ public class Breakout extends WindowProgram {
                 }
             }
 
+            //while the brick is still present
+            if (calcDeleteBricks < NBRICKS_PER_ROW * NBRICK_ROWS) {
+
+                //if the ball flew outside the program
+                if (boll.getY() > getHeight()) {
+                    calcNTurnsLabelDecrement--;
+                    calcNTurns++;
+
+                    //if there are still free attempts, then create a new ball and restart the animation
+                    if (NTURNS > calcNTurns) {
+                        remove(boll);
+                        boll = createBoll();
+                        startGames();
+                    }
+                    //if there are no free attempts, it is time to remove the ball and finish the game
+                    else {
+                        remove(boll);
+                        GLabel label2 = createLabel("Game over, unfortunately you lost, try again");
+                        break;
+                    }
+                }
+            }
+            //if there are no bricks left, the player wins and the game is over
+            else {
+                GLabel label3 = createLabel("Game over, congratulations you won the game");
+                remove(boll);
+                break;
+            }
             pause(PAUSE_TIME);
         }
-
     }
 
+    /**
+     * If the coordinate (x, y) is below the object, the function will return the graphic object that the ball collided with.
+     * If there are no objects, the function will return ‘null’.
+     *
+     * @param boll m.yach which appears in the program
+     * @return the graphic object the bullet collided with
+     */
     private GObject getCollidingObject(GOval boll) {
         ArrayList<GObject> gObjects = new ArrayList<>();
 
@@ -218,6 +246,7 @@ public class Breakout extends WindowProgram {
 
     //This method creates a matrix.
     private void createGridOfBricks() {
+        //NBRICK_ROWS
         int coordinateY = BRICK_Y_OFFSET;
         coordinateY = createTwoRows(coordinateY, Color.RED);
         coordinateY = createTwoRows(coordinateY, ORANGE);
@@ -248,16 +277,22 @@ public class Breakout extends WindowProgram {
         if (mouseEvent.getX() <= MIDDLE_PADDLE_WIDTH || mouseEvent.getX() >= getWidth() - MIDDLE_PADDLE_WIDTH) {
 
             if (mouseEvent.getX() <= MIDDLE_PADDLE_WIDTH) {
-                paddle.setLocation(0, paddle.getY());
+                rackets.setLocation(0, rackets.getY());
             } else {
-                paddle.setLocation(getWidth() - PADDLE_WIDTH, paddle.getY());
+                rackets.setLocation(getWidth() - PADDLE_WIDTH, rackets.getY());
             }
 
         } else {
-            paddle.setLocation(mouseEvent.getX() - MIDDLE_PADDLE_WIDTH, paddle.getY());
+            rackets.setLocation(mouseEvent.getX() - MIDDLE_PADDLE_WIDTH, rackets.getY());
         }
     }
 
+    /**
+     * this method creates and adds a caption
+     *
+     * @param text this is the text to add
+     * @return will return the ready inscription, in the set coordinates
+     */
     private GLabel createLabel(String text) {
         GLabel label = new GLabel(text, 0, 0);
         label.setColor(Color.BLACK);
@@ -279,7 +314,14 @@ public class Breakout extends WindowProgram {
         return boll;
     }
 
-    //create a brick and add.
+    /**
+     * Create a brick and add.
+     *
+     * @param x     this is coordinate of X
+     * @param y     this is coordinate of Y
+     * @param color this is color of bricks
+     * @return bricks
+     */
     private GRect createBrick(int x, int y, Color color) {
         GRect brick = new GRect(x, y, BRICK_WIDTH, BRICK_HEIGHT);
         brick.setFilled(true);
@@ -288,20 +330,21 @@ public class Breakout extends WindowProgram {
         return brick;
     }
 
-    //Create and add paddle
+    //Create and add rackets
     private GRect createRectangle() {
-        paddle = new GRect(
+        rackets = new GRect(
                 getWidth() / 2 - MIDDLE_PADDLE_WIDTH,
                 getHeight() - PADDLE_HEIGHT - PADDLE_Y_OFFSET,
                 PADDLE_WIDTH,
                 PADDLE_HEIGHT
         );
-        paddle.setFilled(true);
-        paddle.setFillColor(Color.BLACK);
-        add(paddle);
-        return paddle;
+        rackets.setFilled(true);
+        rackets.setFillColor(Color.BLACK);
+        add(rackets);
+        return rackets;
     }
 
+    //This method generates a random number from [1-3].
     private void randomGenerator() {
         RandomGenerator randomGenerator = RandomGenerator.getInstance();
         vx = randomGenerator.nextDouble(1.0, 3.0);
