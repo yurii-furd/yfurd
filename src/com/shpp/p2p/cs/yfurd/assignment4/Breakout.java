@@ -51,7 +51,7 @@ public class Breakout extends WindowProgram {
     /**
      * Number of rows of bricks
      */
-    private static final int NBRICK_ROWS = 10;
+    private static final int NBRICK_ROWS = 10;////////////////////////////////////////////////////////
 
     /**
      * Separation between bricks
@@ -87,7 +87,7 @@ public class Breakout extends WindowProgram {
 
 
     //The amount of time to pause between frames (50fps)
-    public double PAUSE_TIME = 1000 / 150;
+    public double PAUSE_TIME = 1000/50;
 
     public static final Color ORANGE = new Color(255, 165, 0);
 
@@ -225,7 +225,7 @@ public class Breakout extends WindowProgram {
      * If the coordinate (x, y) is below the object, the function will return the graphic object that the ball collided with.
      * If there are no objects, the function will return ‘null’.
      *
-     * @param boll m.yach which appears in the program
+     * @param boll which appears in the program
      * @return the graphic object the bullet collided with
      */
     private GObject getCollidingObject(GOval boll) {
@@ -246,20 +246,67 @@ public class Breakout extends WindowProgram {
 
     //This method creates a matrix.
     private void createGridOfBricks() {
-        //NBRICK_ROWS
         int coordinateY = BRICK_Y_OFFSET;
-        coordinateY = createTwoRows(coordinateY, Color.RED);
-        coordinateY = createTwoRows(coordinateY, ORANGE);
-        coordinateY = createTwoRows(coordinateY, Color.YELLOW);
-        coordinateY = createTwoRows(coordinateY, Color.GREEN);
-        createTwoRows(coordinateY, Color.BLUE);
+
+        if (NBRICK_ROWS == 1) {
+            coordinateY = createRows(coordinateY, Color.RED);
+        }
+        if (NBRICK_ROWS == 2) {
+            coordinateY = createTwoRows(coordinateY, Color.RED);
+        }
+        if (NBRICK_ROWS == 3) {
+            coordinateY = createTwoRows(coordinateY, Color.RED);
+            coordinateY = createRows(coordinateY, Color.ORANGE);
+        }
+        if (NBRICK_ROWS == 4) {
+            coordinateY = createTwoRows(coordinateY, Color.RED);
+            coordinateY = createTwoRows(coordinateY, Color.ORANGE);
+        }
+        if (NBRICK_ROWS == 5) {
+            coordinateY = createTwoRows(coordinateY, Color.RED);
+            coordinateY = createTwoRows(coordinateY, Color.ORANGE);
+            coordinateY = createRows(coordinateY, Color.YELLOW);
+        }
+        if (NBRICK_ROWS == 6) {
+            coordinateY = createTwoRows(coordinateY, Color.RED);
+            coordinateY = createTwoRows(coordinateY, Color.ORANGE);
+            coordinateY = createTwoRows(coordinateY, Color.YELLOW);
+        }
+        if (NBRICK_ROWS == 7) {
+            coordinateY = createTwoRows(coordinateY, Color.RED);
+            coordinateY = createTwoRows(coordinateY, Color.ORANGE);
+            coordinateY = createTwoRows(coordinateY, Color.YELLOW);
+            coordinateY = createRows(coordinateY, Color.GREEN);
+        }
+        if (NBRICK_ROWS == 8) {
+            coordinateY = createTwoRows(coordinateY, Color.RED);
+            coordinateY = createTwoRows(coordinateY, Color.ORANGE);
+            coordinateY = createTwoRows(coordinateY, Color.YELLOW);
+            coordinateY = createTwoRows(coordinateY, Color.GREEN);
+        }
+        if (NBRICK_ROWS > 8) {
+            coordinateY = createTwoRows(coordinateY, Color.RED);
+            coordinateY = createTwoRows(coordinateY, Color.ORANGE);
+            coordinateY = createTwoRows(coordinateY, Color.YELLOW);
+            coordinateY = createTwoRows(coordinateY, Color.GREEN);
+            for (int i = 8; i < NBRICK_ROWS; i++) {
+                coordinateY = createRows(coordinateY, Color.blue);
+            }
+        }
     }
 
-    //This method creates two rows of the matrix.
     private int createTwoRows(int coordinateY, Color color) {
+        coordinateY = createRows(coordinateY, color);
+        coordinateY = createRows(coordinateY, color);
+        return coordinateY;
+    }
+
+
+    //This method creates two rows of the matrix.
+    private int createRows(int coordinateY, Color color) {
 
         //this loop is iterated on lines
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
             coordinateY += i * (BRICK_HEIGHT + BRICK_SEP);
             //this loop creates bricks in a row
             for (int j = 0; j < NBRICKS_PER_ROW; j++) {
