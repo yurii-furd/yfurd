@@ -10,8 +10,8 @@ import static java.lang.Thread.sleep;
 
 public class Assignment3Part6 extends WindowProgram {
 
-    public static final int APPLICATION_WIDTH = 700;
-    public static final int APPLICATION_HEIGHT = 740;
+    public static final int APPLICATION_WIDTH = 760;
+    public static final int APPLICATION_HEIGHT = 800;
 
     //The amount of time to pause between frames (50fps)
     public static final int PAUSE_TIME = 1000 / 50;
@@ -31,7 +31,7 @@ public class Assignment3Part6 extends WindowProgram {
 
 
     public void run() {
-        //This command to display the program window correctly.
+        //This command to display the program window correctly (Linux).
         try {
             sleep(500);
         } catch (InterruptedException e) {
@@ -46,26 +46,44 @@ public class Assignment3Part6 extends WindowProgram {
         //coordinates X and Y boll.
         int coordinateBollXAndY = DIAMETER_BOOL * 2;
 
+        //create hole
         createOval(coordinateHoleX, coordinateHoleY, DIAMETER_HOLE, Color.BLACK);
-
-        GOval oval = createOval(coordinateBollXAndY, coordinateBollXAndY, DIAMETER_BOOL, Color.WHITE);
-
-        createRectangle(coordinateHoleX + DIAMETER_HOLE, coordinateHoleY - HEIGHT_RECTANGLE, WIDTH_RECTANGLE, HEIGHT_RECTANGLE, BROWN);
-
+        //create boll
+        GOval boll = createOval(coordinateBollXAndY, coordinateBollXAndY, DIAMETER_BOOL, Color.WHITE);
+        //create flag
         createFlag(coordinateHoleX, coordinateHoleY);
+        //create animation
+        createAnimation(coordinateBollXAndY, boll);
+    }
 
-        while (coordinateBollXAndY++ <= coordinateHoleX / 2 + (DIAMETER_HOLE - DIAMETER_BOOL) / 4) {
-            oval.move(2.5, 2.5);
+    private void createAnimation(int coordinateBollXAndY, GOval boll) {
+        while (coordinateBollXAndY++ < 321) {
+            boll.move(2.5, 2.5);
             pause(PAUSE_TIME);
         }
     }
 
-    //This method creates a flag.
-    private void createFlag(int coordinateX, int coordinateY) {
+    /**
+     * This method creates a flag.
+     * @param coordinateHoleX using this coordinate, the coordinate of the beginning
+     *                       of the drawing of the flagpole is calculated
+     * @param coordinateHoleY using this coordinate, the coordinate of the beginning
+     *                        of the drawing of the flagpole is calculated
+     */
+    private void createFlag(int coordinateHoleX, int coordinateHoleY) {
+        // create a stick for the flag
+        createRectangle(
+                coordinateHoleX + DIAMETER_HOLE,
+                coordinateHoleY - HEIGHT_RECTANGLE,
+                WIDTH_RECTANGLE,
+                HEIGHT_RECTANGLE,
+                BROWN);
+
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                createRectangle(coordinateX + DIAMETER_HOLE - WIDTH_AND_HEIGHT_SQUARE_FLAG * 4 + i * WIDTH_AND_HEIGHT_SQUARE_FLAG,
-                        coordinateY - HEIGHT_RECTANGLE + j * WIDTH_AND_HEIGHT_SQUARE_FLAG,
+                createRectangle(
+                        coordinateHoleX + DIAMETER_HOLE - WIDTH_AND_HEIGHT_SQUARE_FLAG * 4 + i * WIDTH_AND_HEIGHT_SQUARE_FLAG,
+                        coordinateHoleY - HEIGHT_RECTANGLE + j * WIDTH_AND_HEIGHT_SQUARE_FLAG,
                         WIDTH_AND_HEIGHT_SQUARE_FLAG,
                         WIDTH_AND_HEIGHT_SQUARE_FLAG,
                         selectColor(i + j));
@@ -73,14 +91,15 @@ public class Assignment3Part6 extends WindowProgram {
         }
     }
 
-    //Depending on which number comes to the input of the method,
-    //The method returns either white or black
+    /*Depending on which number comes to the input of the method,
+    The method returns either white or black*/
     private Color selectColor(int i) {
+
         return i % 2 == 0 ? Color.WHITE : Color.BLACK;
     }
 
-    //this method takes coordinates, latitude, longitude, and color
-    //creates and adds rectangle
+    /*this method takes coordinates, latitude, longitude, and color
+    creates and adds rectangle*/
     private void createRectangle(int x, int y, int width, int height, Color color) {
         GRect rect = new GRect(x, y, width, height);
         rect.setFilled(true);
@@ -88,8 +107,8 @@ public class Assignment3Part6 extends WindowProgram {
         add(rect);
     }
 
-    //this method takes coordinates, diameter and color
-    //creates and adds a circle
+    /*this method takes coordinates, diameter and color
+    creates and adds a circle*/
     private GOval createOval(int x, int y, int diameter, Color color) {
         GOval oval = new GOval(x, y, diameter, diameter);
         oval.setFilled(true);

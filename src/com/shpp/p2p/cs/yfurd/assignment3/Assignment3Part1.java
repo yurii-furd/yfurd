@@ -19,6 +19,7 @@ public class Assignment3Part1 extends TextProgram {
     //How many minutes in a day.
     private static final int DAY_HAS_MINUTES = 24 * 60;
 
+    //these constants count the days of the minimum allowable exercise
     int calcAerobicDays;
     int calcLowBloodPressureDays;
 
@@ -35,7 +36,7 @@ public class Assignment3Part1 extends TextProgram {
         System.out.println("Cardio vascular health:");
         if (calcAerobicDays < AEROBIC_DAYS_REQUIRED) {
             System.out.println("You needed to train hard for at least " +
-                                (AEROBIC_DAYS_REQUIRED - calcAerobicDays) + " more day(s) a week!");
+                    (AEROBIC_DAYS_REQUIRED - calcAerobicDays) + " more day(s) a week!");
         } else {
             System.out.println("Great job! You've done enough exercise for cardio vascular health.");
         }
@@ -49,9 +50,12 @@ public class Assignment3Part1 extends TextProgram {
         }
     }
 
-    /** This method takes the input data and compares it to a constant time,
-      *  writing anything more than that time in two variables (calcAerobicDays, calcLowBloodPressureDays)
-      */
+    /**
+     * This method takes the input data and compares it to a constant time,
+     * writing anything more than that time in two variables (calcAerobicDays, calcLowBloodPressureDays)
+     *
+     * @param array it is an archive that contains data in minutes, every day of the week.
+     */
     private void calculateInputData(int[] array) {
         calcAerobicDays = 0;
         calcLowBloodPressureDays = 0;
@@ -71,11 +75,11 @@ public class Assignment3Part1 extends TextProgram {
         int[] array = new int[DAYS_IN_THE_WEEK];
 
         for (int i = 0; i < array.length; i++) {
-            print("How many minutes did you do on day" + (i + 1) + "?");
+            println("How many minutes did you do on day " + (i + 1) + "?");
             array[i] = readInt();
 
             while (array[i] < 0 || array[i] > DAY_HAS_MINUTES) {
-                print("Wrong answer. How many minutes did you do on day" + (i + 1) + "?");
+                print("Wrong answer. How many minutes did you do on day " + (i + 1) + "?");
                 array[i] = readInt();
             }
         }

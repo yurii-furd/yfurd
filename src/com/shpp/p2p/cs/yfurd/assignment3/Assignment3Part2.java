@@ -5,15 +5,21 @@ import com.shpp.cs.a.console.TextProgram;
 public class Assignment3Part2 extends TextProgram {
 
     public void run() {
+        readInputData();
+    }
 
-        println("Enter a number:");
+    //This method reads the input date.
+    private void readInputData() {
+
+        println("Enter a number: ");
         int inputNumber = readInt();
 
-        if (inputNumber < 1) {
-            System.out.println("Incorrect input");
-        } else {
-            calculate(inputNumber);
+        //here we check that the input data was not less than 1.
+        while (inputNumber < 1) {
+            System.out.println("Incorrect input. Enter a number: ");
+            inputNumber = readInt();
         }
+        calculate(inputNumber);
     }
 
     /**

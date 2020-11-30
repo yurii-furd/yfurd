@@ -15,20 +15,20 @@ public class Assignment3Part4 extends WindowProgram {
     public static final int APPLICATION_WIDTH = 2000;
     public static final int APPLICATION_HEIGHT = 900;
 
-    //The height of the brick.
+    //Width and height of the brick.
     public static final int BRICK_HEIGHT = 25;
-    //The width of the brick.
     public static final int BRICK_WIDTH = 100;
     //How many bricks in the base.
-    public static final int BRICKS_IN_BASE = 17;
+    public static final int BRICKS_IN_BASE = 5;
 
     public void run() {
-        //This command to display the program window correctly.
+        //This command to display the program window correctly(Linux).
         try {
             sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         buildsPyramid();
     }
 
@@ -40,8 +40,8 @@ public class Assignment3Part4 extends WindowProgram {
         //With each iteration of the cycle the line of the pyramid changes.
         for (int i = 0; i < BRICKS_IN_BASE; i++) {
 
-            //Coordinates X and Y of the beginning of each line of the pyramid
-            //The coordinates are changed by a cycle
+            /*Coordinates X and Y of the beginning of each line of the pyramid
+            The coordinates are changed by a cycle*/
             int coordinateOfTheFirstBrickX = ((getWidth() - BRICKS_IN_BASE * BRICK_WIDTH) / 2) + i * (BRICK_WIDTH / 2);
             int coordinateOfTheFirstBrickY = (getHeight() - BRICK_HEIGHT) - i * (BRICK_HEIGHT);
 
@@ -55,7 +55,11 @@ public class Assignment3Part4 extends WindowProgram {
         }
     }
 
-    //This method create rect.
+    /**
+     * This method create rect.
+     * @param x coordinate of x bricks
+     * @param y coordinate of x bricks
+     */
     private void createRect(int x, int y) {
         GRect gRect = new GRect(x, y, BRICK_WIDTH, BRICK_HEIGHT);
         gRect.setColor(Color.BLACK);
