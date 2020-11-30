@@ -88,7 +88,7 @@ public class Breakout extends WindowProgram {
     private static final int NTURNS = 3;
 
     // The amount of time to pause between frames (50fps)
-    private static final double PAUSE_TIME = 1000 / 50;
+    private static final int PAUSE_TIME = 1000 / 50;
 
     // Parameters that monitor for the speed of boll X and Y.
     private double vx = 0;
@@ -271,13 +271,13 @@ public class Breakout extends WindowProgram {
     //This method creates one rows of the matrix.
     private int createRows(int coordinateY, Color color, List<GRect> bricks) {
 
-            //this loop creates bricks in a row
-            for (int j = 0; j < NBRICKS_PER_ROW; j++) {
-                //here we find the first X coordinate
-                int firstCoordinateX = (getWidth() - (NBRICKS_PER_ROW * (BRICK_WIDTH + BRICK_SEP) - BRICK_SEP)) / 2;
-                //create a brick and add it to the collection.
-                bricks.add(createBrick(firstCoordinateX + j * (BRICK_WIDTH + BRICK_SEP), coordinateY, color));
-            }
+        //this loop creates bricks in a row
+        for (int j = 0; j < NBRICKS_PER_ROW; j++) {
+            //here we find the first X coordinate
+            int firstCoordinateX = (getWidth() - (NBRICKS_PER_ROW * (BRICK_WIDTH + BRICK_SEP) - BRICK_SEP)) / 2;
+            //create a brick and add it to the collection.
+            bricks.add(createBrick(firstCoordinateX + j * (BRICK_WIDTH + BRICK_SEP), coordinateY, color));
+        }
         return coordinateY + BRICK_HEIGHT + BRICK_SEP;
     }
 
