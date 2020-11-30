@@ -342,7 +342,7 @@ public class Breakout extends WindowProgram {
 
     //Create and add racket
     private GRect createRectangle() {
-        return createAndAddGRect(getWidth() / 2 - MIDDLE_PADDLE_WIDTH,
+        return createAndAddGRect(getWidth() / 2.0 - MIDDLE_PADDLE_WIDTH,
                 getHeight() - PADDLE_HEIGHT - PADDLE_Y_OFFSET,
                 PADDLE_WIDTH,
                 PADDLE_HEIGHT,
