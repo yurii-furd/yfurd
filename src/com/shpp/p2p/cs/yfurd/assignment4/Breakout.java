@@ -106,7 +106,7 @@ public class Breakout extends WindowProgram {
             e.printStackTrace();
         }
         // List with bricks
-        List<GRect> bricks = new ArrayList<>();
+//        List<GRect> bricks = new ArrayList<>();
 
         addMouseListeners();
         // create paddle
@@ -114,7 +114,7 @@ public class Breakout extends WindowProgram {
         // create boll
         GOval ball = createBoll();
         // create bricks
-        createGridOfBricks(bricks);
+        List<GRect>bricks = createGridOfBricks();
 
         startGames(ball, bricks);
     }
@@ -253,23 +253,28 @@ public class Breakout extends WindowProgram {
     }
 
     //This method creates a matrix.
-    private void createGridOfBricks(List<GRect> bricks) {
+    private List<GRect> createGridOfBricks() {
         int coordinateY = BRICK_Y_OFFSET;
+        List<GRect> bricks = new ArrayList<>();
 
         Color[] color = {Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.CYAN};
-
+        // This loop controls the printing of strings
         for (int i = 0; i < NBRICK_ROWS; i++) {
+            // This variable controls the color of the line print
             int colorIndex = i / 2;
-
+            // If x is larger than the color array, always print the color that is last in the array
             if (colorIndex >= color.length - 1) {
                 colorIndex = color.length - 1;
             }
-            coordinateY = createRows(coordinateY, color[colorIndex], bricks);
+            bricks.addAll(createRows(coordinateY, color[colorIndex]));
+            coordinateY = coordinateY + BRICK_HEIGHT + BRICK_SEP;
         }
+        return bricks;
     }
 
     //This method creates one rows of the matrix.
-    private int createRows(int coordinateY, Color color, List<GRect> bricks) {
+    private List<GRect> createRows(int coordinateY, Color color) {
+        List<GRect> bricks = new ArrayList<>();
 
         //this loop creates bricks in a row
         for (int j = 0; j < NBRICKS_PER_ROW; j++) {
@@ -278,7 +283,7 @@ public class Breakout extends WindowProgram {
             //create a brick and add it to the collection.
             bricks.add(createBrick(firstCoordinateX + j * (BRICK_WIDTH + BRICK_SEP), coordinateY, color));
         }
-        return coordinateY + BRICK_HEIGHT + BRICK_SEP;
+        return bricks;
     }
 
     //This method binds the mouse to the paddle, and does not allow the paddle to go outside the window
