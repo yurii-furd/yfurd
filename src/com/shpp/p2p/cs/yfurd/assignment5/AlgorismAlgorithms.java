@@ -33,17 +33,35 @@ public class AlgorismAlgorithms extends TextProgram {
         char[] nOne = n1.toCharArray();
         char[] nTwo = n2.toCharArray();
 
-        List<Integer> list = new ArrayList<>();
+        if (nOne.length > nTwo.length) {
+            sum = sum(nOne, nOne, nTwo, sum);
+        } else {
+            sum = sum(nTwo, nOne, nTwo, sum);
+        }
 
+        return revers(sum);
+    }
+
+    private String sum(char[] ch, char[] nOne, char[] nTwo, String sum) {
         int temp = 0;
 
-//        if (nOne.length > nTwo.length){
-//
-//        }
-        for (int i = 0; i < nOne.length; i++) {
+        for (int i = 0; i < ch.length; i++) {
 
-            int x = nOne[i] - '0';
-            int y = nTwo[i] - '0';
+            int x = 0;
+            int y = 0;
+
+            if (nOne[i] < nOne.length) {
+                x = 0;
+            } else {
+                x = nOne[i] - '0';
+            }
+
+            if (nTwo[i] < nTwo.length){
+                y = 0;
+            } else {
+                y = nTwo[i] - '0';
+            }
+
 
             if (x + y + temp >= 10) {
                 sum += x + y - 10 + temp;
@@ -52,12 +70,8 @@ public class AlgorismAlgorithms extends TextProgram {
                 sum += x + y + temp;
                 temp = 0;
             }
-
         }
-//        for (int i = 0; i < list.size(); i++) {
-//            sum += list.get(i);
-//        }
-        return revers(sum);
+        return sum;
     }
 
 
