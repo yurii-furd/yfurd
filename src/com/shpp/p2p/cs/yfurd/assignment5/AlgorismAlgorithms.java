@@ -35,28 +35,28 @@ public class AlgorismAlgorithms extends TextProgram {
 
         List<Integer> list = new ArrayList<>();
 
-        int a = 0;
+        int temp = 0;
+
+//        if (nOne.length > nTwo.length){
+//
+//        }
         for (int i = 0; i < nOne.length; i++) {
 
             int x = nOne[i] - '0';
-            System.out.println(x);
             int y = nTwo[i] - '0';
-            System.out.println(y);
 
-            int temp = list.get(i);
-            if (x + y + temp>= 10) {
-                list.add(x + y - 10);
-                a++;
-                list.set(i + 1, a);
-                a = 0;
+            if (x + y + temp >= 10) {
+                sum += x + y - 10 + temp;
+                temp = 1;
             } else {
-                list.add(x + y);
+                sum += x + y + temp;
+                temp = 0;
             }
 
         }
-        for (int i = 0; i < list.size(); i++) {
-            sum += list.get(i);
-        }
+//        for (int i = 0; i < list.size(); i++) {
+//            sum += list.get(i);
+//        }
         return revers(sum);
     }
 
