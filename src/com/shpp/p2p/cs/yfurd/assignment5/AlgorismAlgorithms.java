@@ -2,9 +2,6 @@ package com.shpp.p2p.cs.yfurd.assignment5;
 
 import com.shpp.cs.a.console.TextProgram;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AlgorismAlgorithms extends TextProgram {
 
     public void run() {
@@ -45,43 +42,46 @@ public class AlgorismAlgorithms extends TextProgram {
     private String sum(char[] ch, char[] nOne, char[] nTwo, String sum) {
         int temp = 0;
 
+        StringBuilder sumBuilder = new StringBuilder(sum);
         for (int i = 0; i < ch.length; i++) {
 
             int x = 0;
             int y = 0;
 
-            if (nOne[i] < nOne.length) {
-                x = 0;
-            } else {
+            if (i <= nOne.length) {
                 x = nOne[i] - '0';
             }
 
-            if (nTwo[i] < nTwo.length){
-                y = 0;
-            } else {
+            if (i <= nTwo.length) {
                 y = nTwo[i] - '0';
             }
 
 
             if (x + y + temp >= 10) {
-                sum += x + y - 10 + temp;
+                sumBuilder.append(x + y - 10 + temp);
                 temp = 1;
             } else {
-                sum += x + y + temp;
+                sumBuilder.append(x + y + temp);
                 temp = 0;
             }
         }
+
+        if (temp != 0) {
+            sumBuilder.append(temp);
+        }
+
+        sum = sumBuilder.toString();
         return sum;
     }
 
 
     private String revers(String s) {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         char[] ch = s.toCharArray();
 
         for (int i = ch.length; i > 0; i--) {
-            str += ch[i - 1];
+            str.append(ch[i - 1]);
         }
-        return str;
+        return str.toString();
     }
 }
