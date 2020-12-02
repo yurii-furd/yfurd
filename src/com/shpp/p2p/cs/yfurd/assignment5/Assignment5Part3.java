@@ -19,12 +19,8 @@ public class Assignment5Part3 extends TextProgram {
     private String checkInput(String s) {
         char[] ch = s.toCharArray();
 
-        if (ch.length == 3) {
-            return s;
-        } else {
-            while (ch.length != 3) {
-                readLine("Incorrect input. Enter three letters: ");
-            }
+        while (ch.length != 3) {
+            readLine("Incorrect input. Enter three letters: ");
         }
         return s;
     }
