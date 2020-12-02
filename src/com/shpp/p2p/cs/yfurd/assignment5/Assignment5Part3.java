@@ -11,12 +11,26 @@ public class Assignment5Part3 extends TextProgram {
     public void run() {
         while (true) {
             String s = readLine("Enter three letters: ");
+            s = checkInput(s);
             println(s + " -> " + findWord(s));
         }
     }
 
+    private String checkInput(String s) {
+        char[] ch = s.toCharArray();
+
+        if (ch.length == 3) {
+            return s;
+        } else {
+            while (ch.length != 3) {
+                readLine("Incorrect input. Enter three letters: ");
+            }
+        }
+        return s;
+    }
+
     private String findWord(String s) {
-        String path = "/home/yurii/Завантаження/en-dictionary (копія).txt";
+        String path = "/home/yurii/Завантаження/en-dictionary.txt";
 
         String word = null;
 
@@ -25,8 +39,9 @@ public class Assignment5Part3 extends TextProgram {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
 
             while (true) {
-                String str = bufferedReader.readLine();
-                if (str == null){
+                String str;
+                str = bufferedReader.readLine();
+                if (str == null) {
                     break;
                 }
                 char[] ofStr = str.toCharArray();
@@ -46,16 +61,15 @@ public class Assignment5Part3 extends TextProgram {
                     }
                 }
                 if (a == 3) {
-                    word = str + " ";
+                    word += str + " ";
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        if (word == null){
+        if (word == null) {
             word = "there are no results";
         }
-        return word.toString();
+        return word;
     }
 }
