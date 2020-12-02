@@ -19,8 +19,11 @@ public class Assignment5Part3 extends TextProgram {
     private String checkInput(String s) {
         char[] ch = s.toCharArray();
 
-        while (ch.length != 3) {
-            readLine("Incorrect input. Enter three letters: ");
+        if (ch.length == 3) {
+            return s;
+        } else {
+            System.out.println("Incorrect input");
+            run();
         }
         return s;
     }
@@ -44,15 +47,15 @@ public class Assignment5Part3 extends TextProgram {
 
                 int a = 0;
 
-                for (int i = 0; i < ofStr.length; i++) {
+                for (char c : ofStr) {
 
-                    if (ofStr[i] == letters[2] && a == 2) {
+                    if (c == letters[2] && a == 2) {
                         a = 3;
                     }
-                    if (ofStr[i] == letters[1] && a == 1) {
+                    if (c == letters[1] && a == 1) {
                         a = 2;
                     }
-                    if (ofStr[i] == letters[0] && a == 0) {
+                    if (c == letters[0] && a == 0) {
                         a = 1;
                     }
                 }
