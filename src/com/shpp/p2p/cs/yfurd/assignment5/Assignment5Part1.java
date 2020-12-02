@@ -2,7 +2,7 @@ package com.shpp.p2p.cs.yfurd.assignment5;
 
 import com.shpp.cs.a.console.TextProgram;
 
-public class SyllableCounting extends TextProgram {
+public class Assignment5Part1 extends TextProgram {
     public void run() {
         /* Repeatedly prompt the user for a word and print out the estimated
          * number of syllables in that word.
@@ -24,15 +24,17 @@ public class SyllableCounting extends TextProgram {
         word = word.toLowerCase();
         char[] str = word.toCharArray();
         // array chars with vowels.
-        char[] letter = {'a', 'i', 'o', 'u', 'y', 'e'};
+        char[] vowels = {'a', 'i', 'o', 'u', 'y', 'e'};
         int sum = 0;
 
         for (int i = 0; i < str.length; i++) {
             if (str[i] == 'a' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u' || str[i] == 'y' || str[i] == 'e') {
 
-                for (int j = 0; j < letter.length; j++) {
+                for (int j = 0; j < vowels.length; j++) {
+
                     if (str[i] != str[str.length - 1]) {
-                        if (str[i + 1] == letter[j]) {
+
+                        if (str[i + 1] == vowels[j]) {
                             sum--;
                         }
                     }

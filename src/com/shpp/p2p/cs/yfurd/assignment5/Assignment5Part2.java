@@ -2,7 +2,7 @@ package com.shpp.p2p.cs.yfurd.assignment5;
 
 import com.shpp.cs.a.console.TextProgram;
 
-public class AlgorismAlgorithms extends TextProgram {
+public class Assignment5Part2 extends TextProgram {
 
     public void run() {
         /* Sit in a loop, reading numbers and adding them. */
