@@ -26,30 +26,55 @@ public class Assignment5Part1 extends TextProgram {
         // array chars with vowels.
         char[] vowels = {'a', 'i', 'o', 'u', 'y', 'e'};
         int sum = 0;
+        boolean isE = false;
 
         for (int i = 0; i < str.length; i++) {
-            if (str[i] == 'a' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u' || str[i] == 'y' || str[i] == 'e') {
+            for (int j = 0; j < vowels.length; j++) {
+                if (str[i] == vowels[j]) {
 
-                for (int j = 0; j < vowels.length; j++) {
+                    if (i == str.length - 1 && str[i] == 'e' && i != 0) {
+                        for (int k = 0; k < vowels.length; k++) {
+                            if (str[i - 1] == vowels[k]) {
+                                isE = false;
+                            } else {
+                                isE = true;
+                            }
+                        }
+                    }
 
-                    if (str[i] != str[str.length - 1]) {
-
-                        if (str[i + 1] == vowels[j]) {
+                    sum++;
+                    for (int k = 0; k < vowels.length; k++) {
+                        if (i + 1 < str.length && str[i + 1] == vowels[k]) {
                             sum--;
                         }
                     }
                 }
-                sum++;
             }
         }
-        if (str[str.length - 1] == 'e') {
+        if (isE) {
             sum--;
+            isE = false;
         }
 
-        if (sum < 1){
+        if (sum < 1) {
             return 1;
         }
+
         return sum;
     }
 }
 
+/*  !Words to check!
+
+    Unity: 3 syllables
+    Unite: 2 syllables
+    Growth: 1 syllable
+    Possibilities: 5 syllables
+    Nimble: 1 syllable (насправді 2, але наш спрощений алгоритм повинен видати 1)
+    Me: 1 syllable
+    Beautiful: 3 syllables
+    Manatee: 3 syllables
+    quokka — 2 склади,
+    springbok - 2 склади
+    syllable - 2 склади
+*/
