@@ -29,22 +29,25 @@ public class Assignment5Part1 extends TextProgram {
         boolean isE = false;
 
         for (int i = 0; i < str.length; i++) {
-            for (int j = 0; j < vowels.length; j++) {
-                if (str[i] == vowels[j]) {
+            for (char vowel : vowels) {
+                if (str[i] == vowel) {
 
                     if (i == str.length - 1 && str[i] == 'e' && i != 0) {
-                        for (int k = 0; k < vowels.length; k++) {
-                            if (str[i - 1] == vowels[k]) {
-                                isE = false;
-                            } else {
-                                isE = true;
-                            }
+                        if (    str[i - 1] != 'a' ||
+                                str[i - 1] != 'i' ||
+                                str[i - 1] != 'o' ||
+                                str[i - 1] != 'u' ||
+                                str[i - 1] != 'y' ||
+                                str[i - 1] != 'e'
+                        ) {
+                            isE = true;
+
                         }
                     }
 
                     sum++;
-                    for (int k = 0; k < vowels.length; k++) {
-                        if (i + 1 < str.length && str[i + 1] == vowels[k]) {
+                    for (char c : vowels) {
+                        if (i + 1 < str.length && str[i + 1] == c) {
                             sum--;
                         }
                     }
