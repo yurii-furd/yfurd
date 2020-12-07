@@ -15,8 +15,7 @@ public class Assignment5Part2 extends TextProgram {
     }
 
     /**
-     * Given two string representations of nonnegative integers, adds the
-     * numbers represented by those strings and returns the result.
+     * This method takes two strings turns them into an array char
      *
      * @param n1 The first number.
      * @param n2 The second number.
@@ -24,64 +23,56 @@ public class Assignment5Part2 extends TextProgram {
      */
     private String addNumericStrings(String n1, String n2) {
 
-        String sum = "";
-        n1 = revers(n1);
-        n2 = revers(n2);
-        char[] nOne = n1.toCharArray();
-        char[] nTwo = n2.toCharArray();
+        char[] nOne = revers(n1).toCharArray();
+        char[] nTwo = revers(n2).toCharArray();
 
-        if (nOne.length > nTwo.length) {
-            sum = sum(nOne, nOne, nTwo, sum);
-        } else {
-            sum = sum(nTwo, nOne, nTwo, sum);
-        }
+        int maxLength = Math.max(nOne.length, nTwo.length);
 
-        return revers(sum);
+        return sum(maxLength, nOne, nTwo);
     }
 
-    private String sum(char[] ch, char[] nOne, char[] nTwo, String sum) {
+    /**
+     * Given two string representations of nonnegative integers, adds the
+     * numbers represented by those strings and returns the result.
+     *
+     * @param maxLength takes the maximum length of the array
+     * @param nOne the first array char created from the string
+     * @param nTwo the second array char created from the string
+     * @return a String representation of n1 + n2
+     */
+    private String sum(int maxLength, char[] nOne, char[] nTwo) {
         int temp = 0;
-
-        StringBuilder sumBuilder = new StringBuilder(sum);
-        for (int i = 0; i < ch.length; i++) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < maxLength; i++) {
 
             int x = 0;
             int y = 0;
 
-            if (i <= nOne.length) {
+            if (i < nOne.length) {
                 x = nOne[i] - '0';
             }
-
-            if (i <= nTwo.length) {
+            if (i < nTwo.length) {
                 y = nTwo[i] - '0';
             }
 
-
-            if (x + y + temp >= 10) {
-                sumBuilder.append(x + y - 10 + temp);
-                temp = 1;
-            } else {
-                sumBuilder.append(x + y + temp);
-                temp = 0;
-            }
+            int sumNumbers = x + y + temp;
+            result.append(sumNumbers % 10);
+            temp = sumNumbers / 10;
         }
 
         if (temp != 0) {
-            sumBuilder.append(temp);
+            result.append(temp);
         }
-
-        sum = sumBuilder.toString();
-        return sum;
+        return result.reverse().toString();
     }
 
-
-    private String revers(String s) {
-        StringBuilder str = new StringBuilder();
-        char[] ch = s.toCharArray();
-
-        for (int i = ch.length; i > 0; i--) {
-            str.append(ch[i - 1]);
-        }
-        return str.toString();
+    /**
+     * Takes the term and reverses it.
+     *
+     * @param word accepts the term.
+     * @return returns the reverse term.
+     */
+    private String revers(String word) {
+        return new StringBuilder(word).reverse().toString();
     }
 }
