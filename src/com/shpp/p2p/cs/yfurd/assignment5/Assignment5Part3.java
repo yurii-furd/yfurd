@@ -14,12 +14,13 @@ public class Assignment5Part3 extends TextProgram {
     private static final String PATH = "/home/yurii/Завантаження/en-dictionary.txt";
 
     public void run() {
+        List<String> words = readWordsFromFile();
         while (true) {
             String inputLetters = readLine("Enter three letters: ");
             if (inputLetters.length() != 3) {
                 println("Incorrect input");
             } else {
-                List<String> list = findWord(inputLetters);
+                List<String> list = findWord(inputLetters, words);
                 println(list.isEmpty() ? "No words found!" : inputLetters + " -> " + list);
             }
         }
@@ -32,30 +33,29 @@ public class Assignment5Part3 extends TextProgram {
      * @param inputLetters a string of three letters entered by the user.
      * @return a list of words that can be composed of these letters.
      */
-    private List<String> findWord(String inputLetters) {
+    private List<String> findWord(String inputLetters, List<String> listWithAllWord) {
 
-        List<String> listWithAllWord = readingInformation();
         List<String> wordsThatMatched = new ArrayList<>();
 
         char[] arrayWordSymbols = inputLetters.toLowerCase().toCharArray();
         int coincidence = 0;
 
         // Run through the list of words
-        for (int i = 0; i < listWithAllWord.size(); i++) {
-            String line = listWithAllWord.get(i);
-
+        for (String word : listWithAllWord) {
             //Run through each character of the word
-            for (int j = 0; j < line.length(); j++) {
+            for (int j = 0; j < word.length(); j++) {
 
                 /* Until the match is equal to the sum of the input letters
                 and the letter from the line of the file is equal to the letter entered by the user */
-                if (coincidence != arrayWordSymbols.length && line.charAt(j) == arrayWordSymbols[coincidence]) {
+                if (word.charAt(j) == arrayWordSymbols[coincidence]) {
                     coincidence++;
 
                     /* If the matches are equal to the sum of the input letters entered by the user,
                      add the word to the list*/
                     if (coincidence == arrayWordSymbols.length) {
-                        wordsThatMatched.add(line);
+                        wordsThatMatched.add(word);
+                        // stop processing of the current word
+                        break;
                     }
                 }
             }
@@ -68,7 +68,7 @@ public class Assignment5Part3 extends TextProgram {
      * This method reads information from the file line by line and adds it to the letter.
      * @return  a list of lines read from the file.
      */
-    private List<String> readingInformation() {
+    private List<String> readWordsFromFile() {
 
         List<String> listWithWord = new ArrayList<>();
 
