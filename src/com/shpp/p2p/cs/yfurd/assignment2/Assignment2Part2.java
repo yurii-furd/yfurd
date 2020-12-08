@@ -10,8 +10,8 @@ import static java.lang.Thread.sleep;
 
 public class Assignment2Part2 extends WindowProgram {
 
-    public static final int APPLICATION_WIDTH = 600;
-    public static final int APPLICATION_HEIGHT = 600;
+    public static final int APPLICATION_WIDTH = 800;
+    public static final int APPLICATION_HEIGHT = 1600;
     private static final double DIAMETER = 200;
 
     public void run() {
@@ -20,6 +20,7 @@ public class Assignment2Part2 extends WindowProgram {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
 
         createOval(getWidth() - DIAMETER, getHeight() - DIAMETER);
         createOval(getWidth() - DIAMETER, 0);

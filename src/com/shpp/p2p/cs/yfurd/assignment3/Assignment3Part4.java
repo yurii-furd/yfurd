@@ -19,7 +19,7 @@ public class Assignment3Part4 extends WindowProgram {
     public static final int BRICK_HEIGHT = 25;
     public static final int BRICK_WIDTH = 100;
     //How many bricks in the base.
-    public static final int BRICKS_IN_BASE = 5;
+    public static final int BRICKS_IN_BASE = 9;
 
     public void run() {
         //This command to display the program window correctly(Linux).

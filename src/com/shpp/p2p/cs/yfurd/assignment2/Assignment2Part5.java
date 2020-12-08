@@ -9,9 +9,12 @@ import static java.lang.Thread.sleep;
 
 public class Assignment2Part5 extends WindowProgram {
 
+    public static final int APPLICATION_WIDTH = 800;
+    public static final int APPLICATION_HEIGHT = 800;
+
     /* The number of rows and columns in the grid, respectively. */
-    private static final int NUM_ROWS = 1;
-    private static final int NUM_COLS = 1;
+    private static final int NUM_ROWS = 3;
+    private static final int NUM_COLS = 10;
 
     /* The width and height of each box. */
     private static final double BOX_SIZE = 40;

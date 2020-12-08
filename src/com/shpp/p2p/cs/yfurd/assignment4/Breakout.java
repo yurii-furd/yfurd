@@ -94,7 +94,7 @@ public class Breakout extends WindowProgram {
     private double vx = 0;
     private double vy = 3.0;
 
-    private GRect racket = null;
+    private GRect racket;
     //this variable decrements after the cell has fallen outside the window
     private int attemptsLeft = NTURNS;
 
@@ -105,8 +105,6 @@ public class Breakout extends WindowProgram {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        // List with bricks
-//        List<GRect> bricks = new ArrayList<>();
 
         addMouseListeners();
         // create paddle
@@ -114,7 +112,7 @@ public class Breakout extends WindowProgram {
         // create boll
         GOval ball = createBoll();
         // create bricks
-        List<GRect>bricks = createGridOfBricks();
+        List<GRect> bricks = createGridOfBricks();
 
         startGames(ball, bricks);
     }
@@ -130,35 +128,35 @@ public class Breakout extends WindowProgram {
     }
 
     // This method creates an animation.
-    private void createAnimation(GOval boll, List<GRect> bricks) {
+    private void createAnimation(GOval ball, List<GRect> bricks) {
         //this variable counts the bricks that knocked down...
         int calcDeleteBricks = 0;
 
         while (true) {
-            boll.move(vx, vy);
+            ball.move(vx, vy);
 
-            processCollidingWithWalls(boll);
-            GObject collider = getCollidingObjectRacket(boll);
+            processCollidingWithWalls(ball);
+            GObject collider = getCollidingObjectRacket(ball);
             processCollidingWithBricks(collider, bricks, calcDeleteBricks);
 
             // If there are no bricks left, the player wins and the game is over.
             if (bricks.isEmpty()) {
                 createLabel("Game over, congratulations you won the game");
-                remove(boll);
+                remove(ball);
                 break;
             }
 
             //if the ball flew outside the program
-            if (boll.getY() > getHeight()) {
+            if (ball.getY() > getHeight()) {
                 attemptsLeft--;
 
                 //if there are still free attempts, then create a new ball and restart the animation
                 if (attemptsLeft > 0) {
-                    remove(boll);
-                    boll = createBoll();
-                    startGames(boll, bricks);
+                    remove(ball);
+                    ball = createBoll();
+                    startGames(ball, bricks);
                 } else {// If there are no free attempts, it is time to remove the ball and finish the game
-                    remove(boll);
+                    remove(ball);
                     createLabel("Game over, unfortunately you lost, try again");
                     break;
                 }
@@ -183,7 +181,6 @@ public class Breakout extends WindowProgram {
                 vy *= -1.01;
             }
         }
-
     }
 
     /* If the cell is lower than the racket, then getCollidingObject () will always be null,
@@ -219,7 +216,7 @@ public class Breakout extends WindowProgram {
         }
 
         //If the ball reaches the right wall, then we direct it to another
-        if (boll.getX() + BALL_RADIUS * 2 > getWidth()) {
+        if (boll.getX() + BALL_DIAMETER > getWidth()) {
             vx *= -1;
         }
 
