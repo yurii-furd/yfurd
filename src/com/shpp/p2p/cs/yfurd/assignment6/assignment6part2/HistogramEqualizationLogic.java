@@ -36,7 +36,6 @@ public class HistogramEqualizationLogic {
             histogram[i] = sum;
             sum = 0;
         }
-        System.out.println(histogram.length);
         return histogram;
     }
 
@@ -53,15 +52,9 @@ public class HistogramEqualizationLogic {
     public static int[] cumulativeSumFor(int[] histogram) {
         int[] totalHistogram = new int[histogram.length];
 
-        histogram[0] = totalHistogram[0];
+        totalHistogram[0] = histogram[0];
         for (int i = 1; i < histogram.length; i++) {
-//            if (histogram[i] + histogram[i - 1] <= histogram[histogram.length-1]) {
-//                totalHistogram[i] = histogram[i] + totalHistogram[i];
-                totalHistogram[i] = histogram[i] + histogram[i - 1];
-                histogram[i] += histogram[i - 1];
-//            } else {
-//                totalHistogram[i] = histogram[i];
-//            }
+            totalHistogram[i] = histogram[i] + totalHistogram[i - 1];
         }
         return totalHistogram;
     }
@@ -93,7 +86,20 @@ public class HistogramEqualizationLogic {
      * @return The luminances of the image formed by applying histogram equalization.
      */
     public static int[][] equalize(int[][] luminances) {
-        /* TODO: Implement this method! */
-        return null;
+        //fractionSmaller = cumulativeHistogram[L] / totalPixels
+        //newLuminance = MAX_LUMINANCE * fractionSmaller = MAX_LUMINANCE * cumulativeHistogram[L] / totalPixels
+
+        int[] cumulativeHistogram = cumulativeSumFor(histogramFor(luminances));
+
+        double[] fractionSmaller = new double[luminances.length];
+        int totalPixels = totalPixelsIn(luminances);
+
+        int[][] newLuminance = new int[luminances.length][luminances.length];
+
+        for (int i = 0; i < luminances.length; i++) {
+            fractionSmaller[i] = cumulativeHistogram[i] / (totalPixels * 1.0);
+            newLuminance[i][0] = (int) (MAX_LUMINANCE * fractionSmaller[i]);
+        }
+        return newLuminance;
     }
 }
