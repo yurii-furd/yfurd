@@ -36,14 +36,14 @@ public class Assignment5Part1 extends TextProgram {
             if (vowels.contains(wordCharArray[i])) {
 
                 /*1. if both the element is less than the length of the array and the element i + 1
-                *    does not contain an element from the letter of vowels.
-                * 2. if the last element contains a letter element of vowels and is not equal to the letter e.
-                * 3. if before the last element is equal to a vowel, and the last is equal to the letter e.
-                * then increase the amount by 1
-                */
+                 *    does not contain an element from the letter of vowels.
+                 * 2. if the last element contains a letter element of vowels and is not equal to the letter e.
+                 * 3. if before the last element is equal to a vowel, and the last is equal to the letter e.
+                 * then increase the amount by 1
+                 */
                 if (i < wordCharArray.length - 1 && !vowels.contains(wordCharArray[i + 1])
                         || i == wordCharArray.length - 1 && vowels.contains(wordCharArray[i]) && wordCharArray[i] != 'e'
-                        || i == wordCharArray.length - 1  && vowels.contains(wordCharArray[i - 1]) && wordCharArray[i] == 'e') {
+                        || i == wordCharArray.length - 1 && vowels.contains(wordCharArray[i - 1]) && wordCharArray[i] == 'e') {
                     sum++;
                 }
             }

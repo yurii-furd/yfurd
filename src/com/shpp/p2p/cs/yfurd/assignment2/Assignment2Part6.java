@@ -40,6 +40,7 @@ public class Assignment2Part6 extends WindowProgram {
 
     //depending on the value of "i" in the cycle, this method returns the value of the first or second line.
     private double selectY(int i) {
+
         return i % 2 == 0 ? Y_FIRST : Y_SECOND;
     }
 
