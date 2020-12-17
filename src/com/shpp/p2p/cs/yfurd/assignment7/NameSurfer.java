@@ -7,25 +7,29 @@ package com.shpp.p2p.cs.yfurd.assignment7;
  * the baby-name database described in the assignment handout.
  */
 
-import acm.program.*;
 import com.shpp.cs.a.simple.SimpleProgram;
 
-import java.awt.event.*;
 import javax.swing.*;
+import java.awt.event.*;
 
 public class NameSurfer extends SimpleProgram implements NameSurferConstants {
 
-	/* Method: init() */
+    private JTextField jTextField = new JTextField(20);
+    private JButton graph = new JButton("Graph");
+    private JButton clear = new JButton("Clear");
 
     /**
      * This method has the responsibility for reading in the data base
      * and initializing the interactors at the top of the window.
      */
     public void init() {
-        // You fill this in, along with any helper methods //
+        add(new JLabel("Name:"), NORTH);
+        add(jTextField, NORTH);
+        add(graph, NORTH);
+        add(clear, NORTH);
+        jTextField.addActionListener(this);
+        addActionListeners();
     }
-
-	/* Method: actionPerformed(e) */
 
     /**
      * This class is responsible for detecting when the buttons are
@@ -33,6 +37,13 @@ public class NameSurfer extends SimpleProgram implements NameSurferConstants {
      * button actions.
      */
     public void actionPerformed(ActionEvent e) {
-        // You fill this in //
+        if (e.getSource().equals(graph) && jTextField.getText().length() > 0
+                || e.getSource().equals(jTextField) && jTextField.getText().length() > 0) {
+
+            System.out.println(jTextField.getText());
+        }
+        if (e.getSource().equals(clear)) {
+            System.out.println("clear");
+        }
     }
 }

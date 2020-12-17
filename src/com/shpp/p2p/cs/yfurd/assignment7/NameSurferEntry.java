@@ -11,8 +11,8 @@ package com.shpp.p2p.cs.yfurd.assignment7;
 import java.util.*;
 
 public class NameSurferEntry implements NameSurferConstants {
-
-	/* Constructor: NameSurferEntry(line) */
+    private String name;
+    private List<Integer> ranks = new ArrayList<>();
 
     /**
      * Creates a new NameSurferEntry from a data line as it appears
@@ -21,20 +21,26 @@ public class NameSurferEntry implements NameSurferConstants {
      * decade.
      */
     public NameSurferEntry(String line) {
-        // You fill this in //
+        String[] result = line.split(" ");
+        for (int x = 0; x < result.length; x++) {
+            if (x != 0) {
+                ranks.add(Integer.parseInt(result[x]));
+            } else {
+                name = result[x];
+            }
+        }
     }
 
-	/* Method: getName() */
+    /* Method: getName() */
 
     /**
      * Returns the name associated with this entry.
      */
     public String getName() {
-        // You need to turn this stub into a real implementation //
-        return null;
+        return name;
     }
 
-	/* Method: getRank(decade) */
+    /* Method: getRank(decade) */
 
     /**
      * Returns the rank associated with an entry for a particular
@@ -44,19 +50,26 @@ public class NameSurferEntry implements NameSurferConstants {
      * not appear in a decade, the rank value is 0.
      */
     public int getRank(int decade) {
-        // You need to turn this stub into a real implementation //
-        return 0;
+        return ranks.get(decade - 1);
     }
 
-	/* Method: toString() */
+    /* Method: toString() */
 
     /**
      * Returns a string that makes it easy to see the value of a
      * NameSurferEntry.
      */
     public String toString() {
-        // You need to turn this stub into a real implementation //
-        return "";
+        return name + " " + ranks;
     }
+
+//    public static void main(String[] args) {
+//        String s = "Sam 58 69 99 131 168 236 278 380 467 408 466 997";
+//        NameSurferEntry nameSurferEntry = new NameSurferEntry(s);
+//        System.out.println(nameSurferEntry.getName());
+//        System.out.println(nameSurferEntry.toString());
+//        System.out.println(nameSurferEntry.getRank(5));
+//
+//    }
 }
 
