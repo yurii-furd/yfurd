@@ -31,16 +31,12 @@ public class NameSurferEntry implements NameSurferConstants {
         }
     }
 
-    /* Method: getName() */
-
     /**
      * Returns the name associated with this entry.
      */
     public String getName() {
         return name;
     }
-
-    /* Method: getRank(decade) */
 
     /**
      * Returns the rank associated with an entry for a particular
@@ -52,8 +48,6 @@ public class NameSurferEntry implements NameSurferConstants {
     public int getRank(int decade) {
         return ranks.get(decade - 1);
     }
-
-    /* Method: toString() */
 
     /**
      * Returns a string that makes it easy to see the value of a
