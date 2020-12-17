@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd.assignment6.assignment6part2.teest.gui;
+package com.shpp.p2p.cs.yfurd.assignment6.part2.teest.gui;
 
 import acm.gui.TablePanel;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
-import com.shpp.p2p.cs.yfurd.assignment6.assignment6part2.teest.*;
+import com.shpp.p2p.cs.yfurd.assignment6.part2.teest.*;
 
 public class TeestPanel extends TablePanel {
     private final TeestSuite testSuite;

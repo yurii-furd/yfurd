@@ -1,7 +1,6 @@
-package com.shpp.p2p.cs.yfurd.assignment6.assignment6part2;
+package com.shpp.p2p.cs.yfurd.assignment6.part2;
 
 import acm.graphics.GImage;
-import acm.program.GraphicsProgram;
 import acm.util.ErrorException;
 import com.shpp.cs.a.graphics.WindowProgram;
 

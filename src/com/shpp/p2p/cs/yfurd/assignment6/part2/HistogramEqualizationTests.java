@@ -1,8 +1,7 @@
-package com.shpp.p2p.cs.yfurd.assignment6.assignment6part2;
+package com.shpp.p2p.cs.yfurd.assignment6.part2;
 
-import acm.program.Program;
 import com.shpp.cs.a.simple.SimpleProgram;
-import com.shpp.p2p.cs.yfurd.assignment6.assignment6part2.teest.*;
+import com.shpp.p2p.cs.yfurd.assignment6.part2.teest.*;
 
 public class HistogramEqualizationTests extends SimpleProgram {
     public void init() {

@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd.assignment6.assignment6part3;
+package com.shpp.p2p.cs.yfurd.assignment6.part3;
 
 /**
  * This class contains methods that produce constants you might find useful when

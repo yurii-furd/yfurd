@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd.assignment6.assignment6part2.teest;
+package com.shpp.p2p.cs.yfurd.assignment6.part2.teest;
 
 import acm.gui.TablePanel;
 
@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.shpp.p2p.cs.yfurd.assignment6.assignment6part2.teest.gui.TeestPanel;
+import com.shpp.p2p.cs.yfurd.assignment6.part2.teest.gui.TeestPanel;
 
 public class TeestRunnerPanel extends TablePanel {
     private final List tests;

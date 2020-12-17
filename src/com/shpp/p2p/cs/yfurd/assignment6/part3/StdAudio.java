@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd.assignment6.assignment6part3;
+package com.shpp.p2p.cs.yfurd.assignment6.part3;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;

@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd.assignment6.assignment6part2.teest.gui;
+package com.shpp.p2p.cs.yfurd.assignment6.part2.teest.gui;
 
 import acm.graphics.GCanvas;
 import acm.graphics.GLabel;
@@ -15,7 +15,7 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.shpp.p2p.cs.yfurd.assignment6.assignment6part2.teest.*;
+import com.shpp.p2p.cs.yfurd.assignment6.part2.teest.*;
 
 public class ResultBox extends GCanvas implements MouseListener, ComponentListener {
     private static final int SIZE = 50;

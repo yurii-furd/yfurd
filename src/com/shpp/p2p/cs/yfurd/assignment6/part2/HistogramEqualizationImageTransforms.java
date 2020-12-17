@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd.assignment6.assignment6part2;
+package com.shpp.p2p.cs.yfurd.assignment6.part2;
 
 import acm.graphics.GImage;
 

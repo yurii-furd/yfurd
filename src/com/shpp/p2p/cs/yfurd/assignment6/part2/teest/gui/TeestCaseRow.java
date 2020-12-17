@@ -1,11 +1,11 @@
-package com.shpp.p2p.cs.yfurd.assignment6.assignment6part2.teest.gui;
+package com.shpp.p2p.cs.yfurd.assignment6.part2.teest.gui;
 
 import acm.gui.TablePanel;
 
 import java.awt.Dimension;
 import javax.swing.JTextArea;
 
-import com.shpp.p2p.cs.yfurd.assignment6.assignment6part2.teest.*;
+import com.shpp.p2p.cs.yfurd.assignment6.part2.teest.*;
 
 public class TeestCaseRow extends TablePanel {
     private ResultBox resultBox = new ResultBox();

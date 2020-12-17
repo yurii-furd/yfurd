@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.yfurd.assignment6.assignment6part1;
+package com.shpp.p2p.cs.yfurd.assignment6.part1;
 
 import acm.graphics.*;
 
