@@ -11,9 +11,14 @@ package com.shpp.p2p.cs.yfurd.assignment7;
  * and "ERIC" are the same names.
  */
 
-public class NameSurferDataBase implements NameSurferConstants {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-	/* Constructor: NameSurferDataBase(filename) */
+public class NameSurferDataBase implements NameSurferConstants {
+    private final Map<String, NameSurferEntry> dataBase = new HashMap<>();
 
     /**
      * Creates a new NameSurferDataBase and initializes it using the
@@ -22,10 +27,16 @@ public class NameSurferDataBase implements NameSurferConstants {
      * occurs as the file is being read.
      */
     public NameSurferDataBase(String filename) {
-        // You fill this in //
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                NameSurferEntry entry = new NameSurferEntry(line);
+                dataBase.put(entry.getName().toLowerCase(), entry);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-	
-	/* Method: findEntry(name) */
 
     /**
      * Returns the NameSurferEntry associated with this name, if one
@@ -33,7 +44,9 @@ public class NameSurferDataBase implements NameSurferConstants {
      * method returns null.
      */
     public NameSurferEntry findEntry(String name) {
-        // You need to turn this stub into a real implementation //
+        if (dataBase.containsKey(name.toLowerCase())){
+            return dataBase.get(name.toLowerCase());
+        }
         return null;
     }
 }

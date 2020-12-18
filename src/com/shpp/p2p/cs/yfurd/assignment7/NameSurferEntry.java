@@ -22,11 +22,11 @@ public class NameSurferEntry implements NameSurferConstants {
      */
     public NameSurferEntry(String line) {
         String[] result = line.split(" ");
-        for (int x = 0; x < result.length; x++) {
-            if (x != 0) {
-                ranks.add(Integer.parseInt(result[x]));
+        for (int i = 0; i < result.length; i++) {
+            if (i != 0) {
+                ranks.add(Integer.parseInt(result[i]));
             } else {
-                name = result[x];
+                name = result[i];
             }
         }
     }
@@ -56,14 +56,5 @@ public class NameSurferEntry implements NameSurferConstants {
     public String toString() {
         return name + " " + ranks;
     }
-
-//    public static void main(String[] args) {
-//        String s = "Sam 58 69 99 131 168 236 278 380 467 408 466 997";
-//        NameSurferEntry nameSurferEntry = new NameSurferEntry(s);
-//        System.out.println(nameSurferEntry.getName());
-//        System.out.println(nameSurferEntry.toString());
-//        System.out.println(nameSurferEntry.getRank(5));
-//
-//    }
 }
 
