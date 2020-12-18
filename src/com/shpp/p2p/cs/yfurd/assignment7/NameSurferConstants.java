@@ -31,6 +31,11 @@ public interface NameSurferConstants {
     public static final int START_DECADE = 1900;
 
     /**
+     * Number of years in one decade
+     */
+    public static final int DECADE = 10;
+
+    /**
      * The number of decades
      */
     public static final int NDECADES = 12;
