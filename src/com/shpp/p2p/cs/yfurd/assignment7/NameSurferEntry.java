@@ -22,12 +22,9 @@ public class NameSurferEntry implements NameSurferConstants {
      */
     public NameSurferEntry(String line) {
         String[] result = line.split(" ");
-        for (int i = 0; i < result.length; i++) {
-            if (i != 0) {
-                ranks.add(Integer.parseInt(result[i]));
-            } else {
-                name = result[i];
-            }
+        name = result[0];
+        for (int i = 1; i < result.length; i++) {
+            ranks.add(Integer.parseInt(result[i]));
         }
     }
 
