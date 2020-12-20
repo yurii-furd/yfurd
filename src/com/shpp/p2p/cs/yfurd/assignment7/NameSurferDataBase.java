@@ -44,10 +44,7 @@ public class NameSurferDataBase implements NameSurferConstants {
      * method returns null.
      */
     public NameSurferEntry findEntry(String name) {
-        if (dataBase.containsKey(name.toLowerCase())){
-            return dataBase.get(name.toLowerCase());
-        }
-        return null;
+        return dataBase.get(name.toLowerCase());
     }
 }
 

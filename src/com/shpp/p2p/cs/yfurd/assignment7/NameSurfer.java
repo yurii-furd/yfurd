@@ -14,10 +14,10 @@ import java.awt.event.*;
 
 public class NameSurfer extends SimpleProgram implements NameSurferConstants {
 
-    private final JTextField jTextField = new JTextField(GRAPH_MARGIN_SIZE);
-    private final JButton jButton = new JButton("Graph");
-    private final JButton clear = new JButton("Clear");
-    private final NameSurferDataBase nameSurferDataBase = new NameSurferDataBase("src/com/shpp/p2p/cs/yfurd/assignment7/names-data.txt");
+    private final JTextField inputText = new JTextField(GRAPH_MARGIN_SIZE);
+    private final JButton buttonGraph = new JButton("Graph");
+    private final JButton buttonClear = new JButton("Clear");
+    private final NameSurferDataBase dataBase = new NameSurferDataBase("src/com/shpp/p2p/cs/yfurd/assignment7/names-data.txt");
     private final NameSurferGraph graph = new NameSurferGraph();
 
     /**
@@ -27,10 +27,10 @@ public class NameSurfer extends SimpleProgram implements NameSurferConstants {
     public void init() {
         add(graph);
         add(new JLabel("Name:"), NORTH);
-        add(jTextField, NORTH);
-        add(jButton, NORTH);
-        add(clear, NORTH);
-        jTextField.addActionListener(this);
+        add(inputText, NORTH);
+        add(buttonGraph, NORTH);
+        add(buttonClear, NORTH);
+        inputText.addActionListener(this);
         addActionListeners();
     }
 
@@ -40,11 +40,12 @@ public class NameSurfer extends SimpleProgram implements NameSurferConstants {
      * button actions.
      */
     public void actionPerformed(ActionEvent e) {
-        boolean inputDontNull = jTextField.getText().length() != 0;
-        if (e.getSource().equals(jButton) && inputDontNull || e.getSource().equals(jTextField) && inputDontNull) {
-            graph.addEntry(nameSurferDataBase.findEntry(jTextField.getText()));
+        if (e.getSource().equals(buttonGraph) || e.getSource().equals(inputText)) {
+            if (dataBase.findEntry(inputText.getText()) != null) {
+                graph.addEntry(dataBase.findEntry(inputText.getText()));
+            }
         }
-        if (e.getSource().equals(clear)) {
+        if (e.getSource().equals(buttonClear)) {
             graph.clear();
         }
     }

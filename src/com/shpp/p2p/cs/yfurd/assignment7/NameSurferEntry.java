@@ -11,8 +11,8 @@ package com.shpp.p2p.cs.yfurd.assignment7;
 import java.util.*;
 
 public class NameSurferEntry implements NameSurferConstants {
-    private String name;
-    private List<Integer> ranks = new ArrayList<>();
+    private final String name;
+    private final List<Integer> ranks = new ArrayList<>();
 
     /**
      * Creates a new NameSurferEntry from a data line as it appears
@@ -43,7 +43,7 @@ public class NameSurferEntry implements NameSurferConstants {
      * not appear in a decade, the rank value is 0.
      */
     public int getRank(int decade) {
-        return ranks.get(decade - 1);
+        return ranks.get(decade);
     }
 
     /**
