@@ -40,12 +40,13 @@ public class NameSurfer extends SimpleProgram implements NameSurferConstants {
      * button actions.
      */
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(buttonGraph) || e.getSource().equals(inputText)) {
-            if (dataBase.findEntry(inputText.getText()) != null) {
-                graph.addEntry(dataBase.findEntry(inputText.getText()));
+        Object source = e.getSource();
+        if (source.equals(buttonGraph) || source.equals(inputText)) {
+            NameSurferEntry entry = dataBase.findEntry(inputText.getText());
+            if (entry != null) {
+                graph.addEntry(entry);
             }
-        }
-        if (e.getSource().equals(buttonClear)) {
+        } else if (source.equals(buttonClear)) {
             graph.clear();
         }
     }

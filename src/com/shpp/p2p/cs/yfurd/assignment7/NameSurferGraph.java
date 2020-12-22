@@ -10,15 +10,14 @@ package com.shpp.p2p.cs.yfurd.assignment7;
  */
 
 import acm.graphics.*;
-
 import java.awt.event.*;
 import java.util.*;
 import java.awt.*;
-import java.util.List;
 
 public class NameSurferGraph extends GCanvas implements NameSurferConstants, ComponentListener {
 
-    private final List<NameSurferEntry> listSchedule = new ArrayList<>();
+    private final Set<NameSurferEntry> listSchedule = new LinkedHashSet<>();
+    private final Color[] colors = {Color.BLUE, Color.RED, Color.MAGENTA, Color.BLACK};
 
     /**
      * Creates a new NameSurferGraph object that displays the data.
@@ -31,7 +30,7 @@ public class NameSurferGraph extends GCanvas implements NameSurferConstants, Com
      * Clears the list of name surfer entries stored inside this class.
      */
     public void clear() {
-        listSchedule.removeAll(listSchedule);
+        listSchedule.clear();
         update();
     }
 
@@ -61,8 +60,6 @@ public class NameSurferGraph extends GCanvas implements NameSurferConstants, Com
 
     // Creates a graph of popularity
     private void createAndAddSchedule() {
-        Color[] colors = {Color.BLUE, Color.RED, Color.MAGENTA, Color.BLACK};
-
         // depending on the size of the program window, calculates how much you need to divide the popularity
         // so that it is correctly displayed on the screen
         double sizeOnePixels = 1000 / (getHeight() - GRAPH_MARGIN_SIZE * 2.0);
@@ -70,9 +67,7 @@ public class NameSurferGraph extends GCanvas implements NameSurferConstants, Com
         int checkColor = 0;
 
         for (NameSurferEntry entry : listSchedule) {
-            if (checkColor == 4) {
-                checkColor = 0;
-            }
+            checkColor %= colors.length;
             for (int i = 1; i < NDECADES; i++) {
 
                 int xPrevCoordinate = getWidth() / NDECADES * (i - 1);
@@ -118,11 +113,11 @@ public class NameSurferGraph extends GCanvas implements NameSurferConstants, Com
     }
 
     /**
-     *  Creates and adds information to the schedule
+     * Creates and adds information to the schedule
      *
-     * @param text information to add to the schedule
-     * @param x the initial coordinate of the line
-     * @param y the initial coordinate of the line
+     * @param text  information to add to the schedule
+     * @param x     the initial coordinate of the line
+     * @param y     the initial coordinate of the line
      * @param color of the text
      */
     private void createAndAddLabel(String text, double x, double y, Color color) {
@@ -134,10 +129,10 @@ public class NameSurferGraph extends GCanvas implements NameSurferConstants, Com
     /**
      * This method creates and adds a line.
      *
-     * @param x the initial coordinate of the line
-     * @param y the initial coordinate of the line
-     * @param x1 the final coordinate of the line
-     * @param y1 the final coordinate of the line
+     * @param x     the initial coordinate of the line
+     * @param y     the initial coordinate of the line
+     * @param x1    the final coordinate of the line
+     * @param y1    the final coordinate of the line
      * @param color of the line
      */
     private void createAndAddLine(double x, double y, double x1, double y1, Color color) {
