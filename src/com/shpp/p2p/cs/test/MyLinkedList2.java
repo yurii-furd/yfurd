@@ -55,28 +55,18 @@ public class MyLinkedList2<E> {
         if (index > size) {
             throw new IndexOutOfBoundsException("Wrong index");
         } else if (index == 0) {
-            Node<E> temp = firstNode;
-            Node newNode = new Node(el);
-            temp.prevNode = newNode;
-            newNode.nextNode = temp;
-            firstNode = newNode;
-            size++;
+            addFirst(el);
         } else if (index == size) {
-            Node<E> temp = lastNode;
-            Node<E> newNode = new Node<>(el);
-            temp.nextNode = newNode;
-            newNode.prevNode = temp;
-            lastNode = newNode;
+            addLast(el);
         } else {
             Node<E> temp = firstNode;
             for (int i = 0; i < index; i++) {
                 temp = temp.nextNode;
             }
             Node<E> newNode = new Node<>(el);
-            newNode.nextNode = temp.nextNode;
-            newNode.prevNode = temp.prevNode;
-            temp.prevNode.nextNode = newNode;
-            temp.nextNode.prevNode = newNode;
+            Node<E> prevTemp = temp.prevNode;
+            prevTemp.nextNode = newNode;
+            newNode.nextNode = temp;
             size++;
         }
     }
@@ -117,6 +107,24 @@ public class MyLinkedList2<E> {
         }
     }
 
+    private E removeOfIndex(int index) {
+        if (index == 0) {
+            return removeFirst();
+        } else if (index == size) {
+            return removeLast();
+        } else {
+            Node<E> temp = firstNode;
+            for (int i = 0; i < index; i++) {
+                temp = temp.nextNode;
+            }
+            Node<E> indexPrev = temp.prevNode;
+            indexPrev.nextNode = temp.nextNode;
+            temp.nextNode.prevNode = indexPrev;
+            size--;
+        }
+        return null;
+    }
+
     private E getFirst() {
         return firstNode.element;
     }
@@ -149,9 +157,9 @@ public class MyLinkedList2<E> {
         MyLinkedList2<Integer> list2 = new MyLinkedList2<>();
         list2.addLast(5);
         list2.addLast(45);
-        list2.addLast(8);
-        list2.add(8888);
-        list2.addIndex(8888888, 4);
+        list2.addLast(47);
+        list2.addIndex(8888888, 3);
+//        list2.removeOfIndex(4);
 
         System.out.println(list2.firstNode);
         System.out.println(list2.lastNode);
