@@ -47,8 +47,38 @@ public class MyLinkedList2<E> {
         size++;
     }
 
-    private void add(E el){
+    private void add(E el) {
         addLast(el);
+    }
+
+    private void addIndex(E el, int index) {
+        if (index > size) {
+            throw new IndexOutOfBoundsException("Wrong index");
+        } else if (index == 0) {
+            Node<E> temp = firstNode;
+            Node newNode = new Node(el);
+            temp.prevNode = newNode;
+            newNode.nextNode = temp;
+            firstNode = newNode;
+            size++;
+        } else if (index == size) {
+            Node<E> temp = lastNode;
+            Node<E> newNode = new Node<>(el);
+            temp.nextNode = newNode;
+            newNode.prevNode = temp;
+            lastNode = newNode;
+        } else {
+            Node<E> temp = firstNode;
+            for (int i = 0; i < index; i++) {
+                temp = temp.nextNode;
+            }
+            Node<E> newNode = new Node<>(el);
+            newNode.nextNode = temp.nextNode;
+            newNode.prevNode = temp.prevNode;
+            temp.prevNode.nextNode = newNode;
+            temp.nextNode.prevNode = newNode;
+            size++;
+        }
     }
 
     private E removeFirst() {
@@ -94,7 +124,8 @@ public class MyLinkedList2<E> {
     private E getLast() {
         return lastNode.element;
     }
-    private int size(){
+
+    private int size() {
         return size;
     }
 
@@ -120,6 +151,7 @@ public class MyLinkedList2<E> {
         list2.addLast(45);
         list2.addLast(8);
         list2.add(8888);
+        list2.addIndex(8888888, 4);
 
         System.out.println(list2.firstNode);
         System.out.println(list2.lastNode);
