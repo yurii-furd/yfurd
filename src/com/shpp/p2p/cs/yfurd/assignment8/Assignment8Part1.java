@@ -57,6 +57,12 @@ public class Assignment8Part1 extends WindowProgram {
     }
 
     @Override
+    public void mouseDragged(MouseEvent mouseEvent) {
+        mouseX = mouseEvent.getX();
+        mouseY = mouseEvent.getY();
+    }
+
+        @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         direction = 1;
     }

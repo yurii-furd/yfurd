@@ -24,7 +24,7 @@ public class Assignment2Part6 extends WindowProgram {
     public static final int APPLICATION_HEIGHT = 800;
 
     //Here you can set how many segments the caterpillar will have.
-    private static final double SEGMENTS = 5;
+    private static final double SEGMENTS = 7;
 
 
     public void run() {
