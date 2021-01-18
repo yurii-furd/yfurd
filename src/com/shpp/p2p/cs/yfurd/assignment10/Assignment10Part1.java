@@ -15,14 +15,12 @@ public class Assignment10Part1 {
         StringBuilder newForm = removeSpaces(args[0]);
 
         System.out.println(newForm);
-        System.out.println(20 - 10);
-
 
         char[] newFormCh = newForm.toString().toCharArray();
 
         boolean negativeNumber = false;
+        boolean positiveNumber = false;
         StringBuilder numberStr = new StringBuilder();
-        double number = 0.0;
         int a = 1;
 
         if (newFormCh.length != 0) {
@@ -36,25 +34,52 @@ public class Assignment10Part1 {
                         || negativeNumber
                 ) {
                     negativeNumber = true;
-
-                    if (newFormCh[i] == '.' && a == 1) {
-                        a = 2;
-                    }
-                    if (newFormCh[i] == '.' && a == 2) {
-                        throw new IllegalArgumentException();
-                    }
+                    checkDot(newFormCh[i], a);
                     numberStr.append(newFormCh[i]);
 
-                    if (i != newFormCh[newFormCh.length - 1] && !numbers.contains(newFormCh[i + 1])) {
+                    if (i < newFormCh.length - 1 && !numbers.contains(newFormCh[i + 1])
+                            || i == newFormCh.length - 1 && numbers.contains(newFormCh[i])
+                    ) {
                         negativeNumber = false;
                         a = 1;
-                        list.add((number = Double.parseDouble(numberStr.toString())) * -1.0);
+                        list.add((Double.parseDouble(numberStr.toString())) * -1.0);
+                        numberStr = new StringBuilder();
+                    }
+                }
+                if (i == 0 && numbers.contains(newFormCh[i])
+                        || i >= 3 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '+'
+                        || i >= 3 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && numbers.contains(newFormCh[i - 2])
+                        || i >= 3 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '*'
+                        || i >= 3 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '/'
+                        || i >= 2 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '('
+                        || i >= 4 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && newFormCh[i - 1] == ')'
+                        || positiveNumber
+                ) {
+                    positiveNumber = true;
+                    checkDot(newFormCh[i], a);
+                    numberStr.append(newFormCh[i]);
+
+                    if (i < newFormCh.length - 1 && !numbers.contains(newFormCh[i + 1])
+                            || i == newFormCh.length - 1 && numbers.contains(newFormCh[i])
+                    ) {
+                        positiveNumber = false;
+                        a = 1;
+                        list.add((Double.parseDouble(numberStr.toString())));
                         numberStr = new StringBuilder();
                     }
                 }
             }
         }
         System.out.println(list);
+    }
+
+    private static void checkDot(char ch, int a) {
+        if (ch == '.' && a == 1) {
+            a = 2;
+        }
+        if (ch == '.' && a == 2) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private static StringBuilder removeSpaces(String str) {
@@ -67,9 +92,4 @@ public class Assignment10Part1 {
         }
         return newForm;
     }
-
-    private static double calculate(String formula, HashMap<String, Double> variables) {
-        return 0;
-    }
-
 }
