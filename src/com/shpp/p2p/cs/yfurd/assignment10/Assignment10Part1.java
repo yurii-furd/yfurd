@@ -6,9 +6,14 @@ public class Assignment10Part1 {
 
     public static void main(String[] args) {
         Set<Character> numbers = new HashSet<>(Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'));
+        Set<Character> letters = new HashSet<>(Arrays.asList('q', 'Q', 'w', 'W', 'e', 'E', 'r', 'R', 't', 'T', 'y', 'Y',
+                'u', 'U', 'i', 'I', 'o', 'O', 'p', 'P', 'a', 'A', 's', 'S', 'd', 'D', 'f', 'F', 'g', 'G', 'h', 'H',
+                'j', 'J', 'k', 'K', 'l', 'L', 'z', 'Z', 'x', 'X', 'c', 'C', 'v', 'V', 'b', 'B', 'n', 'N', 'm', 'M'));
+
         Set<Character> operators = new HashSet<>(Arrays.asList('+', '-', '*', '/', '^', '.', '(', ')'));
 
         List<Double> list = new ArrayList<>();
+        List<String> list1 = new ArrayList<>();
 
         System.out.println(args[0].trim());
 
@@ -20,6 +25,9 @@ public class Assignment10Part1 {
 
         boolean negativeNumber = false;
         boolean positiveNumber = false;
+        boolean negativeVariable = false;
+        boolean positiveVariable = false;
+
         StringBuilder numberStr = new StringBuilder();
         int a = 1;
 
@@ -68,9 +76,52 @@ public class Assignment10Part1 {
                         numberStr = new StringBuilder();
                     }
                 }
+
+                if (i == 0 && newFormCh[i] == '-' && letters.contains(newFormCh[i + 1]) && newFormCh.length > 2
+                        || i >= 2 && newFormCh[i] == '-' && newFormCh[i - 1] == '*' && letters.contains(newFormCh[i + 1]) && newFormCh.length > 4
+                        || i >= 2 && newFormCh[i] == '-' && newFormCh[i - 1] == '/' && letters.contains(newFormCh[i + 1]) && newFormCh.length > 4
+                        || i >= 1 && newFormCh[i] == '-' && newFormCh[i - 1] == '(' && letters.contains(newFormCh[i + 1]) && newFormCh.length > 3
+                        || i >= 1 && newFormCh[i] == '-' && newFormCh[i - 1] == '+' && letters.contains(newFormCh[i + 1]) && newFormCh.length > 3
+                        || negativeVariable
+                ) {
+                    negativeVariable = true;
+                    numberStr.append(newFormCh[i]);
+
+                    if (i < newFormCh.length - 1 && operators.contains(newFormCh[i + 1])
+                    || i == newFormCh.length - 1 && letters.contains(newFormCh[i])
+                    || i == newFormCh.length - 1 && numbers.contains(newFormCh[i])
+                    ) {
+                        negativeVariable = false;
+                        list1.add(numberStr.toString());
+                        numberStr = new StringBuilder();
+                    }
+                }
+
+                if (i == 0 && letters.contains(newFormCh[i])
+                        || i >= 3 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '+'
+                        || i >= 3 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && letters.contains(newFormCh[i - 2])
+                        || i >= 3 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '*'
+                        || i >= 3 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '/'
+                        || i >= 2 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '('
+                        || i >= 4 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && newFormCh[i - 1] == ')'
+                        || positiveVariable
+                ) {
+                    positiveVariable = true;
+                    numberStr.append(newFormCh[i]);
+
+                    if (i < newFormCh.length - 1 && operators.contains(newFormCh[i + 1])
+                            || i == newFormCh.length - 1 && letters.contains(newFormCh[i])
+                            || i == newFormCh.length - 1 && numbers.contains(newFormCh[i])) {
+                        positiveVariable = false;
+                        list1.add(numberStr.toString());
+                        numberStr = new StringBuilder();
+                    }
+                }
             }
         }
+
         System.out.println(list);
+        System.out.println(list1);
     }
 
     private static void checkDot(char ch, int a) {
