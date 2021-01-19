@@ -1,7 +1,7 @@
 package com.shpp.p2p.cs.yfurd.assignment10;
 
 import java.util.*;
-
+//"(-   1   +   (-valujk6459l6e)   * ((  2  - 2  ^(-  10)) + 50) - a)/-2 *a"
 public class Assignment10Part1 {
 
     public static void main(String[] args) {
@@ -37,7 +37,6 @@ public class Assignment10Part1 {
                 if (i == 1 && newFormCh[i - 1] == '-' && numbers.contains(newFormCh[i]) && newFormCh.length > 2
                         || i >= 3 && newFormCh[i - 1] == '-' && newFormCh[i - 2] == '*' && numbers.contains(newFormCh[i]) && newFormCh.length > 4
                         || i >= 3 && newFormCh[i - 1] == '-' && newFormCh[i - 2] == '/' && numbers.contains(newFormCh[i]) && newFormCh.length > 4
-                        || i >= 2 && newFormCh[i - 1] == '-' && newFormCh[i - 2] == '(' && numbers.contains(newFormCh[i]) && newFormCh.length > 3
                         || i >= 2 && newFormCh[i - 1] == '-' && newFormCh[i - 2] == '+' && numbers.contains(newFormCh[i]) && newFormCh.length > 3
                         || negativeNumber
                 ) {
@@ -54,13 +53,13 @@ public class Assignment10Part1 {
                         numberStr = new StringBuilder();
                     }
                 }
+
                 if (i == 0 && numbers.contains(newFormCh[i])
-                        || i >= 3 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '+'
-                        || i >= 3 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && numbers.contains(newFormCh[i - 2])
-                        || i >= 3 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '*'
-                        || i >= 3 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '/'
-                        || i >= 2 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '('
-                        || i >= 4 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && newFormCh[i - 1] == ')'
+                        || i >= 1 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '+' && newFormCh.length > 2
+                        || i >= 2 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && numbers.contains(newFormCh[i - 2]) && newFormCh.length > 3
+                        || i >= 2 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && letters.contains(newFormCh[i - 2]) && newFormCh.length > 3
+                        || i >= 2 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '*' && newFormCh.length > 3
+                        || i >= 2 && numbers.contains(newFormCh[i]) && newFormCh[i - 1] == '/' && newFormCh.length > 3
                         || positiveNumber
                 ) {
                     positiveNumber = true;
@@ -80,7 +79,6 @@ public class Assignment10Part1 {
                 if (i == 0 && newFormCh[i] == '-' && letters.contains(newFormCh[i + 1]) && newFormCh.length > 2
                         || i >= 2 && newFormCh[i] == '-' && newFormCh[i - 1] == '*' && letters.contains(newFormCh[i + 1]) && newFormCh.length > 4
                         || i >= 2 && newFormCh[i] == '-' && newFormCh[i - 1] == '/' && letters.contains(newFormCh[i + 1]) && newFormCh.length > 4
-                        || i >= 1 && newFormCh[i] == '-' && newFormCh[i - 1] == '(' && letters.contains(newFormCh[i + 1]) && newFormCh.length > 3
                         || i >= 1 && newFormCh[i] == '-' && newFormCh[i - 1] == '+' && letters.contains(newFormCh[i + 1]) && newFormCh.length > 3
                         || negativeVariable
                 ) {
@@ -98,12 +96,11 @@ public class Assignment10Part1 {
                 }
 
                 if (i == 0 && letters.contains(newFormCh[i])
-                        || i >= 3 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '+'
-                        || i >= 3 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && letters.contains(newFormCh[i - 2])
-                        || i >= 3 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '*'
-                        || i >= 3 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '/'
-                        || i >= 2 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '('
-                        || i >= 4 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && newFormCh[i - 1] == ')'
+                        || i >= 1 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '+' && newFormCh.length > 2
+                        || i >= 2 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && letters.contains(newFormCh[i - 2]) && newFormCh.length > 3
+                        || i >= 2 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '-' && numbers.contains(newFormCh[i - 2]) && newFormCh.length > 3
+                        || i >= 2 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '*' && newFormCh.length > 3
+                        || i >= 2 && letters.contains(newFormCh[i]) && newFormCh[i - 1] == '/' && newFormCh.length > 3
                         || positiveVariable
                 ) {
                     positiveVariable = true;
@@ -119,7 +116,6 @@ public class Assignment10Part1 {
                 }
             }
         }
-
         System.out.println(list);
         System.out.println(list1);
     }
