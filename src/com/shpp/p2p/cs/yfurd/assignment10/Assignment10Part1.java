@@ -22,29 +22,35 @@ public class Assignment10Part1 {
     int a = 1;
     StringBuilder numberStr = new StringBuilder();
 
+    /**
+     * Calculation of the input expression.
+     *
+     * @param variables list of variables and values.
+     * @return result of the input expression.
+     */
     public double calculateValue(Map<String, Double> variables) {
         List<String> tempListValues = listValues;
-        groupToOneList(tempListValues);
-        System.out.println(tempListValues);
-        System.out.println(variables);
+        groupToOneList(tempListValues, variables);
+//        System.out.println(tempListValues);
+//        System.out.println(variables);
         while (count != 1) {
             for (int i = 0; i < tempListValues.size(); i++) {
                 String s = tempListValues.get(i);
 
                 if (Objects.equals(s, "^")) {
-                    checkIsPresenceParameters(tempListValues, i, '^');
+                    calculate(tempListValues, i, '^');
                     break;
                 } else if (Objects.equals(s, "*") && !tempListValues.contains("^")) {
-                    checkIsPresenceParameters(tempListValues, i, '*');
+                    calculate(tempListValues, i, '*');
                     break;
                 } else if (Objects.equals(s, "/") && !tempListValues.contains("^") && !tempListValues.contains("*")) {
-                    checkIsPresenceParameters(tempListValues, i, '/');
+                    calculate(tempListValues, i, '/');
                     break;
                 } else if (Objects.equals(s, "+") && !tempListValues.contains("^") && !tempListValues.contains("*") && !tempListValues.contains("/")) {
-                    checkIsPresenceParameters(tempListValues, i, '+');
+                    calculate(tempListValues, i, '+');
                     break;
                 } else if (Objects.equals(s, "-") && !tempListValues.contains("^") && !tempListValues.contains("*") && !tempListValues.contains("/") && !tempListValues.contains("+")) {
-                    checkIsPresenceParameters(tempListValues, i, '-');
+                    calculate(tempListValues, i, '-');
                     break;
                 }
             }
@@ -52,23 +58,43 @@ public class Assignment10Part1 {
         return Double.parseDouble(tempListValues.get(0));
     }
 
-    private void checkIsPresenceParameters(List<String> tempListValues, int i, char ch) {
+    /**
+     * This method, depending on the input parameter ch, somehow calculates the expression
+     *
+     * @param tempListValues list of broken operators and operands.
+     * @param i              the current position in the array of spells.
+     * @param ch             the name of the operation to be performed with the two operands.
+     */
+    private void calculate(List<String> tempListValues, int i, char ch) {
         double prev = Double.parseDouble(tempListValues.get(i - 1));
         double next = Double.parseDouble(tempListValues.get(i + 1));
 
-        if (ch == '^') {
-            insertCalculationNumbers(Math.pow(prev, next), i, tempListValues);
-        } else if (ch == '*') {
-            insertCalculationNumbers(prev * next, i, tempListValues);
-        } else if (ch == '/') {
-            insertCalculationNumbers(prev / next, i, tempListValues);
-        } else if (ch == '+') {
-            insertCalculationNumbers(prev + next, i, tempListValues);
-        } else if (ch == '-') {
-            insertCalculationNumbers(prev - next, i, tempListValues);
+        switch (ch) {
+            case '^':
+                insertCalculationNumbers(Math.pow(prev, next), i, tempListValues);
+                break;
+            case '*':
+                insertCalculationNumbers(prev * next, i, tempListValues);
+                break;
+            case '/':
+                insertCalculationNumbers(prev / next, i, tempListValues);
+                break;
+            case '+':
+                insertCalculationNumbers(prev + next, i, tempListValues);
+                break;
+            case '-':
+                insertCalculationNumbers(prev - next, i, tempListValues);
+                break;
         }
     }
 
+    /**
+     * Insert the calculated result into the sheet, and delete the operation and two operands.
+     *
+     * @param d              the calculated result of two numbers.
+     * @param i              the current position in the array of spells.
+     * @param tempListValues list of broken operators and operands.
+     */
     private void insertCalculationNumbers(double d, int i, List<String> tempListValues) {
         tempListValues.add(i - 1, Double.toString(d));
         tempListValues.remove(i);
@@ -78,18 +104,24 @@ public class Assignment10Part1 {
         count--;
     }
 
-    private void groupToOneList(List<String> tempListValues) {
+    /**
+     * This method replaces non-numerical media in the main list.
+     *
+     * @param tempListValues
+     * @param tempVariables  list of broken operators and operands.
+     */
+    private void groupToOneList(List<String> tempListValues, Map<String, Double> tempVariables) {
         for (int i = 0; i < tempListValues.size(); i++) {
             String temp = tempListValues.get(i);
             if (letters.contains(temp.charAt(0)) || temp.charAt(0) == '-' && letters.contains(temp.charAt(1))) {
-                if (variables.containsKey(temp)) {
-                    tempListValues.add(i, variables.get(temp).toString());
+                if (tempVariables.containsKey(temp)) {
+                    tempListValues.add(i, tempVariables.get(temp).toString());
                 } else {
-                    Double d = variables.get(temp.substring(1));
-                    if (d > 0 ){
-                        tempListValues.add(i, "-" + variables.get(temp.substring(1)).toString());
+                    Double d = tempVariables.get(temp.substring(1));
+                    if (d > 0) {
+                        tempListValues.add(i, "-" + tempVariables.get(temp.substring(1)).toString());
                     } else {
-                        tempListValues.add(i, variables.get(temp.substring(1)).toString().substring(1));
+                        tempListValues.add(i, tempVariables.get(temp.substring(1)).toString().substring(1));
                     }
                 }
                 tempListValues.remove(i + 1);
@@ -97,6 +129,12 @@ public class Assignment10Part1 {
         }
     }
 
+    /**
+     * This method processes the array of strings and gets from it the name of the variable and its value.
+     *
+     * @param args input information.
+     * @return list of processed information.
+     */
     public Map<String, Double> parseVariables(String[] args) {
         StringBuilder tempKey = new StringBuilder();
         StringBuilder tempValue = new StringBuilder();
@@ -138,6 +176,11 @@ public class Assignment10Part1 {
         return variables;
     }
 
+    /**
+     * Looks for variables in the text string.
+     *
+     * @param args input information.
+     */
     public void fondValues(String args) {
         StringBuilder newForm = removeSpaces(args);
         char[] formCh = newForm.toString().toCharArray();
@@ -154,6 +197,12 @@ public class Assignment10Part1 {
         }
     }
 
+    /**
+     * Looks for negative numbers in the text string.
+     *
+     * @param i      the current position in the array of spells.
+     * @param formCh the formula is divided into an array of spells.
+     */
     private void fondNegativeNumber(int i, char[] formCh) {
         if (i == 1 && numbers.contains(formCh[i]) && formCh[i - 1] == '-'
                 || i >= 3 && numbers.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '*'
@@ -178,6 +227,12 @@ public class Assignment10Part1 {
         }
     }
 
+    /**
+     * Looks for positive numbers in the text string.
+     *
+     * @param i      the current position in the array of spells.
+     * @param formCh the formula is divided into an array of spells.
+     */
     private void fondPositiveNumber(int i, char[] formCh) {
         if (i == 0 && numbers.contains(formCh[i])
                 || i >= 2 && numbers.contains(formCh[i]) && formCh[i - 1] == '*'
@@ -207,6 +262,12 @@ public class Assignment10Part1 {
         }
     }
 
+    /**
+     * Looks for negative variables in the text string.
+     *
+     * @param i      the current position in the array of spells.
+     * @param formCh the formula is divided into an array of spells.
+     */
     private void fondNegativeVariable(int i, char[] formCh) {
         if (i == 1 && letters.contains(formCh[i]) && formCh[i - 1] == '-'
                 || i >= 3 && letters.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '*'
@@ -227,6 +288,12 @@ public class Assignment10Part1 {
         }
     }
 
+    /**
+     * Looks for positive variables in the text string.
+     *
+     * @param i      the current position in the array of spells.
+     * @param formCh the formula is divided into an array of spells.
+     */
     private void fondPositiveVariable(int i, char[] formCh) {
         if (i == 0 && letters.contains(formCh[i])
                 || i >= 2 && letters.contains(formCh[i]) && formCh[i - 1] == '*'
@@ -252,6 +319,12 @@ public class Assignment10Part1 {
         }
     }
 
+    /**
+     * Looks for operators in the text string +, -, *, /, ^.
+     *
+     * @param i      the current position in the array of spells.
+     * @param formCh the formula is divided into an array of spells.
+     */
     private void fondOperator(int i, char[] formCh) {
         if (i >= 1 && i <= formCh.length - 1 && operatorsFull.contains(formCh[i]) && !operatorsFull.contains(formCh[i - 1])) {
             listValues.add(numberStr.append(formCh[i]).toString());
@@ -260,6 +333,12 @@ public class Assignment10Part1 {
         }
     }
 
+    /**
+     * Сhecks in the text string for errors.
+     *
+     * @param i      the current position in the array of spells.
+     * @param formCh the formula is divided into an array of spells.
+     */
     private void checkErrorInFormula(int i, char[] formCh) {
         if (i == 0 && formCh[i] == '*'
                 || i == 0 && formCh[i] == '/'
@@ -274,6 +353,13 @@ public class Assignment10Part1 {
         }
     }
 
+    /**
+     * Check for the end of a non-numeric variable.
+     *
+     * @param i      the current position in the array of spells.
+     * @param formCh the formula is divided into an array of spells.
+     * @return end of non-numerical formula.
+     */
     private boolean checkIsFinishedVariable(int i, char[] formCh) {
         return i < formCh.length - 1 && operators.contains(formCh[i + 1])
                 || i < formCh.length - 1 && formCh[i + 1] == '-'
@@ -283,6 +369,11 @@ public class Assignment10Part1 {
                 || i == formCh.length - 1 && formCh[i] == '$';
     }
 
+    /**
+     * This method checks to see if there are enough dots in the number.
+     *
+     * @param ch the current position in the array of spells.
+     */
     private void checkDot(char ch) {
         if (ch == '.' && a == 2) {
             throwException("Wrong number!!!");
@@ -292,6 +383,12 @@ public class Assignment10Part1 {
         }
     }
 
+    /**
+     * This method removes all spaces from the text string.
+     *
+     * @param str input text string.
+     * @return text string without spaces.
+     */
     private StringBuilder removeSpaces(String str) {
         char[] ch = str.trim().toCharArray();
         StringBuilder newForm = new StringBuilder();
@@ -303,6 +400,11 @@ public class Assignment10Part1 {
         return newForm;
     }
 
+    /**
+     * This method throws an error.
+     *
+     * @param s comment to error.
+     */
     private void throwException(String s) {
         System.out.println(s);
         throw new NumberFormatException();
