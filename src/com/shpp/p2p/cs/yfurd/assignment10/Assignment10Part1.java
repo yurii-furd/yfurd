@@ -7,9 +7,8 @@ public class Assignment10Part1 {
     final Set<Character> operators = new HashSet<>(Arrays.asList('+', '*', '/', '^'));
     final Set<Character> operatorsFull = new HashSet<>(Arrays.asList('+', '*', '/', '^', '-'));
     final Set<Character> numbers = new HashSet<>(Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'));
-    final Set<Character> letters = new HashSet<>(Arrays.asList('q', 'Q', 'w', 'W', 'e', 'E', 'r', 'R', 't', 'T',
-            'y', 'Y', 'u', 'U', 'i', 'I', 'o', 'O', 'p', 'P', 'a', 'A', 's', 'S', 'd', 'D', 'f', 'F', 'g', 'G', 'h', 'H',
-            'j', 'J', 'k', 'K', 'l', 'L', 'z', 'Z', 'x', 'X', 'c', 'C', 'v', 'V', 'b', 'B', 'n', 'N', 'm', 'M'));
+    final Set<Character> letters = new HashSet<>(Arrays.asList('q', 'w', 'e', 'r', 't','y', 'u', 'i', 'o', 'p', 'a',
+            's', 'd', 'f', 'g', 'h','j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'));
     boolean negativeNumber = false;
     boolean positiveNumber = false;
     boolean negativeVariable = false;
@@ -113,16 +112,9 @@ public class Assignment10Part1 {
     private void groupToOneList(List<String> tempListValues, Map<String, Double> tempVariables) {
         for (int i = 0; i < tempListValues.size(); i++) {
             String temp = tempListValues.get(i);
-            if (letters.contains(temp.charAt(0)) || temp.charAt(0) == '-' && letters.contains(temp.charAt(1))) {
+            if (letters.contains(temp.charAt(0))) {
                 if (tempVariables.containsKey(temp)) {
                     tempListValues.add(i, tempVariables.get(temp).toString());
-                } else {
-                    Double d = tempVariables.get(temp.substring(1));
-                    if (d > 0) {
-                        tempListValues.add(i, "-" + tempVariables.get(temp.substring(1)).toString());
-                    } else {
-                        tempListValues.add(i, tempVariables.get(temp.substring(1)).toString().substring(1));
-                    }
                 }
                 tempListValues.remove(i + 1);
             }
@@ -139,14 +131,16 @@ public class Assignment10Part1 {
         StringBuilder tempKey = new StringBuilder();
         StringBuilder tempValue = new StringBuilder();
         char[] tempChFormula;
+
         for (int i = 1; i < args.length; i++) {
-            tempChFormula = removeSpaces(args[i]).toString().toCharArray();
+            tempChFormula = removeSpaces(args[i]).toString().toLowerCase().toCharArray();
 
             for (int j = 0; j < tempChFormula.length; j++) {
 
                 if (tempChFormula.length < 3 || !letters.contains(tempChFormula[0])
                         || !numbers.contains(tempChFormula[tempChFormula.length - 1])) {
                     throwException("Wrong input parameters!!!");
+
                 } else if (j == 0 && letters.contains(tempChFormula[j]) || positiveVariable) {
                     positiveVariable = true;
                     tempKey.append(tempChFormula[j]);
@@ -183,7 +177,8 @@ public class Assignment10Part1 {
      */
     public void fondValues(String args) {
         StringBuilder newForm = removeSpaces(args);
-        char[] formCh = newForm.toString().toCharArray();
+        char[] formCh = newForm.toString().toLowerCase().toCharArray();
+
 
         if (formCh.length != 0) {
             for (int i = 0; i < formCh.length; i++) {
@@ -195,6 +190,7 @@ public class Assignment10Part1 {
                 checkErrorInFormula(i, formCh);
             }
         }
+//        System.out.println(formCh);
     }
 
     /**
@@ -281,7 +277,9 @@ public class Assignment10Part1 {
 
             if (checkIsFinishedVariable(i, formCh)) {
                 negativeVariable = false;
-                listValues.add("-" + numberStr.toString());
+                listValues.add("-1");
+                listValues.add("*");
+                listValues.add(numberStr.toString());
                 count++;
                 numberStr.setLength(0);
             }
@@ -340,12 +338,9 @@ public class Assignment10Part1 {
      * @param formCh the formula is divided into an array of spells.
      */
     private void checkErrorInFormula(int i, char[] formCh) {
-        if (i == 0 && formCh[i] == '*'
-                || i == 0 && formCh[i] == '/'
-                || i == 0 && formCh[i] == '^'
+        if (i == 0 && operators.contains(formCh[i])
                 || i == formCh.length - 1 && operatorsFull.contains(formCh[i])
                 || i >= 1 && formCh[i] == '-' && operatorsFull.contains(formCh[i + 1])
-                || i >= 1 && formCh[i] == '-' && formCh[i + 1] == '-'
                 || i >= 1 && operators.contains(formCh[i]) && operators.contains(formCh[i + 1])
                 || i >= 1 && operatorsFull.contains(formCh[i]) && operatorsFull.contains(formCh[i + 1]) && operatorsFull.contains(formCh[i + 2])
         ) {
@@ -361,8 +356,7 @@ public class Assignment10Part1 {
      * @return end of non-numerical formula.
      */
     private boolean checkIsFinishedVariable(int i, char[] formCh) {
-        return i < formCh.length - 1 && operators.contains(formCh[i + 1])
-                || i < formCh.length - 1 && formCh[i + 1] == '-'
+        return i < formCh.length - 1 && operatorsFull.contains(formCh[i + 1])
                 || i == formCh.length - 1 && letters.contains(formCh[i])
                 || i == formCh.length - 1 && numbers.contains(formCh[i])
                 || i == formCh.length - 1 && formCh[i] == '_'
