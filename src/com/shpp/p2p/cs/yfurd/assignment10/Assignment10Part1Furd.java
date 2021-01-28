@@ -2,20 +2,21 @@ package com.shpp.p2p.cs.yfurd.assignment10;
 
 import java.util.*;
 
-public class Assignment10Part1 {
+public class Assignment10Part1Furd {
 
+    //"1 + a^2  * 2 + 12 * 2 + b"  "a= 2" "b = -88"
     public static void main(String[] args) {
-        Assignment10Part1 expression = new Assignment10Part1();
-        expression.fondValues(args[0]);
-        Map<String, Double> variables = expression.parseVariables(args);
-        double res = expression.calculateValue(variables);
+        Assignment10Part1Furd part1 = new Assignment10Part1Furd();
+        part1.fondValues(args[0]);
+        Map<String, Double> variables = part1.parseVariables(args);
+        double res = part1.calculateValue(variables);
         System.out.println("-> " + res);
     }
-
-    final Set<Character> operators = new HashSet<>(Arrays.asList('+', '*', '/', '^'));
-    final Set<Character> operatorsFull = new HashSet<>(Arrays.asList('+', '*', '/', '^', '-'));
-    final Set<Character> numbers = new HashSet<>(Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'));
-    final Set<Character> letters = new HashSet<>(Arrays.asList('q', 'w', 'e', 'r', 't','y', 'u', 'i', 'o', 'p', 'a',
+    
+    final Set<Character> OPERATORS = new HashSet<>(Arrays.asList('+', '*', '/', '^'));
+    final Set<Character> OPERATORS_FULL = new HashSet<>(Arrays.asList('+', '*', '/', '^', '-'));
+    final Set<Character> NUMBERS = new HashSet<>(Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'));
+    final Set<Character> LETTERS = new HashSet<>(Arrays.asList('q', 'w', 'e', 'r', 't','y', 'u', 'i', 'o', 'p', 'a',
             's', 'd', 'f', 'g', 'h','j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'));
     boolean negativeNumber = false;
     boolean positiveNumber = false;
@@ -38,8 +39,6 @@ public class Assignment10Part1 {
     public double calculateValue(Map<String, Double> variables) {
         List<String> tempListValues = listValues;
         groupToOneList(tempListValues, variables);
-//        System.out.println(tempListValues);
-//        System.out.println(variables);
         while (count != 1) {
             for (int i = 0; i < tempListValues.size(); i++) {
                 String s = tempListValues.get(i);
@@ -120,7 +119,7 @@ public class Assignment10Part1 {
     private void groupToOneList(List<String> tempListValues, Map<String, Double> tempVariables) {
         for (int i = 0; i < tempListValues.size(); i++) {
             String temp = tempListValues.get(i);
-            if (letters.contains(temp.charAt(0))) {
+            if (LETTERS.contains(temp.charAt(0))) {
                 if (tempVariables.containsKey(temp)) {
                     tempListValues.add(i, tempVariables.get(temp).toString());
                 }
@@ -145,17 +144,17 @@ public class Assignment10Part1 {
 
             for (int j = 0; j < tempChFormula.length; j++) {
 
-                if (tempChFormula.length < 3 || !letters.contains(tempChFormula[0])
-                        || !numbers.contains(tempChFormula[tempChFormula.length - 1])) {
+                if (tempChFormula.length < 3 || !LETTERS.contains(tempChFormula[0])
+                        || !NUMBERS.contains(tempChFormula[tempChFormula.length - 1])) {
                     throwException("Wrong input parameters!!!");
 
-                } else if (j == 0 && letters.contains(tempChFormula[j]) || positiveVariable) {
+                } else if (j == 0 && LETTERS.contains(tempChFormula[j]) || positiveVariable) {
                     positiveVariable = true;
                     tempKey.append(tempChFormula[j]);
                     if (tempChFormula[j + 1] == '=') {
                         positiveVariable = false;
                     }
-                } else if (j > 1 && tempChFormula[j - 1] == '=' && numbers.contains(tempChFormula[j])
+                } else if (j > 1 && tempChFormula[j - 1] == '=' && NUMBERS.contains(tempChFormula[j])
                         || j > 1 && tempChFormula[j - 1] == '=' && tempChFormula[j] == '-'
                         || positiveNumber
                 ) {
@@ -196,8 +195,8 @@ public class Assignment10Part1 {
                 fondOperator(i, formCh);
                 checkErrorInFormula(i, formCh);
             }
+            System.out.println(listValues);
         }
-//        System.out.println(formCh);
     }
 
     /**
@@ -207,19 +206,19 @@ public class Assignment10Part1 {
      * @param formCh the formula is divided into an array of spells.
      */
     private void fondNegativeNumber(int i, char[] formCh) {
-        if (i == 1 && numbers.contains(formCh[i]) && formCh[i - 1] == '-'
-                || i >= 3 && numbers.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '*'
-                || i >= 3 && numbers.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '/'
-                || i >= 3 && numbers.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '+'
-                || i >= 3 && numbers.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '^'
+        if (i == 1 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '-'
+                || i >= 3 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '*'
+                || i >= 3 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '/'
+                || i >= 3 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '+'
+                || i >= 3 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '^'
                 || negativeNumber
         ) {
             negativeNumber = true;
             checkDot(formCh[i]);
             numberStr.append(formCh[i]);
 
-            if (i < formCh.length - 1 && !numbers.contains(formCh[i + 1]) && formCh[i + 1] != '.'
-                    || i == formCh.length - 1 && numbers.contains(formCh[i])
+            if (i < formCh.length - 1 && !NUMBERS.contains(formCh[i + 1]) && formCh[i + 1] != '.'
+                    || i == formCh.length - 1 && NUMBERS.contains(formCh[i])
             ) {
                 negativeNumber = false;
                 a = 1;
@@ -237,24 +236,24 @@ public class Assignment10Part1 {
      * @param formCh the formula is divided into an array of spells.
      */
     private void fondPositiveNumber(int i, char[] formCh) {
-        if (i == 0 && numbers.contains(formCh[i])
-                || i >= 2 && numbers.contains(formCh[i]) && formCh[i - 1] == '*'
-                || i >= 2 && numbers.contains(formCh[i]) && formCh[i - 1] == '/'
-                || i >= 1 && numbers.contains(formCh[i]) && formCh[i - 1] == '+'
-                || i >= 2 && numbers.contains(formCh[i]) && formCh[i - 1] == '-' && numbers.contains(formCh[i - 2])
-                || i >= 2 && numbers.contains(formCh[i]) && formCh[i - 1] == '-' && letters.contains(formCh[i - 2])
-                || i >= 3 && numbers.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '_'
-                || i >= 3 && numbers.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '$'
-                || i >= 3 && numbers.contains(formCh[i]) && formCh[i - 1] == '+' && formCh[i - 2] == '^'
-                || i >= 2 && numbers.contains(formCh[i]) && formCh[i - 1] == '^'
+        if (i == 0 && NUMBERS.contains(formCh[i])
+                || i >= 2 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '*'
+                || i >= 2 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '/'
+                || i >= 1 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '+'
+                || i >= 2 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '-' && NUMBERS.contains(formCh[i - 2])
+                || i >= 2 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '-' && LETTERS.contains(formCh[i - 2])
+                || i >= 3 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '_'
+                || i >= 3 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '$'
+                || i >= 3 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '+' && formCh[i - 2] == '^'
+                || i >= 2 && NUMBERS.contains(formCh[i]) && formCh[i - 1] == '^'
                 || positiveNumber
         ) {
             positiveNumber = true;
             checkDot(formCh[i]);
             numberStr.append(formCh[i]);
 
-            if (i < formCh.length - 1 && !numbers.contains(formCh[i + 1]) && formCh[i + 1] != '.'
-                    || i == formCh.length - 1 && numbers.contains(formCh[i])
+            if (i < formCh.length - 1 && !NUMBERS.contains(formCh[i + 1]) && formCh[i + 1] != '.'
+                    || i == formCh.length - 1 && NUMBERS.contains(formCh[i])
             ) {
                 positiveNumber = false;
                 a = 1;
@@ -272,11 +271,11 @@ public class Assignment10Part1 {
      * @param formCh the formula is divided into an array of spells.
      */
     private void fondNegativeVariable(int i, char[] formCh) {
-        if (i == 1 && letters.contains(formCh[i]) && formCh[i - 1] == '-'
-                || i >= 3 && letters.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '*'
-                || i >= 3 && letters.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '/'
-                || i >= 3 && letters.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '+'
-                || i >= 3 && letters.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '^'
+        if (i == 1 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '-'
+                || i >= 3 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '*'
+                || i >= 3 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '/'
+                || i >= 3 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '+'
+                || i >= 3 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '^'
                 || negativeVariable
         ) {
             negativeVariable = true;
@@ -300,16 +299,16 @@ public class Assignment10Part1 {
      * @param formCh the formula is divided into an array of spells.
      */
     private void fondPositiveVariable(int i, char[] formCh) {
-        if (i == 0 && letters.contains(formCh[i])
-                || i >= 2 && letters.contains(formCh[i]) && formCh[i - 1] == '*'
-                || i >= 2 && letters.contains(formCh[i]) && formCh[i - 1] == '/'
-                || i >= 1 && letters.contains(formCh[i]) && formCh[i - 1] == '+'
-                || i >= 2 && letters.contains(formCh[i]) && formCh[i - 1] == '-' && numbers.contains(formCh[i - 2])
-                || i >= 2 && letters.contains(formCh[i]) && formCh[i - 1] == '-' && letters.contains(formCh[i - 2])
-                || i >= 3 && letters.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '_'
-                || i >= 3 && letters.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '$'
-                || i >= 3 && letters.contains(formCh[i]) && formCh[i - 1] == '+' && formCh[i - 2] == '^'
-                || i >= 2 && letters.contains(formCh[i]) && formCh[i - 1] == '^'
+        if (i == 0 && LETTERS.contains(formCh[i])
+                || i >= 2 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '*'
+                || i >= 2 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '/'
+                || i >= 1 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '+'
+                || i >= 2 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '-' && NUMBERS.contains(formCh[i - 2])
+                || i >= 2 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '-' && LETTERS.contains(formCh[i - 2])
+                || i >= 3 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '_'
+                || i >= 3 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == '$'
+                || i >= 3 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '+' && formCh[i - 2] == '^'
+                || i >= 2 && LETTERS.contains(formCh[i]) && formCh[i - 1] == '^'
                 || positiveVariable
         ) {
             positiveVariable = true;
@@ -331,7 +330,7 @@ public class Assignment10Part1 {
      * @param formCh the formula is divided into an array of spells.
      */
     private void fondOperator(int i, char[] formCh) {
-        if (i >= 1 && i <= formCh.length - 1 && operatorsFull.contains(formCh[i]) && !operatorsFull.contains(formCh[i - 1])) {
+        if (i >= 1 && i <= formCh.length - 1 && OPERATORS_FULL.contains(formCh[i]) && !OPERATORS_FULL.contains(formCh[i - 1])) {
             listValues.add(numberStr.append(formCh[i]).toString());
             count++;
             numberStr.setLength(0);
@@ -345,11 +344,11 @@ public class Assignment10Part1 {
      * @param formCh the formula is divided into an array of spells.
      */
     private void checkErrorInFormula(int i, char[] formCh) {
-        if (i == 0 && operators.contains(formCh[i])
-                || i == formCh.length - 1 && operatorsFull.contains(formCh[i])
-                || i >= 1 && formCh[i] == '-' && operatorsFull.contains(formCh[i + 1])
-                || i >= 1 && operators.contains(formCh[i]) && operators.contains(formCh[i + 1])
-                || i >= 1 && operatorsFull.contains(formCh[i]) && operatorsFull.contains(formCh[i + 1]) && operatorsFull.contains(formCh[i + 2])
+        if (i == 0 && OPERATORS.contains(formCh[i])
+                || i == formCh.length - 1 && OPERATORS_FULL.contains(formCh[i])
+                || i >= 1 && formCh[i] == '-' && OPERATORS_FULL.contains(formCh[i + 1])
+                || i >= 1 && OPERATORS.contains(formCh[i]) && OPERATORS.contains(formCh[i + 1])
+                || i >= 1 && OPERATORS_FULL.contains(formCh[i]) && OPERATORS_FULL.contains(formCh[i + 1]) && OPERATORS_FULL.contains(formCh[i + 2])
         ) {
             throwException("Wrong operation!!!");
         }
@@ -363,9 +362,9 @@ public class Assignment10Part1 {
      * @return end of non-numerical formula.
      */
     private boolean checkIsFinishedVariable(int i, char[] formCh) {
-        return i < formCh.length - 1 && operatorsFull.contains(formCh[i + 1])
-                || i == formCh.length - 1 && letters.contains(formCh[i])
-                || i == formCh.length - 1 && numbers.contains(formCh[i])
+        return i < formCh.length - 1 && OPERATORS_FULL.contains(formCh[i + 1])
+                || i == formCh.length - 1 && LETTERS.contains(formCh[i])
+                || i == formCh.length - 1 && NUMBERS.contains(formCh[i])
                 || i == formCh.length - 1 && formCh[i] == '_'
                 || i == formCh.length - 1 && formCh[i] == '$';
     }
