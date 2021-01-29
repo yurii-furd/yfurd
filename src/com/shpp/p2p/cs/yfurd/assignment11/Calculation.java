@@ -4,11 +4,9 @@ import java.util.*;
 
 public class Calculation {
 
-    final Set<Character> LETTERS = new HashSet<>(Arrays.asList('q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a',
-            's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'));
     final Set<String> math = new HashSet<>(Arrays.asList("sin", "cos", "tan", "atan", "log10", "sqrt"));
     List<String> tempListValues;
-    Map<String, Double> variables = new HashMap<>();
+    Map<String, Double> variables;
 
     /**
      * Calculation of the input expression.
@@ -174,7 +172,6 @@ public class Calculation {
         listTemp.remove(i);
 
     }
-//sqrt(25)-(-26)
 
     /**
      * This method replaces non-numerical media in the main list.
@@ -187,7 +184,7 @@ public class Calculation {
             String temp = tempListValues.get(i);
 
             if (!math.contains(temp)) {
-                if (LETTERS.contains(temp.charAt(0))) {
+                if (Character.isLetter(temp.charAt(0))) {
                     if (tempVariables.containsKey(temp)) {
                         tempListValues.add(i, tempVariables.get(temp).toString());
                     }
