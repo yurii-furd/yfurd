@@ -2,11 +2,11 @@ package com.shpp.p2p.cs.yfurd.assignment10;
 
 import java.util.*;
 
-public class Assignment10Part1Furd {
+public class Assignment10Part1 {
 
     //"1 + a^2  * 2 + 12 * 2 + b"  "a= 2" "b = -88"
     public static void main(String[] args) {
-        Assignment10Part1Furd part1 = new Assignment10Part1Furd();
+        Assignment10Part1 part1 = new Assignment10Part1();
         part1.fondValues(args[0]);
         Map<String, Double> variables = part1.parseVariables(args);
         double res = part1.calculateValue(variables);

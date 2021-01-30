@@ -6,7 +6,6 @@ public class ProcessInputFormula {
 
     final Set<Character> OPERATORS = new HashSet<>(Arrays.asList('+', '*', '/', '^'));
     final Set<Character> OPERATORS_FULL = new HashSet<>(Arrays.asList('+', '*', '/', '^', '-'));
-    final Set<String> MATH = new HashSet<>(Arrays.asList("sin", "cos", "tan", "atan", "log10", "sqrt"));
 
     boolean negativeNumber = false;
     boolean positiveNumber = false;
@@ -91,7 +90,7 @@ public class ProcessInputFormula {
     private void fondPositiveNumber(int i, char[] formCh) {
         if (i == 0 && Character.isDigit(formCh[i])
                 || i >= 3 && Character.isDigit(formCh[i]) && formCh[i - 1] == '-' && formCh[i - 2] == ')'
-                || i >= 2 && Character.isDigit(formCh[i]) && formCh[i - 1] == '('
+                || i >= 1 && Character.isDigit(formCh[i]) && formCh[i - 1] == '('
                 || i >= 2 && Character.isDigit(formCh[i]) && formCh[i - 1] == '+'
                 || i >= 2 && Character.isDigit(formCh[i]) && formCh[i - 1] == '*'
                 || i >= 2 && Character.isDigit(formCh[i]) && formCh[i - 1] == '/'
@@ -266,7 +265,7 @@ public class ProcessInputFormula {
      *
      * @param s comment to error.
      */
-    private void throwException(String s) {
+    public static void throwException(String s) {
         System.out.println(s);
         throw new NumberFormatException();
     }

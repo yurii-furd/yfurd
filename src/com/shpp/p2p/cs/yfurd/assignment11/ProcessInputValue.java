@@ -2,6 +2,8 @@ package com.shpp.p2p.cs.yfurd.assignment11;
 
 import java.util.*;
 
+import static com.shpp.p2p.cs.yfurd.assignment11.ProcessInputFormula.throwException;
+
 public class ProcessInputValue {
 
     boolean positiveNumber = false;
@@ -66,15 +68,4 @@ public class ProcessInputValue {
             count = 2;
         }
     }
-
-    /**
-     * This method throws an error.
-     *
-     * @param s comment to error.
-     */
-    private void throwException(String s) {
-        System.out.println(s);
-        throw new NumberFormatException();
-    }
-
 }

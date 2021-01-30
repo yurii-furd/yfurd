@@ -4,9 +4,10 @@ import java.util.*;
 
 public class Calculation {
 
-    final Set<String> math = new HashSet<>(Arrays.asList("sin", "cos", "tan", "atan", "log10", "sqrt"));
+    final Set<String> MATH = new HashSet<>(Arrays.asList("sin", "cos", "log2", "tan", "atan", "log10", "sqrt"));
     List<String> tempListValues;
     Map<String, Double> variables;
+    boolean groupToOneList = false;
 
     /**
      * Calculation of the input expression.
@@ -16,19 +17,27 @@ public class Calculation {
      */
     public double calculateValue(List<String> listValues, Map<String, Double> variables) {
         tempListValues = listValues;
-        groupToOneList(tempListValues, variables);
+
+        if (!groupToOneList) {
+            groupToOneList(tempListValues, variables);
+        }
 
         for (int i = 0; i < tempListValues.size(); i++) {
             String s = tempListValues.get(i);
 
             if (Objects.equals(s, "(")) {
                 lookIsClosed(i);
-
             }
         }
+
         return Double.parseDouble(tempListValues.get(0));
     }
 
+    /**
+     * This method checks to see if the parenthesis closes after it is opened
+     *
+     * @param i the current position in the array of spells.
+     */
     private void lookIsClosed(int i) {
         for (int j = i + 1; j < tempListValues.size(); j++) {
             String s1 = tempListValues.get(j);
@@ -40,27 +49,37 @@ public class Calculation {
         }
     }
 
+    /**
+     * This method calculates everything in parentheses, removes all elements in parentheses, and inserts a new value
+     *
+     * @param i open brackets
+     * @param j close brackets
+     */
     private void calculate(int i, int j) {
         int a = 1;
         List<String> listTemp = new ArrayList<>();
+
         for (int k = i + 1; k < j; k++) {
             listTemp.add(tempListValues.get(k));
             a++;
         }
+
         double res = calculateTempList(listTemp);
 
         for (int k = 0; k <= a; k++) {
             tempListValues.remove(i);
         }
         tempListValues.add(i, Double.toString(res));
-
-        System.out.println(listTemp);
-        System.out.println(tempListValues);
-
         calculateValue(tempListValues, variables);
 
     }
 
+    /**
+     * This method takes a list of values and calculates them.
+     *
+     * @param listTemp list of broken operators and operands.
+     * @return returns result of the calculation
+     */
     public double calculateTempList(List<String> listTemp) {
         while (listTemp.size() != 1) {
             for (int i = 0; i < listTemp.size(); i++) {
@@ -68,6 +87,10 @@ public class Calculation {
 
                 if (Objects.equals(s, "sin")) {
                     double d = Math.sin(Double.parseDouble(listTemp.get(i + 1)));
+                    calculationMath(listTemp, i, d);
+                    break;
+                } else if (Objects.equals(s, "log2")) {
+                    double d = Math.log(Double.parseDouble(listTemp.get(i + 1))) / Math.log(2);
                     calculationMath(listTemp, i, d);
                     break;
                 } else if (Objects.equals(s, "cos")) {
@@ -96,23 +119,19 @@ public class Calculation {
                 } else if (Objects.equals(s, "*") && !listTemp.contains("^") && isNotMath(listTemp)) {
                     calculate(listTemp, i, '*');
                     break;
-                } else if (Objects.equals(s, "/") && !listTemp.contains("^") && !listTemp.contains("*") && isNotMath(listTemp)) {
+                } else if (Objects.equals(s, "/") && !listTemp.contains("^") && isNotMath(listTemp)) {
                     calculate(listTemp, i, '/');
                     break;
                 } else if (Objects.equals(s, "+") && !listTemp.contains("^") && !listTemp.contains("*") && !listTemp.contains("/") && isNotMath(listTemp)) {
                     calculate(listTemp, i, '+');
                     break;
-                } else if (Objects.equals(s, "-") && !listTemp.contains("^") && !listTemp.contains("*") && !listTemp.contains("/") && !listTemp.contains("+") && isNotMath(listTemp)) {
+                } else if (Objects.equals(s, "-") && !listTemp.contains("^") && !listTemp.contains("*") && !listTemp.contains("/") && isNotMath(listTemp)) {
                     calculate(listTemp, i, '-');
                     break;
                 }
             }
         }
         return Double.parseDouble(listTemp.get(0));
-    }
-
-    private boolean isNotMath(List<String> listTemp) {
-        return !listTemp.contains("sin") && !listTemp.contains("cos") && !listTemp.contains("tan") && !listTemp.contains("atan") && !listTemp.contains("log10") && !listTemp.contains("sqrt");
     }
 
     /**
@@ -174,6 +193,16 @@ public class Calculation {
     }
 
     /**
+     * This method checks whether the letter contains an object from the list MATH.
+     *
+     * @param listTemp list of broken operators and operands.
+     * @return whether the letter contains an object from the list MATH.
+     */
+    private boolean isNotMath(List<String> listTemp) {
+        return !listTemp.contains("sin") && !listTemp.contains("cos") && !listTemp.contains("tan") && !listTemp.contains("atan") && !listTemp.contains("log10") && !listTemp.contains("sqrt");
+    }
+
+    /**
      * This method replaces non-numerical media in the main list.
      *
      * @param tempListValues list of broken operators and operands.
@@ -183,7 +212,7 @@ public class Calculation {
         for (int i = 0; i < tempListValues.size(); i++) {
             String temp = tempListValues.get(i);
 
-            if (!math.contains(temp)) {
+            if (!MATH.contains(temp)) {
                 if (Character.isLetter(temp.charAt(0))) {
                     if (tempVariables.containsKey(temp)) {
                         tempListValues.add(i, tempVariables.get(temp).toString());
@@ -191,6 +220,13 @@ public class Calculation {
                     tempListValues.remove(i + 1);
                 }
             }
+
+            for (int j = 1; j < tempListValues.size(); j++) {
+                if (tempListValues.get(j).equals("0") && tempListValues.get(j - 1).equals("/")) {
+                    ProcessInputFormula.throwException("Cannot be divided by zero ");
+                }
+            }
+            groupToOneList = true;
         }
     }
 }
