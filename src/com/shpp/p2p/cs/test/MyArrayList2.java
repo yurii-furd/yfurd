@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class MyArrayList2<E> {
     private E[] arr;
 
+
     MyArrayList2() {
         arr = (E[]) new Object[0];
     }
