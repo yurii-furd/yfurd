@@ -2,7 +2,7 @@ package com.shpp.p2p.cs.yfurd.assignment13;
 
 public class StartProgram {
     public static void main(String[] args) {
-        Assignment13Part1 part1 = new Assignment13Part1();
+        FindSilhouettes part1 = new FindSilhouettes();
         part1.readFile("src/com/shpp/p2p/cs/yfurd/assignment12/test/1.png");//true 5
         part1.readFile("src/com/shpp/p2p/cs/yfurd/assignment12/test/2.png");//true 36
         part1.readFile("src/com/shpp/p2p/cs/yfurd/assignment12/test/3.png");//true 5

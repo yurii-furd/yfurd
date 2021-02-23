@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
-public class Assignment13Part1 {
+public class FindSilhouettes {
     final static Set colorBlack = groupColor();
     static int countSilhouettes = 0;
     static boolean[][] isVisited;
