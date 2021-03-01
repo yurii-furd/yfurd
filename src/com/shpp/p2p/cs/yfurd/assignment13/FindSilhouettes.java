@@ -104,6 +104,7 @@ public class FindSilhouettes {
      * @param count the sum of pixels of one object.
      */
     private void checkSize(int count) {
+        System.out.println(count);
         if (count < 20) {
             countSilhouettes--;
         }
