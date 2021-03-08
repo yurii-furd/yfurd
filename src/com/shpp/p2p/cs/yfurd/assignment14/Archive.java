@@ -16,6 +16,8 @@ public class Archive implements Assignment14 {
         try (FileInputStream fileInputStream = new FileInputStream(pathInput);
              FileOutputStream fileOutputStream = new FileOutputStream(pathOutput, true)) {
 
+            long m = System.currentTimeMillis();
+
             byte[] bufferFileInput = new byte[fileInputStream.available()];
             fileInputStream.read(bufferFileInput, 0, bufferFileInput.length);
 
@@ -40,6 +42,12 @@ public class Archive implements Assignment14 {
 
             //date
             date(fileOutputStream, dateNewFile);
+
+            System.out.print("Compression efficiency: ");
+            System.out.println(100 - (pathOutput.length()/((double)pathInput.length()/100)) + " %.");
+            System.out.println("Compression time -> " + (double) (System.currentTimeMillis() - m) + " ms.");
+            System.out.println("Size input file -> " + pathInput.length() + " bites.");
+            System.out.println("Size output file -> " + pathOutput.length() + " bites.");
 
         } catch (IOException e) {
             e.printStackTrace();

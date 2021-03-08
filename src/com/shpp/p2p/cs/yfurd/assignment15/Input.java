@@ -1,6 +1,7 @@
-package com.shpp.p2p.cs.yfurd.assignment14;
+package com.shpp.p2p.cs.yfurd.assignment15;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Input {
 
@@ -29,12 +30,8 @@ public class Input {
 
     public void inputDate(String path1, String path2){
         if (isArchive(path1)){
-            File file = new File(path2);
-            checkFileExist(file);
-            unArch.unArchive(new File(path1), file);
+            unArch.unArchive(new File(path1), new File(path2));
         } else {
-            File file = new File(path2);
-            checkFileExist(file);
             arch.archive(new File(path1), new File(path2));
         }
     }
