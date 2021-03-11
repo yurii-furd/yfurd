@@ -59,7 +59,7 @@ public class Archive implements Assignment15 {
             StringBuilder a = new StringBuilder();
             Node node1 = node.getRoot();
 
-            System.out.println(a);
+
 
 
         } catch (IOException e) {
